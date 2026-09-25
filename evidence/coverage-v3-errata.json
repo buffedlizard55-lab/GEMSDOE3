@@ -1,0 +1,53 @@
+{
+  "schema_version": 1,
+  "experiment": "coverage-v3",
+  "affected_run": {
+    "experiment_json_sha256": "42cb3c09d564c604ba12dc364722c0ee76dc1ab43b98db5dc3206b23a9607209",
+    "started_at": "2026-09-25T05:20:10Z",
+    "completed_at": "2026-09-25T05:31:14Z",
+    "config_sha256": "a10a303b64bb3f28dcfc2c56849467022dd7e081b9ce47cb13fd26716ff34767",
+    "source_sha256": "e1266ae9fd443f2f609b41d89ccd706f61a466ebd7d2df67e024ce114f1ae56b",
+    "selection_frozen_sha256": "9df22c1e7d45149aa3a8afbd2afc03390de8d70d20634140997b1fa8abf5982f",
+    "portfolio_sha256": {
+      "fusion": "c6dc39eaae360ba9e02302215b109807fac52ea03706466eb0644a0637529102",
+      "ml": "6d2deedfb53ee5c43ea6f3ac22221ebf85383bc82a007109454c27c93011f536",
+      "wide": "eb2eb532bd1dc74de5471e52b40828ea6d92416a95672870a9a09cdd00b45fc7"
+    }
+  },
+  "defect": "marginal_table() scored the supplied-label (known) MetricContext with mask `region & ~known`. That context's truth set IS the supplied label pixels, so the mask erased every truth pixel: truth_pixels=0 on all 12 rows, dti=None, TP_w=FN_w=0, break_even_credit_per_pixel=None. The published table was therefore vacuous.",
+  "evidence_of_defect": {
+    "rows_scored": 12,
+    "rows_with_dti_none": 12,
+    "rows_with_truth_pixels_zero": 12,
+    "first_row": {
+      "support_target": 0.005,
+      "floor": 0.6446415185928345,
+      "emitted_fraction": 0.00629341509193182,
+      "dti": null,
+      "TP_w": 0.0,
+      "FP_w": 4381.256298303604,
+      "FN_w": 0.0,
+      "added_pixels": 5484,
+      "added_TP_w": 0.0,
+      "added_FP_w": 4381.256298303604,
+      "covered_credit_per_added_pixel": 0.0,
+      "break_even_credit_per_pixel": null,
+      "delta_denominator": 876.2512596607208
+    }
+  },
+  "scope": "Diagnostic only. The marginal table is written after selection-frozen.json and is not read by the selection rule, the audit rows, the exported rasters or the publisher. The selected/wide policies and all three portfolio files are unaffected.",
+  "fix": "marginal_table(contexts, known_ctx, ...) now scores every proxy with the same mask the selection sweep used (`faithful(contexts, p, region, known)` plus the leakage-free known_proxy emission for the held-out supplied labels), reports the primary proxy's per-pixel economics, the robust minimum over all proxies, and per_proxy detail, and raises if any tranche is unscorable. Regression test: tests/test_coverage.py::test_marginal_table_scores_the_supplied_labels_instead_of_erasing_them",
+  "rerun": "outputs/coverage-v3 (second run, same config hash, log: evidence/coverage-v3-run.txt)",
+  "determinism_check": "SUPERSEDED BY MEASUREMENT. The plan was to compare the re-run's portfolio rasters byte-for-byte with run 1's. Measured result: pixel arrays identical across runs, file bytes not identical because the selection_sha256 tag covers a timestamped frozen-selection file. See evidence/coverage-v3-reproducibility.json for the three-run comparison and evidence/coverage-v3-run.txt for the published run's log.",
+  "artifacts_kept": [
+    "outputs/coverage-v3-run1/experiment.json",
+    "outputs/coverage-v3-run1/selection-frozen.json",
+    "evidence/coverage-v3-repro.txt",
+    "evidence/coverage-v3-reproducibility.json"
+  ],
+  "run1_portfolio_sha256": {
+    "fusion": "c6dc39eaae360ba9e02302215b109807fac52ea03706466eb0644a0637529102",
+    "ml": "6d2deedfb53ee5c43ea6f3ac22221ebf85383bc82a007109454c27c93011f536",
+    "wide": "eb2eb532bd1dc74de5471e52b40828ea6d92416a95672870a9a09cdd00b45fc7"
+  }
+}

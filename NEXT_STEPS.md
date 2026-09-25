@@ -1,57 +1,47 @@
-# Start here after reading README.md
+# Next steps — session 4 handoff (written at the end of session 3, 2026-09-25)
 
-## Release handoff
+Read `README.md` (with the preserved brief at the bottom), `AGENTS.md`, `REVIEW.md` and the release record in `evidence/review.json` before changing anything. Then work this list in order.
 
-- Session 1 shipped in [PR #1](https://github.com/buffedlizard55-lab/GEMSDOE3/pull/1), which is merged.
-- Session 2 (Gapfinder v2) is [PR #2](https://github.com/buffedlizard55-lab/GEMSDOE3/pull/2) from `arena/01a0d6bb-gemsdoe3`. [Hosted CI](https://github.com/buffedlizard55-lab/GEMSDOE3/actions/runs/36096808442) passed on its first head.
-- Consult GitHub for the current merge state, and the source-feed/Pages workflow for public byte verification. That verification now includes every portfolio file.
-- Stay on the assigned branch and use PRs, never direct pushes to main. A CI pass is not a competition score, and an Actions configuration is not a deployment.
+## Where the project stands
 
-## Objective
-
-Produce a reproducible GEMS submission that genuinely improves discovery of faults **absent from the supplied labels**, with a clear path to leaderboard testing. A format-valid artifact or a local proxy gain is **not** proof of a score above 0.3049.
-
-## Carried work reviewed first
-
-- Original repository was absent in this checkout; imported all 387 upstream files and verified Git blob identities. Large bridge parts are externalized, not lost; the active downloader restores canonical inputs.
-- Data-placement blocker: resolved autonomously from the hash-pinned bridge and independently measured in `evidence/data.json`.
-- Range-error/footprint bug: new fail-closed exporter and exhaustive regression checks, not just an old sanitizer rerun.
-- One-click browser generation and a prominent executive summary: active site leads with the actual artifact and Note, not a long report.
-- Historical pseudo-label follow-up: the inherited pooled report has folds 0 and 1, while requesting folds 0–3, and flags source circularity. It is preserved as incomplete evidence; no missing-fold scores were invented.
-- Original-site deployment race: this repository is already configured for legacy Pages from main:/; the integration cannot edit that setting (403). The new source-feed deployment runs on schedule/manual dispatch, not on push, to avoid racing the automatic merge deployment. Verify the actual deployed response after merging.
-
-## Results/limitations to carry forward
-
-The initial full-data refit exceeded the predeclared 8% support cap (11.2964%). It was not shipped. The unchanged tuning-selected context-distance model uses 6.8218% support and passed that same cap. The fallback was introduced after this deployment failure, not pre-registered before the first run; no model arm, threshold, support cap, or audit-label selection was changed. The repeated audit is not an independent new experiment. See `evidence/refit-failure.json`, `evidence/initial-selection-frozen.json`, and `docs/data/experiment.json`.
-
-The current deployed-model role is explicit in the experiment report. If it is the frozen holdout model, it trained only on spatial folds 2 and 3; do not describe it as an all-data-trained model. Cautious unlabeled weighting did not win this comparison. Preserve that negative result.
-
-## Session 2 summary (Gapfinder)
-
-- The previous next steps were reviewed first. Step 2 (refit distribution shift) is **done**: fraction-consistent sampling, and the Gapfinder refits passed the 8% cap (v1 3.84%, v2 3.46%). Step 3 is partially done: buffer raised to 48 px, a new tune/audit rotation (tune fold 2, audit fold 3), and a second catalogue used as the target.
-- Official clarifications (forum 11516, 11536, 11527) changed the objective. Supplied-label pixels are masked, near-label false positives are fully penalised, and continuations count as new. See `research/sources.json` ids `forum-*`.
-- Published the Gapfinder v2 portfolio (fusion / ML-only / SGMC-gap). The whole v1 → v2 record, including four v2 attempts, is in `evidence/gapfinder-*` and `evidence/gapfinder-v2-errata.json`.
+- **Published, unsubmitted:** Coverline v3 (`docs/data/portfolio.json`, order fusion → wide → ml). Three rasters in `docs/downloads/coverage-v3-*`, each 13/13 local format gates, 0 pixels on any supplied-label pixel, with a ≤120-character Note. The upload strip is first on the home page and in the executive summary.
+- **Measured this session:** frozen policy `tversky-weighted-classifier` support 4%, halo 2, tip 5 (wide probe at 12%); audit fold 2 gap 0.2009 / all 0.2120 / known 0.1731 versus the regression control 0.1864 / 0.2013 / 0.1728; paired bootstrap interval includes zero. The per-tranche marginal table shows the first eight tranches paying for themselves and the 10–12% tranches not paying (`docs/data/coverage-experiment.json`).
+- **Measured reproducibility:** pixel arrays bit-identical across three runs; file bytes differ only through the timestamped `selection_sha256` tag; holdout audit drift ≤5.7e-05 (`evidence/coverage-v3-reproducibility.json`).
+- **Not measured:** anything about the hidden expert labels or the leaderboard. No upload, no competition score, no deployment claim outside GitHub.
 
 ## Ordered next actions
 
-1. **Upload the portfolio in order and record the scores.** File 1 (fusion), then file 2 (ML-only), then optionally file 3 (SGMC-gap), with the Notes from the site. Record platform submission ID + public score against the SHA prefix in each Note (e.g. `evidence/leaderboard-results.json`).
-   - fusion − ml measures the value of adding SGMC traces directly.
-   - sgmc-gap alone measures how closely the hidden labels follow the published map.
-   - These results decide the next design. Requires the user's enrolled account; never post credentials.
-2. **Use the leaderboard result to choose the next pre-registration.**
-   - If SGMC-gap alone scores well, hidden labels resemble bedrock-map faults: try the **2026 SGMC GeMS release** (https://doi.org/10.5066/P1A3DQZK), newer and not yet used, and snap its ~1:1M traces onto ridges of the model field.
-   - If ML-only ≥ fusion, drop direct SGMC traces and tune model support.
-   - Pre-register a support-cap sweep. The proxy prefers support above 8% for some arms, but this is **not** evidence that the leaderboard does.
-3. **Fix the selection-rule weakness.** The known proxy ignores halo and tip, so for some arms those were chosen by the mass tie-break. Score the known proxy on the *emitted* field with an explicit rule about known-pixel handling, or select halo/tip on gap/all only.
-4. **Use a truly fresh audit.** Fold 3 has now been seen twice. Rotate to a new block origin or offset grid and pre-register before looking. Report paired block-bootstrap effects.
-5. **High-resolution terrain pilot** (carried over): run a small, hash-pinned USGS 3DEP 1 m/10 m tile set in GitHub Actions (the sandbox blocks some hosts). Derive scarp/lineament features at 10 m, aggregate to the 100 m grid, and compare against the 100 m control on held-out geography.
-6. **A third independent fault source for auditing**, e.g. state survey 1:250k/1:100k maps with licences compatible with the rules. Needed before any source-transfer claim.
-7. **Carry-overs:** PU loss / patch models on CPU first; historical pseudo-label folds 2–3 only with source controls; feed/workflow monitoring. The four new `forum-*`/`sgmc-sciencebase` sources show as "not checked" until the scheduled feed runs. Compliance review before final selection (one final file, 3/week, generative-AI disclosure, reproducible code).
+1. **Submit and record the platform response.** From an enrolled account upload file 1 (then file 2 or 3 as the week's quota allows). For every upload, write the returned submission ID, exact filename, file SHA-256, timestamp, platform message and public score into `evidence/leaderboard-results.json`. Never record a score without its submission ID, and never map an account-level score to a file without one. This is the only action that can establish whether the metric-derived budget beats 0.3049.
+2. **Verify this release on GitHub.** Confirm the session-3 pull request's hosted CI (Python + Chromium; the browser spec now asserts the strip-first home page) and the Pages deployment. Local passes are not deployment proof.
+3. **Rotate the audit again.** Session 3 rotated the lattice by half a block; fold 2 still overlaps geography that session 2 used. Add a third rotation (different `block_origin_px` and fold roles), or raise `buffer_px` to ≥64, and re-run the selection rule unchanged so the audit becomes a second, less-correlated check.
+4. **Run the bounded 3DEP 1 m DEM pilot on a GitHub runner.** USGS hosts are blocked from this sandbox (`legacy/data/dem_links.json` holds 722 resolved tile pairs). Use free official 3DEP tiles only, a small window, and pre-register the comparison (context bands at 10 m derivative scale versus the current 100 m stack). Report negative results.
+5. **Break SGMC circularity with a third catalogue.** The fusion file's SGMC component cannot be scored locally on SGMC. Add one more independent public fault source (for example the 2026 SGMC GeMS successor DOI `10.5066/P1A3DQZK`, or a state geological survey layer) and score the *existing* published files against it, source-held-out, before training on it.
+6. **Resolve the legacy pseudo-label folds 2–3** (`legacy/data/evidence/pseudo_labels/`) so pooled historical claims can either be completed or formally withdrawn.
+7. **Only then consider new model work:** ridge-snapping the 1:1M SGMC traces to the 100 m grid, a proper non-negative PU risk estimator instead of the heuristic weight, or pseudo-label self-training. Each needs a pre-registered config, a rotated partition and the same freeze-before-audit discipline in `configs/`.
 
-## Access/resource limits
+## Verified access limits (unchanged)
 
-- No hidden expert labels or private submission metadata.
-- No authenticated DrivenData upload or legal enrollment on behalf of the user.
-- No GPU and no claim of large deep-model training this session; full-grid CPU route runs locally.
-- Direct requests to some official sources/browser CDNs are restricted in this sandbox. Primary sources were read with the research tool; automated refreshes are attempted on GitHub runners and preserve prior evidence if blocked. A pinned npm Chromium distribution enables real local browser tests without a system install.
-- GitHub Pages configuration changes are outside this integration's scope; normal branch pushes/PR and workflow capabilities must be measured separately. Do not call a 403 configuration limitation an authentication failure when git operations work.
+- Sandbox egress: GitHub and PyPI work; `drivendata.org`, `docs.nlr.gov`, `sciencebase.gov`, `usgs.gov`/`prd-tnm.s3.amazonaws.com`, `dropbox.com` and `raw.githubusercontent.com` are blocked. Use the Arena research tool for page text and a GitHub runner for USGS downloads.
+- The competition data tab needs an authenticated account; the local inputs were restored through the pinned upstream bridge and validated locally (`evidence/data.json`).
+- No credentials are stored anywhere in this repository. Never paste passwords or tokens into chat or files.
+
+## Reproduce the current release
+
+```bash
+bash scripts/download_competition_data.sh          # restores the five bridge parts
+python scripts/prepare_data.py
+OMP_NUM_THREADS=2 python -m gems3.coverage --config configs/coverage-v3.json      # ~7-11 min CPU, ~2.2 GB RSS
+python -m gems3.coverage_publish --report outputs/coverage-v3/experiment.json
+python -m gems3.site
+python -m pytest                                    # 119 tests
+node --check tests/browser/site.spec.cjs            # browser suite runs in hosted CI
+```
+
+## Traps — do not repeat these
+
+- Do **not** re-run the published v3 experiment to "refresh" it: the published files and the frozen `selection_sha256` tag are the record. A new run changes the timestamped tag and therefore every file hash (pixels stay identical).
+- Do **not** treat a file hash as a cross-run artifact identity. Use the pixel array or the captured decision layer.
+- Do **not** relax the ≤120-character Note rule or the "no pixel on a supplied label" guarantee.
+- Do **not** re-open the catalogue hedge: staff state the supplied-label mask is pixel-exact and that those pixels "do not count towards penalty terms" (`research/sources.json` id `mask-excluded`), so emitting them is free but worthless and would confound fusion-minus-ml.
+- Do **not** weaken the publisher's 13 gates, the ZIP identity check, or the closed-loop test that the published raster's tags match the published report.
+- Do **not** claim a competition score, a deployment or an upload without the platform response recorded in `evidence/leaderboard-results.json`.

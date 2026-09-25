@@ -1,0 +1,115 @@
+Reusing verified label-free feature cache
+partition origin=[256, 256] train=1,686,947 tune=871,387 audit=877,835
+
+[two-catalogue-regressor] training on 287,724 rows
+  s=0.0050 f=0.5632 h=0 L=0 gap=0.0275 all=0.0690 known=0.1201 support=0.361%
+  s=0.0050 f=0.5632 h=0 L=5 gap=0.0341 all=0.0993 known=0.1201 support=0.749%
+  s=0.0050 f=0.5632 h=2 L=0 gap=0.0275 all=0.0343 known=0.1201 support=0.232%
+  s=0.0050 f=0.5632 h=2 L=5 gap=0.0343 all=0.0701 known=0.1201 support=0.624%
+  s=0.0075 f=0.5378 h=0 L=0 gap=0.0407 all=0.0823 known=0.1371 support=0.517%
+  s=0.0075 f=0.5378 h=0 L=5 gap=0.0459 all=0.1103 known=0.1371 support=0.903%
+  s=0.0075 f=0.5378 h=2 L=0 gap=0.0413 all=0.0458 known=0.1371 support=0.363%
+  s=0.0075 f=0.5378 h=2 L=5 gap=0.0466 all=0.0797 known=0.1371 support=0.754%
+  s=0.0100 f=0.5180 h=0 L=0 gap=0.0529 all=0.0937 known=0.1499 support=0.697%
+  s=0.0100 f=0.5180 h=0 L=5 gap=0.0571 all=0.1199 known=0.1499 support=1.081%
+  s=0.0100 f=0.5180 h=2 L=0 gap=0.0540 all=0.0566 known=0.1499 support=0.520%
+  s=0.0100 f=0.5180 h=2 L=5 gap=0.0582 all=0.0889 known=0.1499 support=0.910%
+  s=0.0150 f=0.4856 h=0 L=0 gap=0.0842 all=0.1222 known=0.1724 support=1.090%
+  s=0.0150 f=0.4856 h=0 L=5 gap=0.0858 all=0.1443 known=0.1724 support=1.471%
+  s=0.0150 f=0.4856 h=2 L=0 gap=0.0866 all=0.0832 known=0.1724 support=0.872%
+  s=0.0150 f=0.4856 h=2 L=5 gap=0.0881 all=0.1122 known=0.1724 support=1.261%
+  s=0.0200 f=0.4606 h=0 L=0 gap=0.1089 all=0.1456 known=0.1872 support=1.570%
+  s=0.0200 f=0.4606 h=0 L=5 gap=0.1089 all=0.1647 known=0.1872 support=1.948%
+  s=0.0200 f=0.4606 h=2 L=0 gap=0.1128 all=0.1058 known=0.1872 support=1.307%
+  s=0.0200 f=0.4606 h=2 L=5 gap=0.1124 all=0.1318 known=0.1872 support=1.694%
+  s=0.0300 f=0.4207 h=0 L=0 gap=0.1557 all=0.1894 known=0.1983 support=2.575%
+  s=0.0300 f=0.4207 h=0 L=5 gap=0.1531 all=0.2032 known=0.1983 support=2.948%
+  s=0.0300 f=0.4207 h=2 L=0 gap=0.1623 all=0.1508 known=0.1983 support=2.245%
+  s=0.0300 f=0.4207 h=2 L=5 gap=0.1590 all=0.1713 known=0.1983 support=2.631%
+  s=0.0400 f=0.3886 h=0 L=0 gap=0.1869 all=0.2179 known=0.1939 support=3.595%
+  s=0.0400 f=0.3886 h=0 L=5 gap=0.1831 all=0.2285 known=0.1939 support=3.964%
+  s=0.0400 f=0.3886 h=2 L=0 gap=0.1949 all=0.1818 known=0.1939 support=3.217%
+  s=0.0400 f=0.3886 h=2 L=5 gap=0.1903 all=0.1987 known=0.1939 support=3.600%
+  s=0.0500 f=0.3609 h=0 L=0 gap=0.2045 all=0.2351 known=0.1878 support=4.633%
+  s=0.0500 f=0.3609 h=0 L=5 gap=0.2004 all=0.2436 known=0.1878 support=4.999%
+  s=0.0500 f=0.3609 h=2 L=0 gap=0.2133 all=0.2013 known=0.1878 support=4.212%
+  s=0.0500 f=0.3609 h=2 L=5 gap=0.2084 all=0.2155 known=0.1878 support=4.593%
+  s=0.0600 f=0.3359 h=0 L=0 gap=0.2163 all=0.2472 known=0.1862 support=5.635%
+  s=0.0600 f=0.3359 h=0 L=5 gap=0.2120 all=0.2539 known=0.1862 support=5.998%
+  s=0.0600 f=0.3359 h=2 L=0 gap=0.2255 all=0.2143 known=0.1862 support=5.175%
+  s=0.0600 f=0.3359 h=2 L=5 gap=0.2204 all=0.2265 known=0.1862 support=5.555%
+  s=0.0800 f=0.2892 h=0 L=0 gap=0.2269 all=0.2609 known=0.1820 support=7.568%
+  s=0.0800 f=0.2892 h=0 L=5 gap=0.2228 all=0.2652 known=0.1820 support=7.923%
+  s=0.0800 f=0.2892 h=2 L=0 gap=0.2366 all=0.2297 known=0.1820 support=7.028%
+  s=0.0800 f=0.2892 h=2 L=5 gap=0.2318 all=0.2388 known=0.1820 support=7.403%
+  s=0.1000 f=0.2424 h=0 L=0 gap=0.2188 all=0.2565 known=0.1757 support=9.504%
+  s=0.1000 f=0.2424 h=0 L=5 gap=0.2153 all=0.2593 known=0.1757 support=9.852%
+  s=0.1000 f=0.2424 h=2 L=0 gap=0.2280 all=0.2260 known=0.1757 support=8.888%
+  s=0.1000 f=0.2424 h=2 L=5 gap=0.2239 all=0.2335 known=0.1757 support=9.259%
+  s=0.1200 f=0.1895 h=0 L=0 gap=0.2054 all=0.2434 known=0.1655 support=11.532%
+  s=0.1200 f=0.1895 h=0 L=5 gap=0.2027 all=0.2456 known=0.1655 support=11.875%
+  s=0.1200 f=0.1895 h=2 L=0 gap=0.2139 all=0.2152 known=0.1655 support=10.854%
+  s=0.1200 f=0.1895 h=2 L=5 gap=0.2105 all=0.2216 known=0.1655 support=11.223%
+
+[tversky-weighted-classifier] training on 287,724 rows
+  s=0.0050 f=0.6446 h=0 L=0 gap=0.0322 all=0.0700 known=0.1205 support=0.361%
+  s=0.0050 f=0.6446 h=0 L=5 gap=0.0383 all=0.1001 known=0.1205 support=0.748%
+  s=0.0050 f=0.6446 h=2 L=0 gap=0.0324 all=0.0366 known=0.1205 support=0.238%
+  s=0.0050 f=0.6446 h=2 L=5 gap=0.0386 all=0.0721 known=0.1205 support=0.629%
+  s=0.0075 f=0.6230 h=0 L=0 gap=0.0441 all=0.0826 known=0.1379 support=0.522%
+  s=0.0075 f=0.6230 h=0 L=5 gap=0.0490 all=0.1106 known=0.1379 support=0.907%
+  s=0.0075 f=0.6230 h=2 L=0 gap=0.0448 all=0.0468 known=0.1379 support=0.376%
+  s=0.0075 f=0.6230 h=2 L=5 gap=0.0497 all=0.0806 known=0.1379 support=0.767%
+  s=0.0100 f=0.6060 h=0 L=0 gap=0.0586 all=0.0964 known=0.1533 support=0.683%
+  s=0.0100 f=0.6060 h=0 L=5 gap=0.0624 all=0.1226 known=0.1533 support=1.066%
+  s=0.0100 f=0.6060 h=2 L=0 gap=0.0596 all=0.0593 known=0.1533 support=0.519%
+  s=0.0100 f=0.6060 h=2 L=5 gap=0.0634 all=0.0917 known=0.1533 support=0.908%
+  s=0.0150 f=0.5795 h=0 L=0 gap=0.0891 all=0.1251 known=0.1717 support=1.062%
+  s=0.0150 f=0.5795 h=0 L=5 gap=0.0906 all=0.1479 known=0.1717 support=1.442%
+  s=0.0150 f=0.5795 h=2 L=0 gap=0.0914 all=0.0857 known=0.1717 support=0.858%
+  s=0.0150 f=0.5795 h=2 L=5 gap=0.0928 all=0.1149 known=0.1717 support=1.247%
+  s=0.0200 f=0.5582 h=0 L=0 gap=0.1177 all=0.1511 known=0.1830 support=1.481%
+  s=0.0200 f=0.5582 h=0 L=5 gap=0.1173 all=0.1709 known=0.1830 support=1.860%
+  s=0.0200 f=0.5582 h=2 L=0 gap=0.1215 all=0.1119 known=0.1830 support=1.246%
+  s=0.0200 f=0.5582 h=2 L=5 gap=0.1207 all=0.1381 known=0.1830 support=1.634%
+  s=0.0300 f=0.5236 h=0 L=0 gap=0.1635 all=0.1934 known=0.1907 support=2.421%
+  s=0.0300 f=0.5236 h=0 L=5 gap=0.1607 all=0.2081 known=0.1907 support=2.795%
+  s=0.0300 f=0.5236 h=2 L=0 gap=0.1694 all=0.1549 known=0.1907 support=2.133%
+  s=0.0300 f=0.5236 h=2 L=5 gap=0.1661 all=0.1762 known=0.1907 support=2.519%
+  s=0.0400 f=0.4941 h=0 L=0 gap=0.1958 all=0.2247 known=0.1965 support=3.393%
+  s=0.0400 f=0.4941 h=0 L=5 gap=0.1915 all=0.2350 known=0.1965 support=3.763%
+  s=0.0400 f=0.4941 h=2 L=0 gap=0.2035 all=0.1878 known=0.1965 support=3.047%
+  s=0.0400 f=0.4941 h=2 L=5 gap=0.1984 all=0.2046 known=0.1965 support=3.431%
+  s=0.0500 f=0.4669 h=0 L=0 gap=0.2186 all=0.2481 known=0.1957 support=4.374%
+  s=0.0500 f=0.4669 h=0 L=5 gap=0.2137 all=0.2556 known=0.1957 support=4.741%
+  s=0.0500 f=0.4669 h=2 L=0 gap=0.2276 all=0.2125 known=0.1957 support=3.975%
+  s=0.0500 f=0.4669 h=2 L=5 gap=0.2219 all=0.2264 known=0.1957 support=4.358%
+  s=0.0600 f=0.4409 h=0 L=0 gap=0.2303 all=0.2611 known=0.1940 support=5.317%
+  s=0.0600 f=0.4409 h=0 L=5 gap=0.2251 all=0.2667 known=0.1940 support=5.680%
+  s=0.0600 f=0.4409 h=2 L=0 gap=0.2402 all=0.2275 known=0.1940 support=4.872%
+  s=0.0600 f=0.4409 h=2 L=5 gap=0.2341 all=0.2388 known=0.1940 support=5.253%
+  s=0.0800 f=0.3898 h=0 L=0 gap=0.2379 all=0.2720 known=0.1877 support=7.121%
+  s=0.0800 f=0.3898 h=0 L=5 gap=0.2332 all=0.2754 known=0.1877 support=7.477%
+  s=0.0800 f=0.3898 h=2 L=0 gap=0.2482 all=0.2399 known=0.1877 support=6.596%
+  s=0.0800 f=0.3898 h=2 L=5 gap=0.2425 all=0.2485 known=0.1877 support=6.973%
+  s=0.1000 f=0.3359 h=0 L=0 gap=0.2337 all=0.2710 known=0.1820 support=8.919%
+  s=0.1000 f=0.3359 h=0 L=5 gap=0.2297 all=0.2731 known=0.1820 support=9.267%
+  s=0.1000 f=0.3359 h=2 L=0 gap=0.2439 all=0.2401 known=0.1820 support=8.319%
+  s=0.1000 f=0.3359 h=2 L=5 gap=0.2390 all=0.2470 known=0.1820 support=8.692%
+  s=0.1200 f=0.2730 h=0 L=0 gap=0.2193 all=0.2587 known=0.1760 support=10.978%
+  s=0.1200 f=0.2730 h=0 L=5 gap=0.2160 all=0.2600 known=0.1760 support=11.319%
+  s=0.1200 f=0.2730 h=2 L=0 gap=0.2288 all=0.2299 known=0.1760 support=10.294%
+  s=0.1200 f=0.2730 h=2 L=5 gap=0.2247 all=0.2356 known=0.1760 support=10.663%
+
+FROZEN: tversky-weighted-classifier support=0.04 h=2 L=5 | wide support=0.12 h=0 L=5
+AUDIT two-catalogue-regressor: gap=0.1864 all=0.2012 known=0.1728
+AUDIT tversky-weighted-classifier: gap=0.2009 all=0.2120 known=0.1731
+Refit tversky-weighted-classifier on 861,946 rows (fraction-consistent)
+PASS coverage-v3-fusion-20260925T054922Z-e9adf8c2a5.tif
+  NOTE: Coverline v3 fusion | tversky-weighted-classifier 12-level support sweep s=0.0400 h=2 L=5 + USGS SGMC-gap traces | e9adf8c2a5
+PASS coverage-v3-ml-20260925T054924Z-c178c67588.tif
+  NOTE: Coverline v3 ML-only | tversky-weighted-classifier 12-level support sweep s=0.0400 h=2 L=5 | no SGMC traces | c178c67588
+PASS coverage-v3-wide-20260925T054925Z-8b48bdca75.tif
+  NOTE: Coverline v3 wide | tversky-weighted-classifier recall probe s=0.1200 h=0 L=5 | more coverage, more FP mass | 8b48bdca75
+
+Done in 491.7 s. No competition score has been measured.

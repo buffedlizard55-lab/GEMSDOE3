@@ -112,8 +112,9 @@ def test_paired_bootstrap_detects_a_uniformly_better_candidate():
     assert same["observed_difference"] == 0 and same["ci95"] == [0, 0]
 
 
-def test_published_portfolio_is_valid_unique_and_unscored():
-    manifest = read_json(ROOT / "docs/data/portfolio.json")
+def test_archived_gapfinder_portfolio_is_valid_unique_and_unscored():
+    """The Gapfinder files stay downloadable; the live portfolio file is owned by session 3."""
+    manifest = read_json(ROOT / "docs/data/portfolio-gapfinder-v2.json")
     items = manifest["items"]
     assert [i["variant"] for i in items] == ["fusion", "ml", "sgmc-gap"]
     assert len({i["sha256"] for i in items}) == 3 and len({i["note"] for i in items}) == 3
@@ -133,8 +134,8 @@ def test_published_portfolio_is_valid_unique_and_unscored():
             assert item["validation"]["passed"]
 
 
-def test_portfolio_is_distinct_from_every_earlier_published_file():
-    manifest = read_json(ROOT / "docs/data/portfolio.json")
+def test_archived_portfolio_is_distinct_from_every_earlier_published_file():
+    manifest = read_json(ROOT / "docs/data/portfolio-gapfinder-v2.json")
     earlier = read_json(ROOT / "docs/data/submission.json")
     hashes = {i["sha256"] for i in manifest["items"]}
     assert earlier["artifact"]["sha256"] not in hashes
@@ -146,7 +147,7 @@ def test_portfolio_is_distinct_from_every_earlier_published_file():
 
 def test_portfolio_leads_home_and_summary_with_direct_downloads_and_notes():
     from bs4 import BeautifulSoup
-    items = read_json(ROOT / "docs/data/portfolio.json")["items"]
+    items = read_json(ROOT / "docs/data/portfolio.json")["items"]  # whichever session owns the site
     for name in ["index.html", "executive_summary.html"]:
         html = (ROOT / "docs" / name).read_text()
         soup = BeautifulSoup(html, "html.parser")

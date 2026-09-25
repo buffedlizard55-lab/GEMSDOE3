@@ -1,3 +1,41 @@
+# Three-pass review: session 3 (Coverline), 2026-09-25
+
+Session 3 replaced the published portfolio with the metric-derived **Coverline v3** set. Current release state is tracked at the end of this file and in `evidence/review.json`; the local suite stands at **119 Python tests**, the Chromium spec was extended but cannot run in this sandbox (hosted CI runs it), and the candidate still has **no measured competition score**.
+
+## Pass 1 — implement and execute
+
+- Read `README.md`, `NEXT_STEPS.md`, `AGENTS.md`, the preserved brief and the official metric/format page before changing anything; re-confirmed the session-2 release state (PR #2 merged, hosted CI green, 110 tests).
+- Implemented the pre-registered `configs/coverage-v3.json` in `gems3/coverage.py`: a 12-level support sweep whose floors come from `floor_for_support`, a β/α-weighted classifier arm (`positive_weight` 4.0, the metric's own false-negative/false-positive ratio) beside the regression control, halo [0,2] and tip-ray [0,5] policies, robust-minimum selection over `sgmc-gap` / `all-SGMC` / held-out supplied labels with deterministic tie-breaks, the wide-support rule, a 1.5× refit gate and three exports (`fusion`, `wide`, `ml`).
+- Rotated the spatial partition (`block_origin_px` (256,256), 512 px blocks, 48 px buffer; train folds [0,3], tune 1, audit 2) so it does not reuse session 2's tune/audit geography, and made the config refuse the v2 roles. Disclosure is written into the run record and the site.
+- Wrote `gems3/coverage_publish.py` (template re-hash, independent strict re-validation, distinct-hash gate, ZIP-namelist identity, previous-manifest archive, max-pool preview PNG, slim report) and `gems3/site_coverage.py` plus wiring in `gems3/site.py`: the upload strip first on the home page, the metric-algebra section, the EXPERIMENT 003 section and a one-paragraph summary for the executive page.
+- Executed the experiment end to end on CPU: run 1 completed in 664.4 s (frozen `tversky-weighted-classifier` support 4%, halo 2, tip 5; wide support 12%) and produced three format-validated rasters.
+- Added `tests/test_coverage.py` (quantile floors, halo/known masking on a real distance-transform fixture, marginal identity and monotonicity, rotated-partition properties, rank determinism) and kept the three publisher gates.
+
+## Pass 2 — adversarial review and fixes
+
+- **Found a real defect by verifying run 1's output against the keys the publisher and site read.** `marginal_value_tuning` was unscorable on all twelve rows (`dti = None`, `TP_w = FN_w = 0`): the table scored the supplied-label context under the mask `region & ~known`, which erases that context's own truth set (the supplied labels *are* the known pixels). Fixed: `marginal_table` now scores every proxy with the selection sweep's own masks, reports the primary proxy's per-pixel economics, the robust minimum and per-proxy detail, and raises rather than publishing an unscorable row. Regression test added; erratum written to `evidence/coverage-v3-errata.json`; corrected run 2 completed in 429.7 s with the table now monotone (0.0386 → 0.1661 across the twelve tranches).
+- **Established what is and is not reproducible, by measurement.** Run 1 vs run 2: all 96 candidate floors, emitted fractions, eligible sets, emitted pixel counts and the refit model hash identical; file bytes different. A third run with the *same* source and config (491.7 s) resolved it: pixel arrays are bit-identical across runs (0 differing pixels, max |difference| 0.0), while the only differing GeoTIFF tag is `selection_sha256`, which hashes a frozen-selection record containing `frozen_at` (wall clock). Holdout audit scores drift by ≤5.7e-05 because HistGradientBoosting fitting is not bit-deterministic under threading. Recorded in `evidence/coverage-v3-reproducibility.json`; the erratum's earlier byte-identity expectation is marked superseded by measurement rather than quietly dropped.
+- **UX rule caught by test.** The run's descriptive Note was 125 characters, over our own 120-character brevity rule for a form field. The publisher now derives a compact per-file Note (100 / 94 / 93 characters) and keeps the run's full text as `run_note` for traceability.
+- **Test defect fixed, not worked around.** A published-report assertion compared a key that does not exist in the slim JSON, raising `KeyError` instead of testing anything. It is replaced by a closed-loop check: the published raster's own `selection_sha256`, `arm` and `variant` tags must equal the published report and manifest, so a report/file mismatch now fails the suite.
+- **Site labelling corrected.** The session-3 wiring had left the Gapfinder block labelled "CURRENT EXPERIMENT" and renamed the Riftline block after Gapfinder. Now: 001 · Riftline, 002 · previous Gapfinder, 003 · Coverline. The rendered home page is verified to place `#submit-now` before `#portfolio`.
+- **Stale render caught.** After re-publishing with compact Notes, the rendered strip still carried the old text; the strip test failed and the site was rebuilt. This is the loop working, not a silent pass.
+- **Browser spec extended for the user's one-step requirement.** The hosted Chromium suite now asserts that `#submit-now` is visible, that its first step carries file 1's `download` filename and `href`, that it contains file 1's Note, and that it precedes `#portfolio` in the DOM. Playwright still cannot run in this sandbox (no browser); hosted CI is the authority and the spec was syntax-checked with `node --check`.
+- **Independently re-checked the published artifacts** with Rasterio: 13/13 gates per file, exactly 0 pixels on any supplied-label pixel, distinct hashes, ZIPs containing exactly their TIF, and the template hash re-verified against the experiment's recorded input.
+
+## Pass 3 — original request and release recheck
+
+- Re-read the preserved brief line by line and mapped it to the current state (recorded in `evidence/review.json`): upstream copy preserved; a genuinely different strategy executed with real data; one-step download obvious at the top of the site and in the executive summary; unique filename and ≤120-character Note per file; the [0,1] rejection class addressed by construction and by an independent validator; official-source register with links; three explicit passes with test evidence.
+- Quality improvements made in this pass: the site's algebra text now states the exact improvement test `a·(1 − 0.2·DTI) > 0.2·DTI·b` beside the leading-order break-even column, and the README carries the v3 numbers, the reproducibility result and the corrected caveats.
+- Final local verification: **119 Python tests pass**, `ruff check gems3/ tests/` clean, `node --check` clean, all six pages re-rendered from the published JSON.
+- Release state: tracked in the release record at the end of this file; hosted CI, the merge and the Pages deployment are the authorities, not this local run.
+
+## Evidence added this session
+
+- `evidence/coverage-v3-run.txt`, `evidence/coverage-v3-repro.txt`, `evidence/coverage-v3-reproducibility.json`, `evidence/coverage-v3-errata.json`
+- `outputs/coverage-v3/experiment.json`, `outputs/coverage-v3/selection-frozen.json`, `outputs/coverage-v3/source/`
+- `docs/data/coverage-experiment.json`, `docs/data/portfolio.json`, `docs/data/portfolio-gapfinder-v2.json`
+- `tests/test_coverage.py`, `tests/browser/site.spec.cjs`, `evidence/session3-pass*-tests.xml`
+
 # Three-pass review: session 2 (Gapfinder), 2026-09-25
 
 ## Pass 1: implement and execute
