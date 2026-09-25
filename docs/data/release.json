@@ -1,0 +1,9 @@
+{
+  "updated_at": "2026-09-25T02:31:10Z",
+  "local_ready": true,
+  "github_release_verified": false,
+  "pr_created": false,
+  "merged": false,
+  "reason": "GitHub connection returned HTTP 401; reconnect in Arena",
+  "artifact_sha256": "7b6010637ae341b56f7d211eaf892b239822b0668d3f5556af0eecb505a228d3"
+}

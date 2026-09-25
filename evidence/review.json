@@ -1,0 +1,74 @@
+{
+  "updated_at": "2026-09-25T02:31:10Z",
+  "passes": [
+    {
+      "pass": 1,
+      "title": "Implement and execute",
+      "status": "completed",
+      "summary": "71 unit/artifact tests and 8 actual Chromium tests passed. New real-data TIF and ZIP published after 13 format gates; actual browser output independently read by Rasterio. Refit rejection and numerical-repeatability irregularity retained."
+    },
+    {
+      "pass": 2,
+      "title": "Adversarial review",
+      "status": "completed",
+      "summary": "93 Python and 8 Chromium checks passed. Fixed cache/source binding, invalid-input guards, staging escape risks and browser identity/receipt edge cases; recorded refit and reproducibility limitations."
+    },
+    {
+      "pass": 3,
+      "title": "Full-request release check",
+      "status": "completed locally; remote release blocked",
+      "summary": "99 Python and 11 actual Chromium checks passed; real local HTTP artifact hashes and label-free inference matched. Original prompt re-read, source claims rechecked, masked/precision/publisher gates hardened. GitHub 401 prevents asserting PR, merge or public deployment."
+    }
+  ],
+  "artifact_sha256": "7b6010637ae341b56f7d211eaf892b239822b0668d3f5556af0eecb505a228d3",
+  "local_checks_complete": true,
+  "entire_request_fully_complete": false,
+  "release_status": "blocked by GitHub HTTP 401; no successful remote operation inferred",
+  "competition_score": null,
+  "test_evidence": {
+    "pass1_python": "evidence/pass1-tests.xml",
+    "pass2_python": "evidence/pass2-tests.xml",
+    "pass3_python": "evidence/pass3-tests.xml",
+    "chromium": "evidence/browser-tests.json",
+    "independent_browser_reader": "evidence/browser-validation.json",
+    "frozen_inference": "evidence/inference-validation.json",
+    "local_http": "evidence/local-http-verification.json"
+  },
+  "requirements": [
+    {
+      "requirement": "Upstream source/site copy",
+      "state": "complete snapshot imported and verified",
+      "limit": "Five large data segments are not recommitted; restore from pinned upstream. No duplicate Git history."
+    },
+    {
+      "requirement": "Autonomous data placement and new training",
+      "state": "executed with real data on CPU",
+      "limit": "Unauthenticated official data tab; user-supplied mirror checksums, not newly authenticated official hashes."
+    },
+    {
+      "requirement": "Unique valid submission and obvious TIF generator",
+      "state": "complete and browser-tested",
+      "limit": "Precomputed trained field, not browser model training. No competition acceptance/score yet."
+    },
+    {
+      "requirement": "Executive guide, official-source table, current feed",
+      "state": "implemented; dated source evidence preserved",
+      "limit": "Raw HTTP refreshes blocked here; hosted scheduled execution not yet verified."
+    },
+    {
+      "requirement": "Research and scientific improvement",
+      "state": "three measured arms, retained negative results and uncertainty",
+      "limit": "No proof of leaderboard gain, no 1 m DEM/GPU pilot, incomplete prior pseudo-label folds, one non-independent-repeat audit."
+    },
+    {
+      "requirement": "Prompt/core values and three passes",
+      "state": "preserved and executed locally",
+      "limit": "No claim that semantic correctness or legal eligibility is universally certified."
+    },
+    {
+      "requirement": "PR, merge, GitHub Pages deployment",
+      "state": "blocked pending functioning GitHub authentication",
+      "limit": "Last GH metadata request returned 401. Check operation evidence before claiming completion."
+    }
+  ]
+}

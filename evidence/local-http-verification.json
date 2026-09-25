@@ -1,0 +1,38 @@
+{
+  "checked_at": "2026-09-25T02:39:54Z",
+  "base_url": "http://127.0.0.1:8000",
+  "passed": true,
+  "checks": [
+    {
+      "kind": "artifact",
+      "file": "downloads/riftline-context-distance-20260925T011817Z-7b6010637a.tif",
+      "bytes": 1015914,
+      "sha256": "7b6010637ae341b56f7d211eaf892b239822b0668d3f5556af0eecb505a228d3",
+      "passed": true
+    },
+    {
+      "kind": "zip",
+      "file": "downloads/riftline-context-distance-20260925T011817Z-7b6010637a.zip",
+      "bytes": 848755,
+      "sha256": "982b90edffc4e0a85f5435d122b9efa4b01241bca7b66af41d46f33e40365aa9",
+      "passed": true
+    },
+    {
+      "kind": "field",
+      "file": "data/field.f32.zlib",
+      "bytes": 457047,
+      "sha256": "846970bf8f94bbc59b3a2f8e13ddd0e136f212ca86d28a7e41e32cd35516d198",
+      "passed": true
+    },
+    {
+      "kind": "mask",
+      "file": "data/template-mask.bits.zlib",
+      "bytes": 14123,
+      "sha256": "80595743554d2cb9a2c352505d696380ae4414217520aa9c43646a97acc2c6bd",
+      "passed": true
+    }
+  ],
+  "public_feed_generated_at": "2026-09-25T02:12:04Z",
+  "public_feed_alert_count": 15,
+  "scope": "HTTP deployment/byte identity only; locality is explicit in base_url; source alerts and unknown competition score remain separate"
+}

@@ -1,0 +1,324 @@
+{
+  "schema_version": 1,
+  "scope": "Curated, primary-source register for active claims and data; not an exhaustive literature search. Historical larger catalogue is preserved separately.",
+  "sources": [
+    {
+      "id": "problem",
+      "title": "GEMS problem description and submission format",
+      "publisher": "DrivenData / DOE",
+      "url": "https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/",
+      "kind": "official",
+      "role": "binding format and target",
+      "access": "public",
+      "license": "competition rules",
+      "used": "requirements",
+      "claims": [
+        {
+          "id": "new-target",
+          "statement": "Newly identified expert faults comprise the initial test dataset; known labels are not hidden truth.",
+          "quote": "These new faults will comprise the test dataset for the initial prize round of the challenge."
+        },
+        {
+          "id": "format-float",
+          "statement": "Submit one float32 prediction band with confidence values between zero and one.",
+          "quote": "Your submission contains a single layer with datatype of 32-bit float"
+        },
+        {
+          "id": "format-resolution",
+          "statement": "Use the training grid's 100 m resolution.",
+          "quote": "Your submission is at the same resolution as the training data (100m)"
+        },
+        {
+          "id": "format-crs",
+          "statement": "Projected coordinate system is UTM zone 11N / EPSG 32611.",
+          "quote": "EPSG 32611"
+        },
+        {
+          "id": "metric-support",
+          "statement": "The metric uses a linear distance kernel with 300 m support.",
+          "quote": "300 meters (i.e., 3 pixels at 100m resolution)"
+        },
+        {
+          "id": "single-final",
+          "statement": "Choose one final submission for both rounds without private scores.",
+          "quote": "Competitors must choose a single submission for scoring across both rounds before the deadline"
+        },
+        {
+          "id": "sample-absence",
+          "statement": "The official page describes an all-absence sample, unlike the supplied mirror's positive values.",
+          "quote": "A sample submission that predicts total fault absence is provided for your reference"
+        }
+      ]
+    },
+    {
+      "id": "overview",
+      "title": "Competition overview and current timeline",
+      "publisher": "DrivenData / DOE",
+      "url": "https://www.drivendata.org/competitions/306/competition-doe-gems/",
+      "kind": "official",
+      "role": "entry and timeline",
+      "access": "public",
+      "license": "competition rules",
+      "used": "requirements",
+      "claims": [
+        {
+          "id": "deadline",
+          "statement": "Website currently lists December 3, 2026, 23:59 UTC; verify before final submission.",
+          "quote": "Dec. 3, 2026, 11:59 p.m. UTC"
+        },
+        {
+          "id": "external-data",
+          "statement": "External data are encouraged with the necessary licenses.",
+          "quote": "The use of external data is encouraged in this competition"
+        }
+      ]
+    },
+    {
+      "id": "rules",
+      "title": "Official GEMS Prize rules, September 2026",
+      "publisher": "DOE / NLR",
+      "url": "https://docs.nlr.gov/docs/fy26osti/96647.pdf",
+      "kind": "official",
+      "role": "eligibility, submission limits, disclosure",
+      "access": "public PDF",
+      "license": "official competition rules",
+      "used": "requirements",
+      "claims": [
+        {
+          "id": "weekly-limit",
+          "statement": "Three submissions per week, subject to the current platform limit.",
+          "quote": "three submissions per week"
+        },
+        {
+          "id": "ai-disclosure",
+          "statement": "Disclose the extent and manner of generative-AI use in the narrative.",
+          "quote": "indicate in the narrative"
+        },
+        {
+          "id": "assets",
+          "statement": "Finalists must provide complete solution code and documentation.",
+          "quote": "complete code assets and documentation"
+        },
+        {
+          "id": "timeline-authority",
+          "statement": "The rules direct competitors to the website for the current timeline.",
+          "quote": "Please see the competition website gems.drivendata.org for the most current timeline"
+        },
+        {
+          "id": "appendix-time",
+          "statement": "Appendix A also contains a generic 5 p.m. ET deadline clause; flag rather than silently reconcile.",
+          "quote": "by 5:00 p.m. ET"
+        }
+      ]
+    },
+    {
+      "id": "leaderboard",
+      "title": "Public competition leaderboard",
+      "publisher": "DrivenData",
+      "url": "https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/",
+      "kind": "official",
+      "role": "timestamped score feed, no private submission access",
+      "access": "public",
+      "license": "platform terms",
+      "used": "monitoring",
+      "claims": []
+    },
+    {
+      "id": "data-tab",
+      "title": "Official competition data tab",
+      "publisher": "DrivenData",
+      "url": "https://www.drivendata.org/competitions/306/competition-doe-gems/data/",
+      "kind": "official",
+      "role": "canonical source, authentication required",
+      "access": "login and enrollment",
+      "license": "competition rules",
+      "used": "reference; downloads via supplied mirror bridge",
+      "claims": []
+    },
+    {
+      "id": "about",
+      "title": "Competition about page and recommended literature",
+      "publisher": "DrivenData / DOE",
+      "url": "https://www.drivendata.org/competitions/306/competition-doe-gems/page/968/",
+      "kind": "official",
+      "role": "geological context and research pointers",
+      "access": "public",
+      "license": "individual source terms",
+      "used": "research",
+      "claims": [
+        {
+          "id": "high-resolution",
+          "statement": "The competition describes high-resolution airborne magnetic and radiometric surveys.",
+          "quote": "high-resolution airborne magnetic and radiometric data"
+        }
+      ]
+    },
+    {
+      "id": "reference",
+      "title": "Official GEMS reference solution",
+      "publisher": "DrivenData / John Lipor",
+      "url": "https://github.com/drivendataorg/gems-prize-reference-solution",
+      "kind": "official",
+      "role": "reference model and grid cross-check",
+      "access": "public",
+      "license": "inspect repository terms before reuse",
+      "used": "reference only; no model weights copied",
+      "claims": [
+        {
+          "id": "reference-identity",
+          "statement": "The organizers provide a Python reference solution.",
+          "quote": "Reference solution for the GEMS Prize Challenge"
+        }
+      ]
+    },
+    {
+      "id": "geodawn",
+      "title": "GeoDAWN magnetic and radiometric surveys",
+      "publisher": "USGS",
+      "url": "https://www.usgs.gov/data/geodawn-airborne-magnetic-and-radiometric-surveys-northwestern-great-basin-nevada-and",
+      "kind": "official",
+      "role": "source of supplied geophysical layers",
+      "access": "public",
+      "license": "CC0 1.0 on official landing page",
+      "used": "through competition stack",
+      "claims": [
+        {
+          "id": "geodawn-rights",
+          "statement": "The official data release is marked CC0 1.0 Universal.",
+          "quote": "This work is marked with CC0 1.0 Universal"
+        },
+        {
+          "id": "survey-blocks",
+          "statement": "The acquisition includes Winnemucca, Fallon, Hawthorne and Tonopah blocks.",
+          "quote": "Winnemucca, Fallon, Hawthorne, and Tonopah"
+        }
+      ]
+    },
+    {
+      "id": "ingenious",
+      "title": "INGENIOUS Great Basin regional dataset compilation",
+      "publisher": "DOE Geothermal Data Repository / UNR",
+      "url": "https://gdr.openei.org/submissions/1391",
+      "kind": "official",
+      "role": "regional features and published faults",
+      "access": "public",
+      "license": "CC BY 4.0; preserve attribution",
+      "used": "through competition inputs; external archive not newly trained on",
+      "claims": [
+        {
+          "id": "ingenious-redistribution",
+          "statement": "The landing page permits redistribution with attribution, subject to linked terms.",
+          "quote": "These datasets may be redistributed with attribution"
+        }
+      ]
+    },
+    {
+      "id": "sgmc",
+      "title": "State Geologic Map Compilation, Data Series 1052",
+      "publisher": "USGS",
+      "url": "https://pubs.usgs.gov/publication/ds1052",
+      "kind": "official",
+      "role": "published proxy catalogue; not competition test labels",
+      "access": "public",
+      "license": "USGS public data; attribution retained",
+      "used": "inherited code-2 raster for tuning and diagnostics only",
+      "claims": [
+        {
+          "id": "sgmc-caveat",
+          "statement": "SGMC is not a fully reconciled geological map across state boundaries.",
+          "quote": "geologic units have not been reconciled across State boundaries"
+        }
+      ]
+    },
+    {
+      "id": "3dep",
+      "title": "3DEP products and services",
+      "publisher": "USGS",
+      "url": "https://www.usgs.gov/3d-elevation-program/about-3dep-products-services",
+      "kind": "official",
+      "role": "next high-resolution terrain experiment",
+      "access": "public",
+      "license": "free without use restrictions; acknowledge USGS",
+      "used": "not used in current model; pilot queued",
+      "claims": [
+        {
+          "id": "3dep-free",
+          "statement": "3DEP products are available without charge or use restrictions.",
+          "quote": "All 3DEP products are available, free of charge and without use restrictions"
+        }
+      ]
+    },
+    {
+      "id": "hermant",
+      "title": "Using Deep Learning to Map Quaternary Faults in Western USA (2025)",
+      "publisher": "Stanford Geothermal Workshop / Hermant et al.",
+      "url": "https://pangea.stanford.edu/ERE/db/GeoConf/papers/SGW/2025/Hermant.pdf",
+      "kind": "primary-paper",
+      "role": "incomplete-label and fine-resolution hypotheses",
+      "access": "public PDF",
+      "license": "read/cite; no model or article assets redistributed",
+      "used": "research, not model weights",
+      "claims": [
+        {
+          "id": "positive-tiles",
+          "statement": "The paper retains tiles with a labeled fault to reduce imbalance and observation bias; not proof our heuristic wins.",
+          "quote": "Only tiles whose labels contain at least one fault pixel"
+        }
+      ]
+    },
+    {
+      "id": "matteo",
+      "title": "Automatic Fault Mapping in Remote Optical Images and Topographic Data With Deep Learning (2021)",
+      "publisher": "AGU / JGR: Solid Earth",
+      "url": "https://doi.org/10.1029/2020JB021269",
+      "kind": "primary-paper",
+      "role": "organizer-recommended literature",
+      "access": "open article; publisher may restrict automated requests",
+      "license": "publisher marks CC BY-NC-ND; no redistribution",
+      "used": "research pointer, not implemented reproduction",
+      "claims": [
+        {
+          "id": "matteo-title",
+          "statement": "Organizer-recommended study on fault mapping from optical and topographic data.",
+          "quote": "Automatic Fault Mapping in Remote Optical Images and Topographic Data With Deep Learning"
+        }
+      ]
+    },
+    {
+      "id": "nnpu",
+      "title": "Positive-Unlabeled Learning with Non-Negative Risk Estimator (2017)",
+      "publisher": "NeurIPS proceedings",
+      "url": "https://proceedings.neurips.cc/paper/2017/hash/7cce53cf90577442771720a370c3c723-Abstract.html",
+      "kind": "primary-paper",
+      "role": "PU theory; future comparison, not current implementation",
+      "access": "public paper",
+      "license": "read/cite; verify code/data separately",
+      "used": "research",
+      "claims": [
+        {
+          "id": "nnpu-claim",
+          "statement": "The authors propose a non-negative PU risk estimator. Riftline does not implement that estimator.",
+          "quote": "we propose a non-negative risk estimator for PU learning"
+        }
+      ]
+    },
+    {
+      "id": "spatial-cv",
+      "title": "Cross-validation strategies for structured data (2017)",
+      "publisher": "Ecography / Roberts et al.",
+      "url": "https://doi.org/10.1111/ecog.02881",
+      "kind": "primary-paper",
+      "role": "motivation for blocked rather than random validation",
+      "access": "free article; publisher may restrict automated requests",
+      "license": "read/cite; not redistributed",
+      "used": "validation design",
+      "claims": [
+        {
+          "id": "spatial-dependence",
+          "statement": "The authors recommend blocked cross-validation for dependent data, with careful blocking design.",
+          "quote": "We recommend that block cross-validation be used wherever dependence structures exist in a dataset"
+        }
+      ]
+    }
+  ]
+}

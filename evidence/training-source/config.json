@@ -1,0 +1,34 @@
+{
+  "name": "riftline-distance-pu-v1",
+  "seed": 20260925,
+  "block_px": 512,
+  "buffer_px": 32,
+  "tuning_fold": 0,
+  "audit_fold": 1,
+  "derived_bands": [12, 19, 2, 13],
+  "scales_px": [1, 3, 7],
+  "max_near_samples": 100000,
+  "max_unlabeled_samples": 140000,
+  "model": {
+    "max_iter": 140,
+    "max_leaf_nodes": 31,
+    "learning_rate": 0.08,
+    "min_samples_leaf": 50,
+    "l2_regularization": 5.0,
+    "early_stopping": false
+  },
+  "arms": [
+    {"id": "raw-distance", "context": false, "unlabeled_weight": 1.0},
+    {"id": "context-distance", "context": true, "unlabeled_weight": 1.0},
+    {"id": "context-pu", "context": true, "unlabeled_weight": 0.25}
+  ],
+  "floors": [0.05, 0.12, 0.22, 0.35],
+  "emissions": ["soft-ridge", "binary-ridge"],
+  "max_emitted_fraction": 0.08,
+  "min_emitted_fraction": 0.0001,
+  "selection": "highest tuning-fold union DTI among eligible candidates; tie break by lower prediction mass then arm id then floor then emission",
+  "proxy_role": "tuning/evaluation only; NEVER used for training targets or features",
+  "refit": "attempt the frozen arm on all known labels; if the existing global support gate fails, retain the unchanged tuning-selected spatial-holdout model if it passes the same gate; otherwise abort",
+  "deployment_policy_revision": "Added after the initial full-refit support failure. Arm, floor, metric, sample set, support cap and selection rule unchanged. No audit-label retuning; audit is not an independent replication on rerun.",
+  "score_warning": "All local metrics use incomplete published catalogues, not hidden expert test labels. No leaderboard improvement is established."
+}

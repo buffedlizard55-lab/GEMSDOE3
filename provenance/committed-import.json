@@ -1,0 +1,12 @@
+{
+  "verified_at": "2026-09-25T02:39:21Z",
+  "import_commit": "826c87a",
+  "upstream_commit": "cceebbdcf9a7d2890bb0665defcb54dfc66ae452",
+  "imported_local_blob_count": 387,
+  "committed_archived_blobs": 382,
+  "excluded_large_parts": 5,
+  "staged_blob_ids_matched_upstream": true,
+  "normalization": "legacy/** -text -whitespace preserves exact original bytes and line endings",
+  "missing": [],
+  "mismatched": []
+}

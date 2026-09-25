@@ -1,0 +1,64 @@
+name: CPU experiment and submission package
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '41 3 * * 0'
+permissions:
+  contents: read
+concurrency:
+  group: riftline-experiment-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  experiment:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    env:
+      OMP_NUM_THREADS: '2'
+      OPENBLAS_NUM_THREADS: '2'
+      MKL_NUM_THREADS: '2'
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: pip
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: pip install -r requirements-dev.txt
+      - name: Restore hash-pinned input rasters
+        uses: actions/cache@v4
+        with:
+          path: |
+            data/training_features.tif
+            data/labels.tif
+            data/sample_submission.tif
+          key: gems-inputs-4371c82e-7ba308cc-2176d08e
+      - name: Download, inspect, train, infer and validate
+        run: |
+          set -euo pipefail
+          bash scripts/download_competition_data.sh
+          python scripts/prepare_data.py
+          python -m gems3.train
+          python -m gems3.publish
+          python scripts/check_published.py
+          python -m gems3.site
+          python -m pytest -q --junitxml=evidence/experiment-tests.xml
+      - name: Publish a candidate artifact, never an unverified leaderboard claim
+        uses: actions/upload-artifact@v4
+        with:
+          name: riftline-candidate-${{ github.run_id }}
+          path: |
+            docs/downloads/
+            outputs/riftline-v1/*.json
+            outputs/riftline-v1/final-model.joblib
+            evidence/experiment-tests.xml
+          retention-days: 30
+      - name: Explain the handoff and non-promotion policy
+        if: always()
+        run: |
+          echo '## Riftline candidate run' >> "$GITHUB_STEP_SUMMARY"
+          echo 'A successful run creates a format-validated candidate, not a competition result. No DrivenData upload was performed.' >> "$GITHUB_STEP_SUMMARY"
+          echo 'Use the individual GeoTIFF or its single-TIFF ZIP under docs/downloads, NOT the outer Actions artifact ZIP.' >> "$GITHUB_STEP_SUMMARY"
+          echo 'The public site is not automatically switched to a new model based on a reused local audit. Review source transfer and actual competition evidence before adoption.' >> "$GITHUB_STEP_SUMMARY"

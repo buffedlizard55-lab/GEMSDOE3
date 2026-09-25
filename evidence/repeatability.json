@@ -1,0 +1,28 @@
+{
+  "scope": "same spatial split repeated for deployment repair, NOT an independent audit",
+  "holdout_prediction_arrays": [
+    {
+      "file": "raw-distance-holdout.npy",
+      "before": "dee3c6fbefe6374af57488bb08ffa9fa3a083d2b59aead319e7e637b0c4ffe21",
+      "after": "048d6a2e38a9bf839e171fc534a69e97ac4ae4feb4ac9882bb88a55aec4b3459",
+      "identical": false
+    },
+    {
+      "file": "context-distance-holdout.npy",
+      "before": "493c696f7d97bf1b8e9724da56f0b790e2f109623ed50f5bd13a6f76b2bc3b5c",
+      "after": "493c696f7d97bf1b8e9724da56f0b790e2f109623ed50f5bd13a6f76b2bc3b5c",
+      "identical": true
+    },
+    {
+      "file": "context-pu-holdout.npy",
+      "before": "d73b2e09c12b1c2d53502004335b49fb275cd4aa576e3ef501f511c6430d4142",
+      "after": "d73b2e09c12b1c2d53502004335b49fb275cd4aa576e3ef501f511c6430d4142",
+      "identical": true
+    }
+  ],
+  "all_identical": false,
+  "recorded_code_sha256": "f24a66c70bef91e91830b561f4a56277f63019d12d017bf2e5ae0520f81a5ad3",
+  "current_model_code_sha256": "f24a66c70bef91e91830b561f4a56277f63019d12d017bf2e5ae0520f81a5ad3",
+  "checked_at": "2026-09-25T01:34:00Z",
+  "irregularity": "Raw-feature control hash changed across reruns; selected context and PU fields were bit-identical. Original raw array is no longer retained, so the magnitude/cause of that difference is not asserted."
+}

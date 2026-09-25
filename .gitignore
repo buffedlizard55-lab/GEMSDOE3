@@ -1,0 +1,27 @@
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.ruff_cache/
+node_modules/
+.env
+*.log
+/data/*
+!/data/README.md
+/outputs/
+/legacy/data/bridge/*.part-*
+/legacy/data/*features.tif
+/legacy/data/labels.tif
+/legacy/data/sample_submission.tif
+/legacy/data/*.part
+/legacy/outputs*/
+/legacy/.pytest_cache/
+/legacy/docs/.pytest_cache/
+/provenance/cache/
+/test-results/
+
+# Preserve the upstream tracked log evidence, not new runtime logs.
+!legacy/**/*.log
+/playwright-report/
+
+/build/

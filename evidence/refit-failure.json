@@ -1,0 +1,24 @@
+{
+  "checked_at": "2026-09-25T01:09:57Z",
+  "status": "full-refit rejected before publication",
+  "predeclared_support_cap": 0.08,
+  "selected_arm": "context-distance",
+  "floor": 0.22,
+  "emission": "binary-ridge",
+  "measured": [
+    {
+      "path": "outputs/riftline-v1/context-distance-holdout.npy",
+      "nonzero_pixels": 352506,
+      "valid_pixels": 5167373,
+      "support_fraction": 0.06821764173014025
+    },
+    {
+      "path": "outputs/riftline-v1/final-confidence.npy",
+      "nonzero_pixels": 583725,
+      "valid_pixels": 5167373,
+      "support_fraction": 0.11296358904224642
+    }
+  ],
+  "audit_driven_reselection": false,
+  "reason": "Keeping all exact positives but capped unlabeled samples changes sampling proportions on all-data refit. Do not relax gate after seeing results."
+}

@@ -1,0 +1,38 @@
+{
+  "recorded_at": "2026-09-25T01:50:00Z",
+  "bundle": "evidence/training-source",
+  "code_sha256": "f24a66c70bef91e91830b561f4a56277f63019d12d017bf2e5ae0520f81a5ad3",
+  "config_sha256": "59469b8ea8918069341d064d371a23507be4b8ce56d56ef998dbf206147c3b4e",
+  "matches_executed_model_report": true,
+  "files": [
+    {
+      "file": "common.py",
+      "sha256": "b0475bd8c060437437e4e13cd5e997d6c02933cd583bffaae5cf937ff43891ed"
+    },
+    {
+      "file": "data.py",
+      "sha256": "7a1b5f3fe5bd4fd91397fa03a0e517b014eca738fc1e3f847cdb9f4f835f27a9"
+    },
+    {
+      "file": "emission.py",
+      "sha256": "d65a74ba8aaa9224e7c3b4a1d6637db9879bd6594b5f8a0f5d68de5f816d23bd"
+    },
+    {
+      "file": "features.py",
+      "sha256": "46da013586cd07f398af7ced386fc84fa090335fda6115a05a9861748c383644"
+    },
+    {
+      "file": "metric.py",
+      "sha256": "721c18be89a5ee38987b615684386e5abb7336a5cdf0318c4bebe05aed99c992"
+    },
+    {
+      "file": "raster.py",
+      "sha256": "e7742b182ad85b1ec7659db64f6d40d95c7aa7ade53ee14481a8ffaf67e5ddbb"
+    },
+    {
+      "file": "train.py",
+      "sha256": "8dd17b21bf28ec55831b95f6b5e1a5832608b5aa3f9f4f84ba64a30921b74fe7"
+    }
+  ],
+  "scope": "Exact executed source of the published candidate; not a retroactive current-code claim"
+}
