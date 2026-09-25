@@ -46,12 +46,12 @@
       if (!result.passed) throw new Error("Validation did not pass. Download withheld.");
       const note = `${result.note} | tif ${result.sha256.slice(0, 10)}`;
       const noteBox = $("#submission-note"); if (noteBox) { noteBox.value = note; noteBox.style.height = "auto"; noteBox.style.height = noteBox.scrollHeight + "px"; }
-      $$(".filename").forEach(el => { el.textContent = result.filename; });
-      const hash = $(".file-details .hash");
+      $$("#submission .filename").forEach(el => { el.textContent = result.filename; });
+      const hash = $("#submission .file-details .hash");
       if (hash) { hash.textContent = "Generated TIFF SHA-256 "; const code = document.createElement("code"); code.textContent = result.sha256; hash.append(code); }
       save(result.bytes, result.filename, "image/tiff");
       announce(`Built and verified ${result.filename}. TIFF SHA-256: ${result.sha256}. File sent to Downloads; not submitted to DrivenData.`);
-      const details = $(".file-details");
+      const details = $("#submission .file-details");
       if (details) {
         let receipt = $("#build-receipt");
         if (!receipt) { receipt = document.createElement("button"); receipt.id = "build-receipt"; receipt.type = "button"; receipt.className = "button secondary"; details.append(receipt); }
@@ -94,6 +94,21 @@
       button.setAttribute("aria-label", "Submission note copied");
       announce("Submission note copied. Paste it into the Note field beside your uploaded file.");
     } catch (_) { note.focus(); note.select(); announce("Clipboard unavailable here. The note is selected for copying.", true); }
+  }));
+  $$(".copy-portfolio-note").forEach(button => button.addEventListener("click", async () => {
+    const note = document.getElementById(button.dataset.target || "");
+    if (!note) return;
+    try {
+      if (!navigator.clipboard?.writeText) throw new Error("Clipboard unavailable");
+      await navigator.clipboard.writeText(note.value);
+      button.textContent = "Copied ✓";
+      const status = document.getElementById("portfolio-status");
+      if (status) status.textContent = "Note copied. Paste it into the “Note (optional)” field on the DrivenData submission form.";
+    } catch (_) {
+      note.focus(); note.select();
+      const status = document.getElementById("portfolio-status");
+      if (status) status.textContent = "Clipboard unavailable here. The note is selected—press Ctrl/Cmd+C.";
+    }
   }));
   function age(timestamp) {
     const t = Date.parse(timestamp);
@@ -164,8 +179,8 @@
   $$("[data-canonical-download]").forEach(link => link.addEventListener("click", () => {
     if (!manifest) return;
     const note = $("#submission-note"); if (note) note.value = manifest.note;
-    $$(".filename").forEach(el => { el.textContent = manifest.artifact.filename; });
-    const hash = $(".file-details .hash");
+    $$("#submission .filename").forEach(el => { el.textContent = manifest.artifact.filename; });
+    const hash = $("#submission .file-details .hash");
     if (hash) { hash.textContent = "Canonical TIFF SHA-256 "; const code = document.createElement("code"); code.textContent = manifest.artifact.sha256; hash.append(code); }
     $("#build-receipt")?.remove();
     announce("Downloading the canonical, locally validated artifact. The note now identifies that file, not a prior browser build.");

@@ -1,0 +1,86 @@
+{
+  "generated_at": "2026-09-25T04:25:00Z",
+  "post_hoc": true,
+  "used_for_selection": false,
+  "cross_source": {
+    "qfault-target": {
+      "policy_floor": 0.22,
+      "audit_known_dti": 0.19981224186610658,
+      "TP_w": 4402.073521586339,
+      "FP_w": 59241.17723917961,
+      "truth_pixels": 11628
+    },
+    "two-catalogue-target": {
+      "policy_floor": 0.35,
+      "audit_known_dti": 0.1716448675718124,
+      "TP_w": 3626.3339556919645,
+      "FP_w": 55496.45743000507,
+      "truth_pixels": 11628
+    },
+    "sgmc-target": {
+      "policy_floor": 0.35,
+      "audit_known_dti": 0.10832139292279255,
+      "TP_w": 1744.4451160365363,
+      "FP_w": 32265.28143104911,
+      "truth_pixels": 11628
+    },
+    "riftline-published": {
+      "audit_known_dti": 0.32820408163712056,
+      "note": "Riftline trained on folds 2-3 (audit fold 3 in-sample)"
+    },
+    "legacy-ens12": {
+      "audit_known_dti": 0.22612974836206204,
+      "note": "training region unknown"
+    }
+  },
+  "support_curve": [
+    {
+      "floor": 0.25,
+      "support": 0.0813383087515831,
+      "gap": 0.20888769783499767,
+      "all": 0.22344647779534862
+    },
+    {
+      "floor": 0.28,
+      "support": 0.06672509759664536,
+      "gap": 0.2150435933481606,
+      "all": 0.2283887852502808
+    },
+    {
+      "floor": 0.3,
+      "support": 0.057172901928424835,
+      "gap": 0.21614891342089773,
+      "all": 0.2276440703282286
+    },
+    {
+      "floor": 0.32,
+      "support": 0.04810788482427597,
+      "gap": 0.215530894855895,
+      "all": 0.2257553902757431
+    },
+    {
+      "floor": 0.35,
+      "support": 0.03548362851142883,
+      "gap": 0.2102002856343616,
+      "all": 0.21712427343491922
+    },
+    {
+      "floor": 0.38,
+      "support": 0.0243633221834898,
+      "gap": 0.19064435792871684,
+      "all": 0.1948048021661065
+    },
+    {
+      "floor": 0.4,
+      "support": 0.018075663596391678,
+      "gap": 0.16606212250451508,
+      "all": 0.17006856089951258
+    },
+    {
+      "floor": 0.45,
+      "support": 0.006579097826033831,
+      "gap": 0.08525976105129925,
+      "all": 0.09028384425292037
+    }
+  ]
+}

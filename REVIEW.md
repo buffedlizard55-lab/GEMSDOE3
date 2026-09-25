@@ -1,3 +1,42 @@
+# Three-pass review: session 2 (Gapfinder), 2026-09-25
+
+## Pass 1: implement and execute
+- Read README/brief, AGENTS, NEXT_STEPS and REVIEW first. Carried next steps: refit distribution shift (fixed with fraction-consistent sampling), 48 px buffer, new tune/audit rotation.
+- Read the official staff clarifications through Discourse raw endpoints (11516 mask is pixel-exact and near-known is fully penalised; 11536 continuations count as new; 11527 sources are secret and Phase 2 truth is updated from Phase 1 submissions). Added them, plus the SGMC ScienceBase page (1:1M scale, 2026 successor release), to `research/sources.json` with exact quotes.
+- Implemented `gems3/geometry.py`, `gems3/gapfinder.py` and `gems3/gapfinder_publish.py`, plus the site sections in `gems3/site_gapfinder.py`.
+- **v1:** selected sgmc-target f=0.35 h=1 L=0. A post-hoc diagnostic showed it finds held-out supplied faults poorly (0.108), so we made a disclosed **v2 amendment** that adds the known proxy to selection.
+- **v2 took four attempts** (`evidence/gapfinder-v2-errata.json`):
+  1. A leak in the known proxy (tip rays credited against their own source traces) was caught in the log and the run aborted.
+  2. The run's source-integrity guard stopped it after we edited a docstring mid-run.
+  3. The run completed, but its audit row described a tie-broken policy (h=0) that differed from the deployed one (h=2).
+  4. The published run. Frozen winner and all 90 candidates are identical to attempt 3, and the audit now scores the deployed policy.
+- **Published:** fusion / ML-only / SGMC-gap GeoTIFFs and ZIPs. Each passed 13/13 gates, is strictly binary, has 0 pixels on supplied labels, and has a unique filename and Note.
+- 110 Python tests passed.
+
+## Pass 2: adversarial review and fixes
+- **Real bug found by browser tests:** `app.js` rewrote *every* `.filename` and the first `.file-details` on the page with the Riftline identity. After a Riftline browser build, the portfolio cards would have shown the wrong file. Fixed by scoping to `#submission`, and added a regression test.
+- Added a real-browser portfolio test. For every file it checks the download filename, SHA-256 of the downloaded bytes, independent raster validation, and that the Note copies exactly. Home and summary both lead with the portfolio.
+- `scripts/verify_live.py` now verifies every portfolio TIF/ZIP byte-for-byte after deployment. The local HTTP check passed 10/10 (`evidence/local-http-verification-session2.json`).
+- SGMC provenance traced: legacy fetch script, official USGS FeatureServer, fault RuleIDs only, GeoJSON SHA-256 pinned. Public domain.
+- Corrected overstatements: the diagnostics docstring ("cap binding" became "lowest floors ineligible"), the README's Riftline sentence, and the limitation on binary emission.
+- Kept, not edited: the hand-typed `frozen_before_run` time in `configs/gapfinder-v2.json` is wrong (machine time 04:29:07Z). The file is hash-bound to the run, so the erratum is recorded instead.
+- **Results:** 110 Python tests (`evidence/session2-pass2-tests.xml`) and 13 Chromium tests (`evidence/browser-tests.json`) passed.
+
+## Pass 3: original request recheck
+- Re-read the full preserved brief. Coverage:
+  - unique submission: three new files, tested as distinct from Riftline and the legacy file;
+  - one-click download first on home and summary, with copyable Notes;
+  - range-error class blocked by strict gates;
+  - executive-summary steps updated;
+  - source table with official links, extended;
+  - feed (existing workflow; new sources pending the first scheduled check);
+  - limitations and access (README, NEXT_STEPS, experiments page);
+  - three passes; PR and merge.
+- Added Gapfinder-specific limitations to the experiments page, including the selection weakness and the fact that the audit is not independent.
+- **Not claimed:** any leaderboard score, any improvement over 0.3049, source-independent generalisation, or public deployment before the merged Pages response is verified.
+
+---
+
 # Three-pass review — 2026-09-25
 
 Three local implementation/review passes were executed. The initial GitHub authentication failure is historical: access has been restored, [PR #1](https://github.com/buffedlizard55-lab/GEMSDOE3/pull/1) exists, and [hosted CI](https://github.com/buffedlizard55-lab/GEMSDOE3/actions/runs/36091380405) passed. The PR and deployment workflow are the authoritative current release state; earlier local passes are not themselves deployment proof. The candidate has no measured competition score. Machine-readable status and request coverage are in `evidence/review.json`.

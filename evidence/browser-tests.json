@@ -54,7 +54,12 @@
     "updateSourceMethod": "patch",
     "version": "1.55.1",
     "workers": 1,
-    "webServer": null
+    "webServer": {
+      "command": "python -m http.server 8000 --bind 0.0.0.0 --directory build/site",
+      "url": "http://127.0.0.1:8000/docs/index.html",
+      "timeout": 30000,
+      "reuseExistingServer": true
+    }
   },
   "suites": [
     {
@@ -79,12 +84,12 @@
                   "workerIndex": 0,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 2761,
+                  "duration": 1935,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-09-25T02:39:33.289Z",
+                  "startTime": "2026-09-25T05:00:27.415Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -113,12 +118,12 @@
                   "workerIndex": 0,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 5308,
+                  "duration": 4716,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-09-25T02:39:36.150Z",
+                  "startTime": "2026-09-25T05:00:29.419Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -128,7 +133,7 @@
           ],
           "id": "e14a11516c0a10425841-535d649cd7f48fccd930",
           "file": "site.spec.cjs",
-          "line": 22,
+          "line": 23,
           "column": 1
         },
         {
@@ -147,12 +152,12 @@
                   "workerIndex": 0,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 1156,
+                  "duration": 1289,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-09-25T02:39:41.476Z",
+                  "startTime": "2026-09-25T05:00:34.148Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -162,7 +167,7 @@
           ],
           "id": "e14a11516c0a10425841-744f55c0a8d5b231c098",
           "file": "site.spec.cjs",
-          "line": 42,
+          "line": 43,
           "column": 1
         },
         {
@@ -181,12 +186,12 @@
                   "workerIndex": 0,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 1209,
+                  "duration": 1148,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-09-25T02:39:42.653Z",
+                  "startTime": "2026-09-25T05:00:35.450Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -196,7 +201,7 @@
           ],
           "id": "e14a11516c0a10425841-65c706d9a87150cffbfd",
           "file": "site.spec.cjs",
-          "line": 57,
+          "line": 58,
           "column": 1
         },
         {
@@ -215,12 +220,12 @@
                   "workerIndex": 0,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 823,
+                  "duration": 614,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-09-25T02:39:43.882Z",
+                  "startTime": "2026-09-25T05:00:36.610Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -230,7 +235,7 @@
           ],
           "id": "e14a11516c0a10425841-d24694fc1297aec58272",
           "file": "site.spec.cjs",
-          "line": 71,
+          "line": 73,
           "column": 1
         },
         {
@@ -249,12 +254,12 @@
                   "workerIndex": 0,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 691,
+                  "duration": 857,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-09-25T02:39:44.726Z",
+                  "startTime": "2026-09-25T05:00:37.239Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -264,7 +269,7 @@
           ],
           "id": "e14a11516c0a10425841-e4014a6119e1de46a3e5",
           "file": "site.spec.cjs",
-          "line": 83,
+          "line": 85,
           "column": 1
         },
         {
@@ -283,12 +288,12 @@
                   "workerIndex": 0,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 1157,
+                  "duration": 1379,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-09-25T02:39:45.432Z",
+                  "startTime": "2026-09-25T05:00:38.110Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -298,7 +303,7 @@
           ],
           "id": "e14a11516c0a10425841-1da7f387d988407dfce6",
           "file": "site.spec.cjs",
-          "line": 92,
+          "line": 94,
           "column": 1
         },
         {
@@ -317,12 +322,12 @@
                   "workerIndex": 0,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 1746,
+                  "duration": 1733,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-09-25T02:39:46.600Z",
+                  "startTime": "2026-09-25T05:00:39.505Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -332,7 +337,7 @@
           ],
           "id": "e14a11516c0a10425841-392bf420ef40ee970ca7",
           "file": "site.spec.cjs",
-          "line": 102,
+          "line": 104,
           "column": 1
         },
         {
@@ -351,12 +356,12 @@
                   "workerIndex": 0,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 800,
+                  "duration": 698,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-09-25T02:39:48.360Z",
+                  "startTime": "2026-09-25T05:00:41.250Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -366,7 +371,7 @@
           ],
           "id": "e14a11516c0a10425841-d31f0a175f7ebe02f138",
           "file": "site.spec.cjs",
-          "line": 112,
+          "line": 114,
           "column": 1
         },
         {
@@ -385,12 +390,12 @@
                   "workerIndex": 0,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 4511,
+                  "duration": 4369,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-09-25T02:39:49.175Z",
+                  "startTime": "2026-09-25T05:00:41.961Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -400,7 +405,7 @@
           ],
           "id": "e14a11516c0a10425841-05b2da5ecc299224627a",
           "file": "site.spec.cjs",
-          "line": 123,
+          "line": 125,
           "column": 1
         },
         {
@@ -419,12 +424,12 @@
                   "workerIndex": 0,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 470,
+                  "duration": 543,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-09-25T02:39:53.721Z",
+                  "startTime": "2026-09-25T05:00:46.343Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -434,7 +439,75 @@
           ],
           "id": "e14a11516c0a10425841-9157cd1238d6f3a34159",
           "file": "site.spec.cjs",
-          "line": 146,
+          "line": 148,
+          "column": 1
+        },
+        {
+          "title": "portfolio: every direct download is the exact published file and each Note copies",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 5151,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-09-25T05:00:46.898Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "e14a11516c0a10425841-505c3136e480c6d6604f",
+          "file": "site.spec.cjs",
+          "line": 158,
+          "column": 1
+        },
+        {
+          "title": "building the Riftline file never rewrites portfolio file identities",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 4107,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-09-25T05:00:52.061Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "e14a11516c0a10425841-468080b61ea9b436e883",
+          "file": "site.spec.cjs",
+          "line": 188,
           "column": 1
         }
       ]
@@ -442,9 +515,9 @@
   ],
   "errors": [],
   "stats": {
-    "startTime": "2026-09-25T02:39:32.422Z",
-    "duration": 21878.985,
-    "expected": 11,
+    "startTime": "2026-09-25T05:00:26.713Z",
+    "duration": 29579.396,
+    "expected": 13,
     "skipped": 0,
     "unexpected": 0,
     "flaky": 0

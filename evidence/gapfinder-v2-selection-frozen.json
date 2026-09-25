@@ -1,0 +1,50 @@
+{
+  "frozen_at": "2026-09-25T04:48:31Z",
+  "winner": {
+    "arm": "two-catalogue-target",
+    "floor": 0.4,
+    "halo": 2,
+    "tip": 0,
+    "eligible": true,
+    "emitted_fraction": 0.0446117190583952,
+    "robust_dti": 0.17266484761145062,
+    "tuning": {
+      "gap": {
+        "dti": 0.18668991892816755,
+        "TP_w": 3062.0692819904984,
+        "FP_w": 37775.42805862427,
+        "FN_w": 7230.930718009502,
+        "truth_pixels": 10293,
+        "prediction_pixels": 41024,
+        "prediction_mass": 41024.0,
+        "scored_pixels": 910604,
+        "meaning": "published-catalogue surrogate, not a competition score"
+      },
+      "all": {
+        "dti": 0.18676153099135603,
+        "TP_w": 3394.776474698259,
+        "FP_w": 37602.548159867525,
+        "FN_w": 9077.22352530174,
+        "truth_pixels": 12472,
+        "prediction_pixels": 41024,
+        "prediction_mass": 41024.0,
+        "scored_pixels": 910604,
+        "meaning": "published-catalogue surrogate, not a competition score"
+      },
+      "known": {
+        "dti": 0.17266484761145062,
+        "TP_w": 2799.9013253072585,
+        "FP_w": 42379.17655366659,
+        "FN_w": 6175.098674692741,
+        "truth_pixels": 8975,
+        "prediction_pixels": 45573,
+        "prediction_mass": 45573.0,
+        "scored_pixels": 919579,
+        "meaning": "published-catalogue surrogate, not a competition score"
+      }
+    }
+  },
+  "rule": "maximize min(DTI_gap, DTI_all, DTI_known) on the tuning fold among eligible candidates; tie-break lower prediction mass, then arm, floor, halo, tip",
+  "audit_consulted": false,
+  "source_sha256": "df4d213fd62beba347098e053f75b6cf10339e38152296581184a42973e09038"
+}

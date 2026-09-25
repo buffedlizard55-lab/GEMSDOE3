@@ -1,0 +1,80 @@
+{
+  "checked_at": "2026-09-25T04:58:47Z",
+  "base_url": "http://127.0.0.1:8000",
+  "passed": true,
+  "checks": [
+    {
+      "kind": "artifact",
+      "file": "downloads/riftline-context-distance-20260925T011817Z-7b6010637a.tif",
+      "bytes": 1015914,
+      "sha256": "7b6010637ae341b56f7d211eaf892b239822b0668d3f5556af0eecb505a228d3",
+      "passed": true
+    },
+    {
+      "kind": "zip",
+      "file": "downloads/riftline-context-distance-20260925T011817Z-7b6010637a.zip",
+      "bytes": 848755,
+      "sha256": "982b90edffc4e0a85f5435d122b9efa4b01241bca7b66af41d46f33e40365aa9",
+      "passed": true
+    },
+    {
+      "kind": "field",
+      "file": "data/field.f32.zlib",
+      "bytes": 457047,
+      "sha256": "846970bf8f94bbc59b3a2f8e13ddd0e136f212ca86d28a7e41e32cd35516d198",
+      "passed": true
+    },
+    {
+      "kind": "mask",
+      "file": "data/template-mask.bits.zlib",
+      "bytes": 14123,
+      "sha256": "80595743554d2cb9a2c352505d696380ae4414217520aa9c43646a97acc2c6bd",
+      "passed": true
+    },
+    {
+      "kind": "portfolio-tif",
+      "file": "downloads/gapfinder-v2-fusion-20260925T045011Z-682a7bbbfe.tif",
+      "bytes": 760006,
+      "sha256": "682a7bbbfe55e1ed3a3cc2d8a7fa0c5cff36d97954f55c5a655d42824e60f1f3",
+      "passed": true
+    },
+    {
+      "kind": "portfolio-zip",
+      "file": "downloads/gapfinder-v2-fusion-20260925T045011Z-682a7bbbfe.zip",
+      "bytes": 587693,
+      "sha256": "d67c707089264f5b0d576836c908fc1c51f485b745a01dd5c33de7ef8a7ddb0c",
+      "passed": true
+    },
+    {
+      "kind": "portfolio-tif",
+      "file": "downloads/gapfinder-v2-ml-20260925T045012Z-73e97f79f6.tif",
+      "bytes": 687572,
+      "sha256": "73e97f79f635ebf8932b74357db271d0b71c9263b67e5a45fd4c267dc3e11825",
+      "passed": true
+    },
+    {
+      "kind": "portfolio-zip",
+      "file": "downloads/gapfinder-v2-ml-20260925T045012Z-73e97f79f6.zip",
+      "bytes": 515304,
+      "sha256": "52c0473eff08802f562b71bd35453a01f19a948fce64b9203bd69a194c9e1447",
+      "passed": true
+    },
+    {
+      "kind": "portfolio-tif",
+      "file": "downloads/gapfinder-v2-sgmc-gap-20260925T045014Z-7251c22bb4.tif",
+      "bytes": 426346,
+      "sha256": "7251c22bb489198ae4709611c29cef3ac799d8942c2f1779086d5b59ae0e3097",
+      "passed": true
+    },
+    {
+      "kind": "portfolio-zip",
+      "file": "downloads/gapfinder-v2-sgmc-gap-20260925T045014Z-7251c22bb4.zip",
+      "bytes": 243415,
+      "sha256": "ce44d6d05305ac0acca63fb784cd28ed838a619543e65f5c7094b1c41b08a2b3",
+      "passed": true
+    }
+  ],
+  "public_feed_generated_at": "2026-09-25T02:12:04Z",
+  "public_feed_alert_count": 15,
+  "scope": "HTTP deployment/byte identity only; locality is explicit in base_url; source alerts and unknown competition score remain separate"
+}

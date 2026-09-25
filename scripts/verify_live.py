@@ -41,6 +41,21 @@ def verify(base, expected):
         if len(raw) != spec['bytes'] or hashlib.sha256(raw).hexdigest() != spec['sha256']:
             raise ValueError(f'Public {key} bytes do not match the release')
         checks.append({'kind': key, 'file': spec['file'], 'bytes': len(raw), 'sha256': spec['sha256'], 'passed': True})
+    portfolio_path = ROOT / 'docs/data/portfolio.json'
+    if portfolio_path.exists():  # Gapfinder portfolio: every direct file and ZIP must match byte-for-byte
+        local = read_json(portfolio_path)
+        public = json.loads(fetch(base + '/docs/data/portfolio.json' + query, 2000000))
+        if [i['sha256'] for i in public['items']] != [i['sha256'] for i in local['items']]:
+            raise ValueError('Public portfolio identity differs from this release')
+        if b'id="portfolio"' not in page:
+            raise ValueError('Published home page does not show the portfolio')
+        for item in local['items']:
+            for key, file, digest, size in (('portfolio-tif', item['file'], item['sha256'], item['bytes']),
+                                            ('portfolio-zip', item['zip'], item['zip_sha256'], item['zip_bytes'])):
+                raw = fetch(base + '/docs/' + file + query, size)
+                if len(raw) != size or hashlib.sha256(raw).hexdigest() != digest:
+                    raise ValueError(f'Public {key} bytes do not match the release: {file}')
+                checks.append({'kind': key, 'file': file, 'bytes': len(raw), 'sha256': digest, 'passed': True})
     feed = json.loads(fetch(base + '/docs/data/feed.json' + query, 2000000))
     return {'checked_at': utc_now(), 'base_url': base, 'passed': True, 'checks': checks,
             'public_feed_generated_at': feed.get('generated_at'), 'public_feed_alert_count': len(feed.get('alerts', [])),

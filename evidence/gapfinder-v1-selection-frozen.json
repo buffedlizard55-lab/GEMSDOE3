@@ -1,0 +1,39 @@
+{
+  "frozen_at": "2026-09-25T04:22:33Z",
+  "winner": {
+    "arm": "sgmc-target",
+    "floor": 0.35,
+    "halo": 1,
+    "tip": 0,
+    "eligible": true,
+    "emitted_fraction": 0.0354836289214956,
+    "robust_dti": 0.2102002856343616,
+    "tuning": {
+      "gap": {
+        "dti": 0.2102002856343616,
+        "TP_w": 3093.138863045013,
+        "FP_w": 29310.85209456086,
+        "FN_w": 7199.861136954987,
+        "truth_pixels": 10293,
+        "prediction_pixels": 32630,
+        "prediction_mass": 32630.0,
+        "scored_pixels": 910604,
+        "meaning": "published-catalogue surrogate, not a competition score"
+      },
+      "all": {
+        "dti": 0.21712427343491922,
+        "TP_w": 3578.7975317132527,
+        "FP_w": 28946.77776953578,
+        "FN_w": 8893.202468286747,
+        "truth_pixels": 12472,
+        "prediction_pixels": 32630,
+        "prediction_mass": 32630.0,
+        "scored_pixels": 910604,
+        "meaning": "published-catalogue surrogate, not a competition score"
+      }
+    }
+  },
+  "rule": "maximize min(DTI_gap, DTI_all) on the tuning fold among eligible candidates (robust to the proxy definition); tie-break lower prediction mass, then arm, floor, halo, tip",
+  "audit_consulted": false,
+  "source_sha256": "18ce45c1a6d41535a41be187b7ef91e0652dff0f2bb377de8b23804ff7d89271"
+}

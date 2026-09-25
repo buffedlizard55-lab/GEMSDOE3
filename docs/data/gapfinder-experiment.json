@@ -1,0 +1,2285 @@
+{
+  "schema_version": 1,
+  "name": "Gapfinder",
+  "strategy": "gapfinder-v2",
+  "started_at": "2026-09-25T04:43:23Z",
+  "completed_at": "2026-09-25T04:50:15Z",
+  "seconds": 412.5,
+  "status": "format-validated portfolio; unsubmitted; competition scores unknown",
+  "competition_scores": {
+    "fusion": null,
+    "ml": null,
+    "sgmc-gap": null
+  },
+  "config": {
+    "name": "gapfinder-v2",
+    "frozen_before_run": "2026-09-25T04:48Z (first v2 attempt aborted before selection after a known-proxy leak was found in the log; evidence/gapfinder-v2-aborted.log. No v2 selection or audit was computed.)",
+    "seed": 20260926,
+    "objective": "Predict fault pixels NOT already in labels.tif. Official staff answers: the known-fault scoring mask is pixel-exact and identical to the training labels; 'new fault' includes newly mapped geometry of existing systems; predictions near (not on) known traces are fully penalized.",
+    "official_basis": [
+      "https://community.drivendata.org/raw/11516",
+      "https://community.drivendata.org/raw/11536",
+      "https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/#performance-metric"
+    ],
+    "block_px": 512,
+    "buffer_px": 48,
+    "buffer_rationale": "30 px feature radius + ridge smoothing/NMS support (~5 px) + 3 px metric kernel = 38 px < 48 px",
+    "training_folds": [
+      0,
+      1
+    ],
+    "tuning_fold": 2,
+    "audit_fold": 3,
+    "fold_rotation_note": "Riftline tuned on fold 0 and read its audit on fold 1. Gapfinder evaluates only on folds 2 and 3, which were never used as Riftline evaluation regions.",
+    "derived_bands": [
+      12,
+      19,
+      2,
+      13
+    ],
+    "scales_px": [
+      1,
+      3,
+      7
+    ],
+    "max_near_samples": 100000,
+    "max_unlabeled_samples": 140000,
+    "model": {
+      "max_iter": 140,
+      "max_leaf_nodes": 31,
+      "learning_rate": 0.08,
+      "min_samples_leaf": 50,
+      "l2_regularization": 5.0,
+      "early_stopping": false
+    },
+    "arms": [
+      {
+        "id": "qfault-target",
+        "positives": [
+          "known"
+        ],
+        "role": "control: supplied labels only (Riftline-like target)"
+      },
+      {
+        "id": "two-catalogue-target",
+        "positives": [
+          "known",
+          "sgmc"
+        ],
+        "role": "new: supplied labels plus independent USGS SGMC fault traces in the TRAINING folds only"
+      },
+      {
+        "id": "sgmc-target",
+        "positives": [
+          "sgmc"
+        ],
+        "role": "new: learns only from faults the supplied catalogue does not contain"
+      }
+    ],
+    "floors": [
+      0.2,
+      0.25,
+      0.3,
+      0.35,
+      0.4
+    ],
+    "halo_px": [
+      0,
+      1,
+      2
+    ],
+    "halo_meaning": "zero emitted pixels with 0 < distance-to-known <= halo; known pixels themselves are always 0 (masked by the scorer)",
+    "tip_extension_px": [
+      0,
+      5
+    ],
+    "tip_meaning": "straight along-strike ray beyond each free end of the supplied fault skeleton, direction from its last 8 skeleton pixels",
+    "emission": "binary oriented-ridge (Hessian NMS) - linear-fractional DTI favours binary emission",
+    "proxies": {
+      "gap": "SGMC fault pixels >= 3.2 px from any known pixel (legacy proxy value 2)",
+      "all": "all SGMC fault pixels not exactly on a known pixel (proxy values 1 or 2, minus known)",
+      "evaluation_mask": "template-valid AND NOT known AND fold interior (competition-faithful: known pixels excluded as the organisers do)",
+      "known": "supplied labels inside the tuning/audit fold interior (the model never trained there); scored with known pixels emit-able and no known mask - a stand-in for 'faults unseen by the model' of the Qfault type; tip-extension rays are NOT counted for this proxy (they are built from the known traces, so counting them would leak)"
+    },
+    "selection": "maximize min(DTI_gap, DTI_all, DTI_known) on the tuning fold among eligible candidates; tie-break lower prediction mass, then arm, floor, halo, tip",
+    "max_emitted_fraction": 0.08,
+    "min_emitted_fraction": 0.0001,
+    "refit": "fraction-consistent sampling: the refit keeps every exact positive and samples near/unlabeled strata at the SAME inclusion fractions used for the holdout model, so the class mixture does not drift (fix for Riftline's refit failure). Accept refit only if its full-grid support passes the gate AND is within a factor 1.5 of the holdout model's full-grid support; otherwise publish the unchanged holdout model.",
+    "portfolio": {
+      "fusion": "selected ML emission OR SGMC-gap traces (p=1)",
+      "ml": "selected ML emission only",
+      "sgmc-gap": "SGMC-gap traces only (pure hypothesis test; no model)"
+    },
+    "portfolio_rationale": "SGMC is also the local proxy, so the value of adding SGMC traces directly CANNOT be measured locally without circularity. It is a leaderboard experiment: fusion minus ml isolates it.",
+    "score_warning": "All local numbers use public catalogues, not hidden expert labels. No leaderboard score is implied.",
+    "amendment": "v1 (configs/gapfinder.json, evidence/gapfinder-v1-experiment.json) selected sgmc-target by min(gap, all) on the tuning fold. A POST-HOC audit diagnostic (evidence/gapfinder-diagnostics.json) showed that arm finds held-out supplied faults poorly (0.108 vs 0.200 for the control), i.e. it is source-specialised. Because the hidden expert faults may be Qfault-like scarps or SGMC-like bedrock faults, v2 adds a third proxy - held-out supplied faults in the TUNING fold - and selects by the minimum over all three. Disclosure: this rule was motivated by v1 audit numbers, so the fold-3 audit is NOT an independent confirmation for v2.",
+    "selection_proxies": [
+      "gap",
+      "all",
+      "known"
+    ]
+  },
+  "config_sha256": "439cc768a7c84d34fe32e88d393c8d4ffcbd5a9e0e55fa73ec05e633219f42bd",
+  "source_sha256": "df4d213fd62beba347098e053f75b6cf10339e38152296581184a42973e09038",
+  "environment": {
+    "python": "3.11.2",
+    "numpy": "2.2.6",
+    "sklearn": "1.7.2",
+    "rasterio": "1.4.3",
+    "compute": "CPU, 2 threads, no GPU"
+  },
+  "inputs": [
+    {
+      "file": "training_features.tif",
+      "bytes": 418912844,
+      "sha256": "4371c82e3b8339b807bdffcf4ef59a225520fe2988d521be208ae33743123bc5",
+      "verification": "matches inherited mirror inventory; not an authenticated official hash"
+    },
+    {
+      "file": "labels.tif",
+      "bytes": 425830,
+      "sha256": "7ba308ccdc4418b31a178f4f1ef21aaa6e152e4028f2f6f64b01f7eb25ae4093",
+      "verification": "matches inherited mirror inventory; not an authenticated official hash"
+    },
+    {
+      "file": "sample_submission.tif",
+      "bytes": 1599597,
+      "sha256": "2176d08e485aa2cd2860ce8df539db4faf4d76163b38a4dd8c30a40454d35cbc",
+      "verification": "matches inherited mirror inventory; not an authenticated official hash"
+    }
+  ],
+  "sgmc_raster_sha256": "7563e187171f7210d70295f958b0b2714c1fa504afa35f9a4688fc99b1e1122a",
+  "catalogue_pixels": {
+    "known": 60988,
+    "sgmc": 82155,
+    "sgmc_gap": 61664,
+    "sgmc_all": 78438
+  },
+  "tips_used": 5701,
+  "partition": {
+    "training_folds": [
+      0,
+      1
+    ],
+    "tuning_fold": 2,
+    "audit_fold": 3,
+    "buffer_px": 48,
+    "train_pixels": 1539140,
+    "tune_pixels": 919579,
+    "audit_pixels": 910975
+  },
+  "arms": [
+    {
+      "arm": {
+        "id": "qfault-target",
+        "positives": [
+          "known"
+        ],
+        "role": "control: supplied labels only (Riftline-like target)"
+      },
+      "best": {
+        "arm": "qfault-target",
+        "floor": 0.25,
+        "halo": 2,
+        "tip": 5,
+        "eligible": true,
+        "emitted_fraction": 0.050744960465604366,
+        "robust_dti": 0.09732415623637791,
+        "tuning": {
+          "gap": {
+            "dti": 0.09732415623637791,
+            "TP_w": 1708.3782435350636,
+            "FP_w": 44887.05327552557,
+            "FN_w": 8584.621756464936,
+            "truth_pixels": 10293,
+            "prediction_pixels": 46664,
+            "prediction_mass": 46664.0,
+            "scored_pixels": 910604,
+            "meaning": "published-catalogue surrogate, not a competition score"
+          },
+          "all": {
+            "dti": 0.11398610934436504,
+            "TP_w": 2202.5461035243743,
+            "FP_w": 44524.12546399236,
+            "FN_w": 10269.453896475625,
+            "truth_pixels": 12472,
+            "prediction_pixels": 46664,
+            "prediction_mass": 46664.0,
+            "scored_pixels": 910604,
+            "meaning": "published-catalogue surrogate, not a competition score"
+          },
+          "known": {
+            "dti": 0.17167243330428772,
+            "TP_w": 2874.1213221286853,
+            "FP_w": 44935.33822217584,
+            "FN_w": 6100.878677871315,
+            "truth_pixels": 8975,
+            "prediction_pixels": 48241,
+            "prediction_mass": 48241.0,
+            "scored_pixels": 919579,
+            "meaning": "published-catalogue surrogate, not a competition score"
+          }
+        }
+      },
+      "clipped": 263290,
+      "seconds": 80.3,
+      "samples": {
+        "exact_positive": 18021,
+        "near_positive": 100000,
+        "unlabeled": 140000,
+        "available_near": 102186,
+        "available_unlabeled": 1418933,
+        "fractions": {
+          "near": 0.9786076370539996,
+          "unlabeled": 0.09866568752717711
+        },
+        "positive_share": 0.4574085055092415,
+        "sample_indices_sha256": "5002ad69a1866fe789f3c2bd9036dfa790c74b3696fdac516fe13dd7a41fa13b"
+      }
+    },
+    {
+      "arm": {
+        "id": "two-catalogue-target",
+        "positives": [
+          "known",
+          "sgmc"
+        ],
+        "role": "new: supplied labels plus independent USGS SGMC fault traces in the TRAINING folds only"
+      },
+      "best": {
+        "arm": "two-catalogue-target",
+        "floor": 0.4,
+        "halo": 2,
+        "tip": 0,
+        "eligible": true,
+        "emitted_fraction": 0.0446117190583952,
+        "robust_dti": 0.17266484761145062,
+        "tuning": {
+          "gap": {
+            "dti": 0.18668991892816755,
+            "TP_w": 3062.0692819904984,
+            "FP_w": 37775.42805862427,
+            "FN_w": 7230.930718009502,
+            "truth_pixels": 10293,
+            "prediction_pixels": 41024,
+            "prediction_mass": 41024.0,
+            "scored_pixels": 910604,
+            "meaning": "published-catalogue surrogate, not a competition score"
+          },
+          "all": {
+            "dti": 0.18676153099135603,
+            "TP_w": 3394.776474698259,
+            "FP_w": 37602.548159867525,
+            "FN_w": 9077.22352530174,
+            "truth_pixels": 12472,
+            "prediction_pixels": 41024,
+            "prediction_mass": 41024.0,
+            "scored_pixels": 910604,
+            "meaning": "published-catalogue surrogate, not a competition score"
+          },
+          "known": {
+            "dti": 0.17266484761145062,
+            "TP_w": 2799.9013253072585,
+            "FP_w": 42379.17655366659,
+            "FN_w": 6175.098674692741,
+            "truth_pixels": 8975,
+            "prediction_pixels": 45573,
+            "prediction_mass": 45573.0,
+            "scored_pixels": 919579,
+            "meaning": "published-catalogue surrogate, not a competition score"
+          }
+        }
+      },
+      "clipped": 134889,
+      "seconds": 76.4,
+      "samples": {
+        "exact_positive": 45138,
+        "near_positive": 100000,
+        "unlabeled": 140000,
+        "available_near": 211571,
+        "available_unlabeled": 1282431,
+        "fractions": {
+          "near": 0.4726545698607087,
+          "unlabeled": 0.10916766672047074
+        },
+        "positive_share": 0.5090096725094516,
+        "sample_indices_sha256": "aac6e7dc3ab38bb579edd82644f47df6a15ed86d1a83a7deffb91000ed6fea52"
+      }
+    },
+    {
+      "arm": {
+        "id": "sgmc-target",
+        "positives": [
+          "sgmc"
+        ],
+        "role": "new: learns only from faults the supplied catalogue does not contain"
+      },
+      "best": {
+        "arm": "sgmc-target",
+        "floor": 0.25,
+        "halo": 2,
+        "tip": 0,
+        "eligible": true,
+        "emitted_fraction": 0.07927975736723,
+        "robust_dti": 0.14190813456309384,
+        "tuning": {
+          "gap": {
+            "dti": 0.2120863942032314,
+            "TP_w": 4808.19227851075,
+            "FP_w": 67374.37477311492,
+            "FN_w": 5484.80772148925,
+            "truth_pixels": 10293,
+            "prediction_pixels": 72904,
+            "prediction_mass": 72904.0,
+            "scored_pixels": 910604,
+            "meaning": "published-catalogue surrogate, not a competition score"
+          },
+          "all": {
+            "dti": 0.21591515439912073,
+            "TP_w": 5279.575750115655,
+            "FP_w": 67092.85022106767,
+            "FN_w": 7192.424249884345,
+            "truth_pixels": 12472,
+            "prediction_pixels": 72904,
+            "prediction_mass": 72904.0,
+            "scored_pixels": 910604,
+            "meaning": "published-catalogue surrogate, not a competition score"
+          },
+          "known": {
+            "dti": 0.14190813456309384,
+            "TP_w": 3224.439653599808,
+            "FP_w": 74485.6667547822,
+            "FN_w": 5750.560346400192,
+            "truth_pixels": 8975,
+            "prediction_pixels": 78233,
+            "prediction_mass": 78233.0,
+            "scored_pixels": 919579,
+            "meaning": "published-catalogue surrogate, not a competition score"
+          }
+        }
+      },
+      "clipped": 520769,
+      "seconds": 74.8,
+      "samples": {
+        "exact_positive": 28350,
+        "near_positive": 100000,
+        "unlabeled": 140000,
+        "available_near": 144019,
+        "available_unlabeled": 1366771,
+        "fractions": {
+          "near": 0.6943528284462467,
+          "unlabeled": 0.1024312046421822
+        },
+        "positive_share": 0.4782932737097075,
+        "sample_indices_sha256": "9dea0531658d8d8c5439b62d3465c466fd7cdb0ee1468c1023ac1ec4dcb11325"
+      }
+    }
+  ],
+  "selected": {
+    "arm": "two-catalogue-target",
+    "floor": 0.4,
+    "halo": 2,
+    "tip": 0,
+    "eligible": true,
+    "emitted_fraction": 0.0446117190583952,
+    "robust_dti": 0.17266484761145062,
+    "tuning": {
+      "gap": {
+        "dti": 0.18668991892816755,
+        "TP_w": 3062.0692819904984,
+        "FP_w": 37775.42805862427,
+        "FN_w": 7230.930718009502,
+        "truth_pixels": 10293,
+        "prediction_pixels": 41024,
+        "prediction_mass": 41024.0,
+        "scored_pixels": 910604,
+        "meaning": "published-catalogue surrogate, not a competition score"
+      },
+      "all": {
+        "dti": 0.18676153099135603,
+        "TP_w": 3394.776474698259,
+        "FP_w": 37602.548159867525,
+        "FN_w": 9077.22352530174,
+        "truth_pixels": 12472,
+        "prediction_pixels": 41024,
+        "prediction_mass": 41024.0,
+        "scored_pixels": 910604,
+        "meaning": "published-catalogue surrogate, not a competition score"
+      },
+      "known": {
+        "dti": 0.17266484761145062,
+        "TP_w": 2799.9013253072585,
+        "FP_w": 42379.17655366659,
+        "FN_w": 6175.098674692741,
+        "truth_pixels": 8975,
+        "prediction_pixels": 45573,
+        "prediction_mass": 45573.0,
+        "scored_pixels": 919579,
+        "meaning": "published-catalogue surrogate, not a competition score"
+      }
+    }
+  },
+  "selection_frozen_sha256": "864980e1edaaee9963e1530db2f09a5e5e652abebbbaba93d65104038abb7f4c",
+  "audit": [
+    {
+      "arm": "qfault-target",
+      "policy": {
+        "floor": 0.25,
+        "halo": 2,
+        "tip": 5
+      },
+      "audit": {
+        "gap": {
+          "dti": 0.08635452296000702,
+          "TP_w": 1359.2277173835469,
+          "FP_w": 45521.20804348588,
+          "FN_w": 6595.772282616454,
+          "truth_pixels": 7955,
+          "prediction_pixels": 47037,
+          "prediction_mass": 47037.0,
+          "scored_pixels": 899347,
+          "meaning": "published-catalogue surrogate, not a competition score"
+        },
+        "all": {
+          "dti": 0.1121747992591333,
+          "TP_w": 2016.280995269325,
+          "FP_w": 45019.99907898903,
+          "FN_w": 8692.719004730676,
+          "truth_pixels": 10709,
+          "prediction_pixels": 47037,
+          "prediction_mass": 47037.0,
+          "scored_pixels": 899347,
+          "meaning": "published-catalogue surrogate, not a competition score"
+        },
+        "known": {
+          "dti": 0.1917062866585775,
+          "TP_w": 3604.8788430034574,
+          "FP_w": 43904.00346130133,
+          "FN_w": 8023.121156996543,
+          "truth_pixels": 11628,
+          "prediction_pixels": 48025,
+          "prediction_mass": 48025.0,
+          "scored_pixels": 910975,
+          "meaning": "published-catalogue surrogate, not a competition score"
+        }
+      }
+    },
+    {
+      "arm": "two-catalogue-target",
+      "policy": {
+        "floor": 0.4,
+        "halo": 2,
+        "tip": 0
+      },
+      "audit": {
+        "gap": {
+          "dti": 0.18208217768729218,
+          "TP_w": 2427.328163332615,
+          "FP_w": 32407.415154904127,
+          "FN_w": 5527.671836667385,
+          "truth_pixels": 7955,
+          "prediction_pixels": 35070,
+          "prediction_mass": 35070.0,
+          "scored_pixels": 899347,
+          "meaning": "published-catalogue surrogate, not a competition score"
+        },
+        "all": {
+          "dti": 0.1756248609721528,
+          "TP_w": 2732.7060905427347,
+          "FP_w": 32230.81714889407,
+          "FN_w": 7976.293909457265,
+          "truth_pixels": 10709,
+          "prediction_pixels": 35070,
+          "prediction_mass": 35070.0,
+          "scored_pixels": 899347,
+          "meaning": "published-catalogue surrogate, not a competition score"
+        },
+        "known": {
+          "dti": 0.14998754083408447,
+          "TP_w": 2562.039831048299,
+          "FP_w": 36334.38198804855,
+          "FN_w": 9065.9601689517,
+          "truth_pixels": 11628,
+          "prediction_pixels": 39143,
+          "prediction_mass": 39143.0,
+          "scored_pixels": 910975,
+          "meaning": "published-catalogue surrogate, not a competition score"
+        }
+      }
+    },
+    {
+      "arm": "sgmc-target",
+      "policy": {
+        "floor": 0.25,
+        "halo": 2,
+        "tip": 0
+      },
+      "audit": {
+        "gap": {
+          "dti": 0.19272905111300034,
+          "TP_w": 3523.0270302875524,
+          "FP_w": 56055.41575565934,
+          "FN_w": 4431.972969712448,
+          "truth_pixels": 7955,
+          "prediction_pixels": 60214,
+          "prediction_mass": 60214.0,
+          "scored_pixels": 899347,
+          "meaning": "published-catalogue surrogate, not a competition score"
+        },
+        "all": {
+          "dti": 0.19214869108596314,
+          "TP_w": 3941.514660727469,
+          "FP_w": 55786.66723486781,
+          "FN_w": 6767.485339272531,
+          "truth_pixels": 10709,
+          "prediction_pixels": 60214,
+          "prediction_mass": 60214.0,
+          "scored_pixels": 899347,
+          "meaning": "published-catalogue surrogate, not a competition score"
+        },
+        "known": {
+          "dti": 0.15880693970200174,
+          "TP_w": 3559.6685551064375,
+          "FP_w": 62003.67782995105,
+          "FN_w": 8068.331444893563,
+          "truth_pixels": 11628,
+          "prediction_pixels": 66092,
+          "prediction_mass": 66092.0,
+          "scored_pixels": 910975,
+          "meaning": "published-catalogue surrogate, not a competition score"
+        }
+      }
+    }
+  ],
+  "audit_bootstrap": {
+    "two-catalogue-target vs qfault-target": {
+      "gap": {
+        "blocks": 7,
+        "observed_difference": 0.09572765472728516,
+        "ci95": [
+          0.053081117719358764,
+          0.12945781358522704
+        ],
+        "p_a_better": 1.0,
+        "draws": 2000
+      },
+      "all": {
+        "blocks": 7,
+        "observed_difference": 0.06345006171301946,
+        "ci95": [
+          0.01858994251830184,
+          0.09601721351320983
+        ],
+        "p_a_better": 0.9995,
+        "draws": 2000
+      }
+    },
+    "sgmc-target vs qfault-target": {
+      "gap": {
+        "blocks": 7,
+        "observed_difference": 0.10637452815299335,
+        "ci95": [
+          0.06456082049363968,
+          0.12840723815514504
+        ],
+        "p_a_better": 1.0,
+        "draws": 2000
+      },
+      "all": {
+        "blocks": 7,
+        "observed_difference": 0.07997389182682986,
+        "ci95": [
+          0.04082531654714061,
+          0.10007698051721194
+        ],
+        "p_a_better": 1.0,
+        "draws": 2000
+      }
+    }
+  },
+  "references": {
+    "riftline-published": {
+      "file": "riftline-context-distance-20260925T011817Z-7b6010637a.tif",
+      "sha256": "7b6010637ae341b56f7d211eaf892b239822b0668d3f5556af0eecb505a228d3",
+      "tune": {
+        "gap": {
+          "dti": 0.12337657356186184,
+          "TP_w": 2348.311805494174,
+          "FP_w": 51648.15242099762,
+          "FN_w": 7944.688194505826,
+          "truth_pixels": 10293,
+          "prediction_pixels": 54156,
+          "prediction_mass": 54156.0,
+          "scored_pixels": 910604,
+          "meaning": "published-catalogue surrogate, not a competition score"
+        },
+        "all": {
+          "dti": 0.1740166993784759,
+          "TP_w": 3617.337436565244,
+          "FP_w": 50431.165481477976,
+          "FN_w": 8854.662563434757,
+          "truth_pixels": 12472,
+          "prediction_pixels": 54156,
+          "prediction_mass": 54156.0,
+          "scored_pixels": 910604,
+          "meaning": "published-catalogue surrogate, not a competition score"
+        },
+        "known": {
+          "dti": 0.33273941014512376,
+          "TP_w": 6075.1836706131735,
+          "FP_w": 49315.22986847162,
+          "FN_w": 2899.8163293868265,
+          "truth_pixels": 8975,
+          "prediction_pixels": 57095,
+          "prediction_mass": 57095.0,
+          "scored_pixels": 919579,
+          "meaning": "published-catalogue surrogate, not a competition score"
+        }
+      },
+      "audit": {
+        "gap": {
+          "dti": 0.0918875129022958,
+          "TP_w": 1833.7104244782818,
+          "FP_w": 66126.46462601423,
+          "FN_w": 6121.289575521718,
+          "truth_pixels": 7955,
+          "prediction_pixels": 68229,
+          "prediction_mass": 68229.0,
+          "scored_pixels": 899347,
+          "meaning": "published-catalogue surrogate, not a competition score"
+        },
+        "all": {
+          "dti": 0.15551225394285056,
+          "TP_w": 3447.5442571866606,
+          "FP_w": 64561.2338796556,
+          "FN_w": 7261.455742813339,
+          "truth_pixels": 10709,
+          "prediction_pixels": 68229,
+          "prediction_mass": 68229.0,
+          "scored_pixels": 899347,
+          "meaning": "published-catalogue surrogate, not a competition score"
+        },
+        "known": {
+          "dti": 0.32820408163712056,
+          "TP_w": 7626.089299168207,
+          "FP_w": 62040.98533475399,
+          "FN_w": 4001.9107008317933,
+          "truth_pixels": 11628,
+          "prediction_pixels": 71712,
+          "prediction_mass": 71712.0,
+          "scored_pixels": 910975,
+          "meaning": "published-catalogue surrogate, not a competition score"
+        }
+      },
+      "caveat": "Riftline was trained on folds 2-3, so these folds are IN-SAMPLE for it"
+    },
+    "legacy-ens12": {
+      "file": "submission.tif",
+      "sha256": "7f00890a62878d612fb5eef67a9a364a2df819433dde74b6762ce4fc0fc4fe15",
+      "tune": {
+        "gap": {
+          "dti": 0.1089767254014848,
+          "TP_w": 1625.6574185389995,
+          "FP_w": 31789.710321635008,
+          "FN_w": 8667.342581461,
+          "truth_pixels": 10293,
+          "prediction_pixels": 33461,
+          "prediction_mass": 33461.0,
+          "scored_pixels": 910604,
+          "meaning": "published-catalogue surrogate, not a competition score"
+        },
+        "all": {
+          "dti": 0.14827094732685073,
+          "TP_w": 2473.812553971978,
+          "FP_w": 31060.21308749914,
+          "FN_w": 9998.187446028021,
+          "truth_pixels": 12472,
+          "prediction_pixels": 33461,
+          "prediction_mass": 33461.0,
+          "scored_pixels": 910604,
+          "meaning": "published-catalogue surrogate, not a competition score"
+        },
+        "known": {
+          "dti": 0.19889976920877295,
+          "TP_w": 2789.251291731949,
+          "FP_w": 31427.755450099707,
+          "FN_w": 6185.748708268051,
+          "truth_pixels": 8975,
+          "prediction_pixels": 34380,
+          "prediction_mass": 34380.0,
+          "scored_pixels": 919579,
+          "meaning": "published-catalogue surrogate, not a competition score"
+        }
+      },
+      "audit": {
+        "gap": {
+          "dti": 0.09249272272044105,
+          "TP_w": 1245.3021317951534,
+          "FP_w": 34253.62281486392,
+          "FN_w": 6709.697868204847,
+          "truth_pixels": 7955,
+          "prediction_pixels": 35555,
+          "prediction_mass": 35555.0,
+          "scored_pixels": 899347,
+          "meaning": "published-catalogue surrogate, not a competition score"
+        },
+        "all": {
+          "dti": 0.14214958928820023,
+          "TP_w": 2230.689995404729,
+          "FP_w": 33396.07611459494,
+          "FN_w": 8478.31000459527,
+          "truth_pixels": 10709,
+          "prediction_pixels": 35555,
+          "prediction_mass": 35555.0,
+          "scored_pixels": 899347,
+          "meaning": "published-catalogue surrogate, not a competition score"
+        },
+        "known": {
+          "dti": 0.22612974836206204,
+          "TP_w": 3758.487735148712,
+          "FP_w": 32834.18474492431,
+          "FN_w": 7869.512264851288,
+          "truth_pixels": 11628,
+          "prediction_pixels": 36795,
+          "prediction_mass": 36795.0,
+          "scored_pixels": 910975,
+          "meaning": "published-catalogue surrogate, not a competition score"
+        }
+      },
+      "caveat": "Legacy training regions unknown here; likely the artifact behind extradr19's 0.1563, unproven"
+    }
+  },
+  "deployment": {
+    "refit_support": 0.03455295413732529,
+    "holdout_support": 0.03953556343913078,
+    "refit_accepted": true,
+    "model_role": "all-fold refit (fraction-consistent sampling)",
+    "model_file": "refit-model.joblib",
+    "model_sha256": "06f752b56f92dd842f0f61552e26e258ab46345c96ecd4dbf6c1a1bcd9d6eca4",
+    "refit_samples": {
+      "exact_positive": 139426,
+      "near_positive": 312381,
+      "unlabeled": 476740,
+      "available_near": 660907,
+      "available_unlabeled": 4367040,
+      "fractions": {
+        "near": 0.47265500289753326,
+        "unlabeled": 0.10916776580933539
+      },
+      "positive_share": 0.48657418525933527,
+      "sample_indices_sha256": "79970c74ddfa5d8655b8ff7ee19209df8d8fb1f27a424f82d0cc56b36285c7f9"
+    },
+    "refit_clipped": 123535
+  },
+  "portfolio": [
+    {
+      "variant": "fusion",
+      "file": "gapfinder-v2-fusion-20260925T045011Z-682a7bbbfe.tif",
+      "zip": "gapfinder-v2-fusion-20260925T045011Z-682a7bbbfe.zip",
+      "sha256": "682a7bbbfe55e1ed3a3cc2d8a7fa0c5cff36d97954f55c5a655d42824e60f1f3",
+      "bytes": 760006,
+      "note": "Gapfinder v2 fusion | two-catalogue HGB ridge f=0.4 h=2 L=0 + SGMC-gap traces | 682a7bbbfe",
+      "validation": {
+        "schema_version": 1,
+        "checked_at": "2026-09-25T04:50:12Z",
+        "passed": true,
+        "meaning": "Local documented-format validation only; no platform acceptance or score implied.",
+        "file": "gapfinder-v2-fusion-20260925T045011Z-682a7bbbfe.tif",
+        "sha256": "682a7bbbfe55e1ed3a3cc2d8a7fa0c5cff36d97954f55c5a655d42824e60f1f3",
+        "bytes": 760006,
+        "template_sha256": "2176d08e485aa2cd2860ce8df539db4faf4d76163b38a4dd8c30a40454d35cbc",
+        "grid": {
+          "width": 3292,
+          "height": 3730,
+          "crs": "EPSG:32611",
+          "transform": [
+            100.0,
+            0.0,
+            243350.0,
+            0.0,
+            -100.0,
+            4508550.0
+          ],
+          "dtype": "float32",
+          "bands": 1,
+          "resolution_m": [
+            100.0,
+            100.0
+          ]
+        },
+        "checks": [
+          {
+            "check": "GeoTIFF driver",
+            "passed": true,
+            "detail": "GTiff"
+          },
+          {
+            "check": "one band",
+            "passed": true,
+            "detail": 1
+          },
+          {
+            "check": "float32",
+            "passed": true,
+            "detail": [
+              "float32"
+            ]
+          },
+          {
+            "check": "template shape",
+            "passed": true,
+            "detail": [
+              [
+                3730,
+                3292
+              ],
+              [
+                3730,
+                3292
+              ]
+            ]
+          },
+          {
+            "check": "template CRS / EPSG:32611",
+            "passed": true,
+            "detail": "EPSG:32611"
+          },
+          {
+            "check": "exact affine transform",
+            "passed": true,
+            "detail": [
+              100.0,
+              0.0,
+              243350.0,
+              0.0,
+              -100.0,
+              4508550.0
+            ]
+          },
+          {
+            "check": "NaN nodata",
+            "passed": true,
+            "detail": "nan"
+          },
+          {
+            "check": "pixel-is-area",
+            "passed": true,
+            "detail": "Area"
+          },
+          {
+            "check": "finite inside template mask",
+            "passed": true,
+            "detail": 0
+          },
+          {
+            "check": "inside values in [0,1]",
+            "passed": true,
+            "detail": 0
+          },
+          {
+            "check": "NaN outside template mask",
+            "passed": true,
+            "detail": 0
+          },
+          {
+            "check": "no hidden mask disagreement",
+            "passed": true,
+            "detail": 0
+          },
+          {
+            "check": "valid reference",
+            "passed": true,
+            "detail": "2176d08e485aa2cd2860ce8df539db4faf4d76163b38a4dd8c30a40454d35cbc"
+          }
+        ],
+        "counts": {
+          "valid_pixels": 5167373,
+          "outside_pixels": 7111787,
+          "invalid_inside": 0,
+          "out_of_range": 0,
+          "non_nan_outside": 0,
+          "mask_mismatches": 0,
+          "nonzero_pixels": 229468
+        },
+        "min": 0.0,
+        "max": 1.0
+      },
+      "emitted_pixels": 229468,
+      "emitted_fraction": 0.04440709041131732,
+      "on_known_pixels": 0,
+      "different_pixels": {
+        "vs_legacy_ens12": 363032,
+        "vs_riftline": 492504
+      }
+    },
+    {
+      "variant": "ml",
+      "file": "gapfinder-v2-ml-20260925T045012Z-73e97f79f6.tif",
+      "zip": "gapfinder-v2-ml-20260925T045012Z-73e97f79f6.zip",
+      "sha256": "73e97f79f635ebf8932b74357db271d0b71c9263b67e5a45fd4c267dc3e11825",
+      "bytes": 687572,
+      "note": "Gapfinder v2 ML-only | two-catalogue HGB ridge f=0.4 h=2 L=0 | no SGMC traces | 73e97f79f6",
+      "validation": {
+        "schema_version": 1,
+        "checked_at": "2026-09-25T04:50:14Z",
+        "passed": true,
+        "meaning": "Local documented-format validation only; no platform acceptance or score implied.",
+        "file": "gapfinder-v2-ml-20260925T045012Z-73e97f79f6.tif",
+        "sha256": "73e97f79f635ebf8932b74357db271d0b71c9263b67e5a45fd4c267dc3e11825",
+        "bytes": 687572,
+        "template_sha256": "2176d08e485aa2cd2860ce8df539db4faf4d76163b38a4dd8c30a40454d35cbc",
+        "grid": {
+          "width": 3292,
+          "height": 3730,
+          "crs": "EPSG:32611",
+          "transform": [
+            100.0,
+            0.0,
+            243350.0,
+            0.0,
+            -100.0,
+            4508550.0
+          ],
+          "dtype": "float32",
+          "bands": 1,
+          "resolution_m": [
+            100.0,
+            100.0
+          ]
+        },
+        "checks": [
+          {
+            "check": "GeoTIFF driver",
+            "passed": true,
+            "detail": "GTiff"
+          },
+          {
+            "check": "one band",
+            "passed": true,
+            "detail": 1
+          },
+          {
+            "check": "float32",
+            "passed": true,
+            "detail": [
+              "float32"
+            ]
+          },
+          {
+            "check": "template shape",
+            "passed": true,
+            "detail": [
+              [
+                3730,
+                3292
+              ],
+              [
+                3730,
+                3292
+              ]
+            ]
+          },
+          {
+            "check": "template CRS / EPSG:32611",
+            "passed": true,
+            "detail": "EPSG:32611"
+          },
+          {
+            "check": "exact affine transform",
+            "passed": true,
+            "detail": [
+              100.0,
+              0.0,
+              243350.0,
+              0.0,
+              -100.0,
+              4508550.0
+            ]
+          },
+          {
+            "check": "NaN nodata",
+            "passed": true,
+            "detail": "nan"
+          },
+          {
+            "check": "pixel-is-area",
+            "passed": true,
+            "detail": "Area"
+          },
+          {
+            "check": "finite inside template mask",
+            "passed": true,
+            "detail": 0
+          },
+          {
+            "check": "inside values in [0,1]",
+            "passed": true,
+            "detail": 0
+          },
+          {
+            "check": "NaN outside template mask",
+            "passed": true,
+            "detail": 0
+          },
+          {
+            "check": "no hidden mask disagreement",
+            "passed": true,
+            "detail": 0
+          },
+          {
+            "check": "valid reference",
+            "passed": true,
+            "detail": "2176d08e485aa2cd2860ce8df539db4faf4d76163b38a4dd8c30a40454d35cbc"
+          }
+        ],
+        "counts": {
+          "valid_pixels": 5167373,
+          "outside_pixels": 7111787,
+          "invalid_inside": 0,
+          "out_of_range": 0,
+          "non_nan_outside": 0,
+          "mask_mismatches": 0,
+          "nonzero_pixels": 178548
+        },
+        "min": 0.0,
+        "max": 1.0
+      },
+      "emitted_pixels": 178548,
+      "emitted_fraction": 0.03455295369620114,
+      "on_known_pixels": 0,
+      "different_pixels": {
+        "vs_legacy_ens12": 315644,
+        "vs_riftline": 448460
+      }
+    },
+    {
+      "variant": "sgmc-gap",
+      "file": "gapfinder-v2-sgmc-gap-20260925T045014Z-7251c22bb4.tif",
+      "zip": "gapfinder-v2-sgmc-gap-20260925T045014Z-7251c22bb4.zip",
+      "sha256": "7251c22bb489198ae4709611c29cef3ac799d8942c2f1779086d5b59ae0e3097",
+      "bytes": 426346,
+      "note": "Gapfinder v2 SGMC-gap only | USGS SGMC faults >300m from labels | no model | 7251c22bb4",
+      "validation": {
+        "schema_version": 1,
+        "checked_at": "2026-09-25T04:50:15Z",
+        "passed": true,
+        "meaning": "Local documented-format validation only; no platform acceptance or score implied.",
+        "file": "gapfinder-v2-sgmc-gap-20260925T045014Z-7251c22bb4.tif",
+        "sha256": "7251c22bb489198ae4709611c29cef3ac799d8942c2f1779086d5b59ae0e3097",
+        "bytes": 426346,
+        "template_sha256": "2176d08e485aa2cd2860ce8df539db4faf4d76163b38a4dd8c30a40454d35cbc",
+        "grid": {
+          "width": 3292,
+          "height": 3730,
+          "crs": "EPSG:32611",
+          "transform": [
+            100.0,
+            0.0,
+            243350.0,
+            0.0,
+            -100.0,
+            4508550.0
+          ],
+          "dtype": "float32",
+          "bands": 1,
+          "resolution_m": [
+            100.0,
+            100.0
+          ]
+        },
+        "checks": [
+          {
+            "check": "GeoTIFF driver",
+            "passed": true,
+            "detail": "GTiff"
+          },
+          {
+            "check": "one band",
+            "passed": true,
+            "detail": 1
+          },
+          {
+            "check": "float32",
+            "passed": true,
+            "detail": [
+              "float32"
+            ]
+          },
+          {
+            "check": "template shape",
+            "passed": true,
+            "detail": [
+              [
+                3730,
+                3292
+              ],
+              [
+                3730,
+                3292
+              ]
+            ]
+          },
+          {
+            "check": "template CRS / EPSG:32611",
+            "passed": true,
+            "detail": "EPSG:32611"
+          },
+          {
+            "check": "exact affine transform",
+            "passed": true,
+            "detail": [
+              100.0,
+              0.0,
+              243350.0,
+              0.0,
+              -100.0,
+              4508550.0
+            ]
+          },
+          {
+            "check": "NaN nodata",
+            "passed": true,
+            "detail": "nan"
+          },
+          {
+            "check": "pixel-is-area",
+            "passed": true,
+            "detail": "Area"
+          },
+          {
+            "check": "finite inside template mask",
+            "passed": true,
+            "detail": 0
+          },
+          {
+            "check": "inside values in [0,1]",
+            "passed": true,
+            "detail": 0
+          },
+          {
+            "check": "NaN outside template mask",
+            "passed": true,
+            "detail": 0
+          },
+          {
+            "check": "no hidden mask disagreement",
+            "passed": true,
+            "detail": 0
+          },
+          {
+            "check": "valid reference",
+            "passed": true,
+            "detail": "2176d08e485aa2cd2860ce8df539db4faf4d76163b38a4dd8c30a40454d35cbc"
+          }
+        ],
+        "counts": {
+          "valid_pixels": 5167373,
+          "outside_pixels": 7111787,
+          "invalid_inside": 0,
+          "out_of_range": 0,
+          "non_nan_outside": 0,
+          "mask_mismatches": 0,
+          "nonzero_pixels": 61664
+        },
+        "min": 0.0,
+        "max": 1.0
+      },
+      "emitted_pixels": 61664,
+      "emitted_fraction": 0.011933336339373992,
+      "on_known_pixels": 0,
+      "different_pixels": {
+        "vs_legacy_ens12": 229662,
+        "vs_riftline": 403840
+      }
+    }
+  ],
+  "limitations": [
+    "Local truth is the public SGMC fault layer (~1:1,000,000 compilation), not the hidden expert labels.",
+    "SGMC-direct traces cannot be scored locally without circularity; fusion vs ml is a leaderboard experiment.",
+    "One rotated split (tune fold 2, audit fold 3); block bootstrap measures spatial sampling noise only.",
+    "Tip extensions are geometric hypotheses; truncation self-tests do not prove real continuations.",
+    "No 1 m DEM, no GPU, no hidden labels, no authenticated upload."
+  ],
+  "candidates": [
+    {
+      "arm": "qfault-target",
+      "floor": 0.2,
+      "halo": 0,
+      "tip": 0,
+      "eligible": false,
+      "emitted_fraction": 0.09172023284568265,
+      "robust_dti": 0.10977728619094876,
+      "gap_dti": 0.10977728619094876,
+      "all_dti": 0.14052801290041017,
+      "known_dti": 0.16472414538523295
+    },
+    {
+      "arm": "qfault-target",
+      "floor": 0.2,
+      "halo": 0,
+      "tip": 5,
+      "eligible": false,
+      "emitted_fraction": 0.09469659485481943,
+      "robust_dti": 0.1099327868841009,
+      "gap_dti": 0.1099327868841009,
+      "all_dti": 0.14524001114457444,
+      "known_dti": 0.16472414538523295
+    },
+    {
+      "arm": "qfault-target",
+      "floor": 0.2,
+      "halo": 1,
+      "tip": 0,
+      "eligible": false,
+      "emitted_fraction": 0.08862533833417248,
+      "robust_dti": 0.11228293818419553,
+      "gap_dti": 0.11228293818419553,
+      "all_dti": 0.1293599310682626,
+      "known_dti": 0.16472414538523295
+    },
+    {
+      "arm": "qfault-target",
+      "floor": 0.2,
+      "halo": 1,
+      "tip": 5,
+      "eligible": false,
+      "emitted_fraction": 0.09174524429113758,
+      "robust_dti": 0.11227027257826143,
+      "gap_dti": 0.11227027257826143,
+      "all_dti": 0.13582145643354743,
+      "known_dti": 0.16472414538523295
+    },
+    {
+      "arm": "qfault-target",
+      "floor": 0.2,
+      "halo": 2,
+      "tip": 0,
+      "eligible": false,
+      "emitted_fraction": 0.08608939525587253,
+      "robust_dti": 0.11414001605420188,
+      "gap_dti": 0.11414001605420188,
+      "all_dti": 0.11993726924200517,
+      "known_dti": 0.16472414538523295
+    },
+    {
+      "arm": "qfault-target",
+      "floor": 0.2,
+      "halo": 2,
+      "tip": 5,
+      "eligible": false,
+      "emitted_fraction": 0.08928868536580327,
+      "robust_dti": 0.1140805921069806,
+      "gap_dti": 0.1140805921069806,
+      "all_dti": 0.12800940968490748,
+      "known_dti": 0.16472414538523295
+    },
+    {
+      "arm": "qfault-target",
+      "floor": 0.25,
+      "halo": 0,
+      "tip": 0,
+      "eligible": true,
+      "emitted_fraction": 0.05119081666719227,
+      "robust_dti": 0.09282111987508528,
+      "gap_dti": 0.09282111987508528,
+      "all_dti": 0.1268237185154247,
+      "known_dti": 0.17167243330428772
+    },
+    {
+      "arm": "qfault-target",
+      "floor": 0.25,
+      "halo": 0,
+      "tip": 5,
+      "eligible": true,
+      "emitted_fraction": 0.05433790897791272,
+      "robust_dti": 0.09417845150420685,
+      "gap_dti": 0.09417845150420685,
+      "all_dti": 0.13590666794065306,
+      "known_dti": 0.17167243330428772
+    },
+    {
+      "arm": "qfault-target",
+      "floor": 0.25,
+      "halo": 1,
+      "tip": 0,
+      "eligible": true,
+      "emitted_fraction": 0.04906810616597378,
+      "robust_dti": 0.0948677956619135,
+      "gap_dti": 0.0948677956619135,
+      "all_dti": 0.1118038332788969,
+      "known_dti": 0.17167243330428772
+    },
+    {
+      "arm": "qfault-target",
+      "floor": 0.25,
+      "halo": 1,
+      "tip": 5,
+      "eligible": true,
+      "emitted_fraction": 0.05231959407511481,
+      "robust_dti": 0.09608940097345589,
+      "gap_dti": 0.09608940097345589,
+      "all_dti": 0.1232503208242291,
+      "known_dti": 0.17167243330428772
+    },
+    {
+      "arm": "qfault-target",
+      "floor": 0.25,
+      "halo": 2,
+      "tip": 0,
+      "eligible": true,
+      "emitted_fraction": 0.047449974390454765,
+      "robust_dti": 0.09610043478921389,
+      "gap_dti": 0.09610043478921389,
+      "all_dti": 0.100520015233351,
+      "known_dti": 0.17167243330428772
+    },
+    {
+      "arm": "qfault-target",
+      "floor": 0.25,
+      "halo": 2,
+      "tip": 5,
+      "eligible": true,
+      "emitted_fraction": 0.050744960465604366,
+      "robust_dti": 0.09732415623637791,
+      "gap_dti": 0.09732415623637791,
+      "all_dti": 0.11398610934436504,
+      "known_dti": 0.17167243330428772
+    },
+    {
+      "arm": "qfault-target",
+      "floor": 0.3,
+      "halo": 0,
+      "tip": 0,
+      "eligible": true,
+      "emitted_fraction": 0.02276150281813743,
+      "robust_dti": 0.06156966407539654,
+      "gap_dti": 0.06156966407539654,
+      "all_dti": 0.09746012416351406,
+      "known_dti": 0.16542990104545896
+    },
+    {
+      "arm": "qfault-target",
+      "floor": 0.3,
+      "halo": 0,
+      "tip": 5,
+      "eligible": true,
+      "emitted_fraction": 0.026039089626883605,
+      "robust_dti": 0.06608352647708489,
+      "gap_dti": 0.06608352647708489,
+      "all_dti": 0.11413683821386511,
+      "known_dti": 0.16542990104545896
+    },
+    {
+      "arm": "qfault-target",
+      "floor": 0.3,
+      "halo": 1,
+      "tip": 0,
+      "eligible": true,
+      "emitted_fraction": 0.02139022313471708,
+      "robust_dti": 0.06277459856026503,
+      "gap_dti": 0.06277459856026503,
+      "all_dti": 0.07925810405799975,
+      "known_dti": 0.16542990104545896
+    },
+    {
+      "arm": "qfault-target",
+      "floor": 0.3,
+      "halo": 1,
+      "tip": 5,
+      "eligible": true,
+      "emitted_fraction": 0.02472218265097398,
+      "robust_dti": 0.06729725658844064,
+      "gap_dti": 0.06729725658844064,
+      "all_dti": 0.09892880061153188,
+      "known_dti": 0.16542990104545896
+    },
+    {
+      "arm": "qfault-target",
+      "floor": 0.3,
+      "halo": 2,
+      "tip": 0,
+      "eligible": true,
+      "emitted_fraction": 0.020445225478180777,
+      "robust_dti": 0.06313973421100115,
+      "gap_dti": 0.06313973421100115,
+      "all_dti": 0.06653291337503353,
+      "known_dti": 0.16542990104545896
+    },
+    {
+      "arm": "qfault-target",
+      "floor": 0.3,
+      "halo": 2,
+      "tip": 5,
+      "eligible": true,
+      "emitted_fraction": 0.023805458802343245,
+      "robust_dti": 0.06776612261364523,
+      "gap_dti": 0.06776612261364523,
+      "all_dti": 0.08871019996370955,
+      "known_dti": 0.16542990104545896
+    },
+    {
+      "arm": "qfault-target",
+      "floor": 0.35,
+      "halo": 0,
+      "tip": 0,
+      "eligible": true,
+      "emitted_fraction": 0.008308149707637952,
+      "robust_dti": 0.03233815318132497,
+      "gap_dti": 0.03233815318132497,
+      "all_dti": 0.07095286294635318,
+      "known_dti": 0.14121263465824468
+    },
+    {
+      "arm": "qfault-target",
+      "floor": 0.35,
+      "halo": 0,
+      "tip": 5,
+      "eligible": true,
+      "emitted_fraction": 0.01163793431559442,
+      "robust_dti": 0.04090114255363364,
+      "gap_dti": 0.04090114255363364,
+      "all_dti": 0.09529378498592084,
+      "known_dti": 0.14121263465824468
+    },
+    {
+      "arm": "qfault-target",
+      "floor": 0.35,
+      "halo": 1,
+      "tip": 0,
+      "eligible": true,
+      "emitted_fraction": 0.007389250950706791,
+      "robust_dti": 0.03285439707976279,
+      "gap_dti": 0.03285439707976279,
+      "all_dti": 0.05008488177212936,
+      "known_dti": 0.14121263465824468
+    },
+    {
+      "arm": "qfault-target",
+      "floor": 0.35,
+      "halo": 1,
+      "tip": 5,
+      "eligible": true,
+      "emitted_fraction": 0.010758183908070975,
+      "robust_dti": 0.041504321003916114,
+      "gap_dti": 0.041504321003916114,
+      "all_dti": 0.07797520802902819,
+      "known_dti": 0.14121263465824468
+    },
+    {
+      "arm": "qfault-target",
+      "floor": 0.35,
+      "halo": 2,
+      "tip": 0,
+      "eligible": true,
+      "emitted_fraction": 0.006806375526191877,
+      "robust_dti": 0.032603649883747074,
+      "gap_dti": 0.032603649883747074,
+      "all_dti": 0.03601890957603137,
+      "known_dti": 0.14121263465824468
+    },
+    {
+      "arm": "qfault-target",
+      "floor": 0.35,
+      "halo": 2,
+      "tip": 5,
+      "eligible": true,
+      "emitted_fraction": 0.010194882658259921,
+      "robust_dti": 0.04144793817215628,
+      "gap_dti": 0.04144793817215628,
+      "all_dti": 0.06673399695519064,
+      "known_dti": 0.14121263465824468
+    },
+    {
+      "arm": "qfault-target",
+      "floor": 0.4,
+      "halo": 0,
+      "tip": 0,
+      "eligible": true,
+      "emitted_fraction": 0.0032873738960981056,
+      "robust_dti": 0.019201704065804452,
+      "gap_dti": 0.019201704065804452,
+      "all_dti": 0.056181941338098666,
+      "known_dti": 0.11079031750631263
+    },
+    {
+      "arm": "qfault-target",
+      "floor": 0.4,
+      "halo": 0,
+      "tip": 5,
+      "eligible": true,
+      "emitted_fraction": 0.006654131945161862,
+      "robust_dti": 0.02982862054650136,
+      "gap_dti": 0.02982862054650136,
+      "all_dti": 0.08540702282520038,
+      "known_dti": 0.11079031750631263
+    },
+    {
+      "arm": "qfault-target",
+      "floor": 0.4,
+      "halo": 1,
+      "tip": 0,
+      "eligible": true,
+      "emitted_fraction": 0.002641426130870757,
+      "robust_dti": 0.01939979016578501,
+      "gap_dti": 0.01939979016578501,
+      "all_dti": 0.035380812376393955,
+      "known_dti": 0.11079031750631263
+    },
+    {
+      "arm": "qfault-target",
+      "floor": 0.4,
+      "halo": 1,
+      "tip": 5,
+      "eligible": true,
+      "emitted_fraction": 0.0060353705336898735,
+      "robust_dti": 0.03013218913021988,
+      "gap_dti": 0.03013218913021988,
+      "all_dti": 0.06799086741621868,
+      "known_dti": 0.11079031750631263
+    },
+    {
+      "arm": "qfault-target",
+      "floor": 0.4,
+      "halo": 2,
+      "tip": 0,
+      "eligible": true,
+      "emitted_fraction": 0.0022597297241455055,
+      "robust_dti": 0.018903501852792916,
+      "gap_dti": 0.018903501852792916,
+      "all_dti": 0.022447053339280435,
+      "known_dti": 0.11079031750631263
+    },
+    {
+      "arm": "qfault-target",
+      "floor": 0.4,
+      "halo": 2,
+      "tip": 5,
+      "eligible": true,
+      "emitted_fraction": 0.005666723576767194,
+      "robust_dti": 0.02982485896741376,
+      "gap_dti": 0.02982485896741376,
+      "all_dti": 0.05726844623444566,
+      "known_dti": 0.11079031750631263
+    },
+    {
+      "arm": "two-catalogue-target",
+      "floor": 0.2,
+      "halo": 0,
+      "tip": 0,
+      "eligible": false,
+      "emitted_fraction": 0.14197692639784076,
+      "robust_dti": 0.1439685768938777,
+      "gap_dti": 0.1736049145662421,
+      "all_dti": 0.1996479765191296,
+      "known_dti": 0.1439685768938777
+    },
+    {
+      "arm": "two-catalogue-target",
+      "floor": 0.2,
+      "halo": 0,
+      "tip": 5,
+      "eligible": false,
+      "emitted_fraction": 0.1447912577385956,
+      "robust_dti": 0.1439685768938777,
+      "gap_dti": 0.17212125619795027,
+      "all_dti": 0.20007193936211,
+      "known_dti": 0.1439685768938777
+    },
+    {
+      "arm": "two-catalogue-target",
+      "floor": 0.2,
+      "halo": 1,
+      "tip": 0,
+      "eligible": false,
+      "emitted_fraction": 0.13807622836102174,
+      "robust_dti": 0.1439685768938777,
+      "gap_dti": 0.1773097804518659,
+      "all_dti": 0.19351784872256472,
+      "known_dti": 0.1439685768938777
+    },
+    {
+      "arm": "two-catalogue-target",
+      "floor": 0.2,
+      "halo": 1,
+      "tip": 5,
+      "eligible": false,
+      "emitted_fraction": 0.14106998963656195,
+      "robust_dti": 0.1439685768938777,
+      "gap_dti": 0.1755705713021179,
+      "all_dti": 0.1950026686849734,
+      "known_dti": 0.1439685768938777
+    },
+    {
+      "arm": "two-catalogue-target",
+      "floor": 0.2,
+      "halo": 2,
+      "tip": 0,
+      "eligible": false,
+      "emitted_fraction": 0.13479864155227556,
+      "robust_dti": 0.1439685768938777,
+      "gap_dti": 0.18044469165015148,
+      "all_dti": 0.18663631402278255,
+      "known_dti": 0.1439685768938777
+    },
+    {
+      "arm": "two-catalogue-target",
+      "floor": 0.2,
+      "halo": 2,
+      "tip": 5,
+      "eligible": false,
+      "emitted_fraction": 0.13789679842623637,
+      "robust_dti": 0.1439685768938777,
+      "gap_dti": 0.1785542877488085,
+      "all_dti": 0.18981766531947172,
+      "known_dti": 0.1439685768938777
+    },
+    {
+      "arm": "two-catalogue-target",
+      "floor": 0.25,
+      "halo": 0,
+      "tip": 0,
+      "eligible": false,
+      "emitted_fraction": 0.1267406062991869,
+      "robust_dti": 0.150358650747413,
+      "gap_dti": 0.18129569472747448,
+      "all_dti": 0.2085456866209251,
+      "known_dti": 0.150358650747413
+    },
+    {
+      "arm": "two-catalogue-target",
+      "floor": 0.25,
+      "halo": 0,
+      "tip": 5,
+      "eligible": false,
+      "emitted_fraction": 0.12960169816840098,
+      "robust_dti": 0.150358650747413,
+      "gap_dti": 0.17956044386884068,
+      "all_dti": 0.20900310136938788,
+      "known_dti": 0.150358650747413
+    },
+    {
+      "arm": "two-catalogue-target",
+      "floor": 0.25,
+      "halo": 1,
+      "tip": 0,
+      "eligible": false,
+      "emitted_fraction": 0.12304543709675841,
+      "robust_dti": 0.150358650747413,
+      "gap_dti": 0.18529684667713217,
+      "all_dti": 0.20202286245477696,
+      "known_dti": 0.150358650747413
+    },
+    {
+      "arm": "two-catalogue-target",
+      "floor": 0.25,
+      "halo": 1,
+      "tip": 5,
+      "eligible": false,
+      "emitted_fraction": 0.1260750843592557,
+      "robust_dti": 0.150358650747413,
+      "gap_dti": 0.18327769346384573,
+      "all_dti": 0.20361064565311557,
+      "known_dti": 0.150358650747413
+    },
+    {
+      "arm": "two-catalogue-target",
+      "floor": 0.25,
+      "halo": 2,
+      "tip": 0,
+      "eligible": false,
+      "emitted_fraction": 0.11997555403070317,
+      "robust_dti": 0.150358650747413,
+      "gap_dti": 0.18863588925119937,
+      "all_dti": 0.19462374466044197,
+      "known_dti": 0.150358650747413
+    },
+    {
+      "arm": "two-catalogue-target",
+      "floor": 0.25,
+      "halo": 2,
+      "tip": 5,
+      "eligible": false,
+      "emitted_fraction": 0.12309980980426913,
+      "robust_dti": 0.150358650747413,
+      "gap_dti": 0.18645107443389553,
+      "all_dti": 0.1980174020494161,
+      "known_dti": 0.150358650747413
+    },
+    {
+      "arm": "two-catalogue-target",
+      "floor": 0.3,
+      "halo": 0,
+      "tip": 0,
+      "eligible": false,
+      "emitted_fraction": 0.10560484743562,
+      "robust_dti": 0.157457148428102,
+      "gap_dti": 0.18852247987572357,
+      "all_dti": 0.21695595981095414,
+      "known_dti": 0.157457148428102
+    },
+    {
+      "arm": "two-catalogue-target",
+      "floor": 0.3,
+      "halo": 0,
+      "tip": 5,
+      "eligible": false,
+      "emitted_fraction": 0.1085594603617525,
+      "robust_dti": 0.157457148428102,
+      "gap_dti": 0.18656047631713923,
+      "all_dti": 0.21817847300184842,
+      "known_dti": 0.157457148428102
+    },
+    {
+      "arm": "two-catalogue-target",
+      "floor": 0.3,
+      "halo": 1,
+      "tip": 0,
+      "eligible": false,
+      "emitted_fraction": 0.10225440119880945,
+      "robust_dti": 0.157457148428102,
+      "gap_dti": 0.1928237997458793,
+      "all_dti": 0.20986025068276426,
+      "known_dti": 0.157457148428102
+    },
+    {
+      "arm": "two-catalogue-target",
+      "floor": 0.3,
+      "halo": 1,
+      "tip": 5,
+      "eligible": false,
+      "emitted_fraction": 0.10535473298107069,
+      "robust_dti": 0.157457148428102,
+      "gap_dti": 0.19054960472505197,
+      "all_dti": 0.2122881721436572,
+      "known_dti": 0.157457148428102
+    },
+    {
+      "arm": "two-catalogue-target",
+      "floor": 0.3,
+      "halo": 2,
+      "tip": 0,
+      "eligible": false,
+      "emitted_fraction": 0.09950096729046662,
+      "robust_dti": 0.157457148428102,
+      "gap_dti": 0.19636666306951808,
+      "all_dti": 0.20161547328426013,
+      "known_dti": 0.157457148428102
+    },
+    {
+      "arm": "two-catalogue-target",
+      "floor": 0.3,
+      "halo": 2,
+      "tip": 5,
+      "eligible": false,
+      "emitted_fraction": 0.10267633340909264,
+      "robust_dti": 0.157457148428102,
+      "gap_dti": 0.19392164975169218,
+      "all_dti": 0.2059542375122336,
+      "known_dti": 0.157457148428102
+    },
+    {
+      "arm": "two-catalogue-target",
+      "floor": 0.35,
+      "halo": 0,
+      "tip": 0,
+      "eligible": true,
+      "emitted_fraction": 0.07774318465297707,
+      "robust_dti": 0.16581833406139204,
+      "gap_dti": 0.19214531048059377,
+      "all_dti": 0.2222294305395455,
+      "known_dti": 0.16581833406139204
+    },
+    {
+      "arm": "two-catalogue-target",
+      "floor": 0.35,
+      "halo": 0,
+      "tip": 5,
+      "eligible": false,
+      "emitted_fraction": 0.08079675590677908,
+      "robust_dti": 0.16581833406139204,
+      "gap_dti": 0.18992521040691038,
+      "all_dti": 0.22463920210487498,
+      "known_dti": 0.16581833406139204
+    },
+    {
+      "arm": "two-catalogue-target",
+      "floor": 0.35,
+      "halo": 1,
+      "tip": 0,
+      "eligible": true,
+      "emitted_fraction": 0.07495060239522651,
+      "robust_dti": 0.16581833406139204,
+      "gap_dti": 0.19661120835064122,
+      "all_dti": 0.21304475644072582,
+      "known_dti": 0.16581833406139204
+    },
+    {
+      "arm": "two-catalogue-target",
+      "floor": 0.35,
+      "halo": 1,
+      "tip": 5,
+      "eligible": true,
+      "emitted_fraction": 0.07812596851385253,
+      "robust_dti": 0.16581833406139204,
+      "gap_dti": 0.19404182771042275,
+      "all_dti": 0.21708302320745004,
+      "known_dti": 0.16581833406139204
+    },
+    {
+      "arm": "two-catalogue-target",
+      "floor": 0.35,
+      "halo": 2,
+      "tip": 0,
+      "eligible": true,
+      "emitted_fraction": 0.07267129849637714,
+      "robust_dti": 0.16581833406139204,
+      "gap_dti": 0.20025322721122754,
+      "all_dti": 0.20318052822681415,
+      "known_dti": 0.16581833406139204
+    },
+    {
+      "arm": "two-catalogue-target",
+      "floor": 0.35,
+      "halo": 2,
+      "tip": 5,
+      "eligible": true,
+      "emitted_fraction": 0.07590538713911475,
+      "robust_dti": 0.16581833406139204,
+      "gap_dti": 0.19749756852817427,
+      "all_dti": 0.20955866648250432,
+      "known_dti": 0.16581833406139204
+    },
+    {
+      "arm": "two-catalogue-target",
+      "floor": 0.4,
+      "halo": 0,
+      "tip": 0,
+      "eligible": true,
+      "emitted_fraction": 0.04843194548809836,
+      "robust_dti": 0.17266484761145062,
+      "gap_dti": 0.17939693116542688,
+      "all_dti": 0.21010414593807564,
+      "known_dti": 0.17266484761145062
+    },
+    {
+      "arm": "two-catalogue-target",
+      "floor": 0.4,
+      "halo": 0,
+      "tip": 5,
+      "eligible": true,
+      "emitted_fraction": 0.05157795034466859,
+      "robust_dti": 0.17266484761145062,
+      "gap_dti": 0.17762368498995973,
+      "all_dti": 0.21514695090574074,
+      "known_dti": 0.17266484761145062
+    },
+    {
+      "arm": "two-catalogue-target",
+      "floor": 0.4,
+      "halo": 1,
+      "tip": 0,
+      "eligible": true,
+      "emitted_fraction": 0.04631793462008158,
+      "robust_dti": 0.17266484761145062,
+      "gap_dti": 0.1835162368965516,
+      "all_dti": 0.19821313790719552,
+      "known_dti": 0.17266484761145062
+    },
+    {
+      "arm": "two-catalogue-target",
+      "floor": 0.4,
+      "halo": 1,
+      "tip": 5,
+      "eligible": true,
+      "emitted_fraction": 0.0495607228960209,
+      "robust_dti": 0.17266484761145062,
+      "gap_dti": 0.1814003767611523,
+      "all_dti": 0.205631802025421,
+      "known_dti": 0.17266484761145062
+    },
+    {
+      "arm": "two-catalogue-target",
+      "floor": 0.4,
+      "halo": 2,
+      "tip": 0,
+      "eligible": true,
+      "emitted_fraction": 0.0446117190583952,
+      "robust_dti": 0.17266484761145062,
+      "gap_dti": 0.18668991892816755,
+      "all_dti": 0.18676153099135603,
+      "known_dti": 0.17266484761145062
+    },
+    {
+      "arm": "two-catalogue-target",
+      "floor": 0.4,
+      "halo": 2,
+      "tip": 5,
+      "eligible": true,
+      "emitted_fraction": 0.04790018040864352,
+      "robust_dti": 0.17266484761145062,
+      "gap_dti": 0.1843985189198154,
+      "all_dti": 0.19705032361572014,
+      "known_dti": 0.17266484761145062
+    },
+    {
+      "arm": "sgmc-target",
+      "floor": 0.2,
+      "halo": 0,
+      "tip": 0,
+      "eligible": false,
+      "emitted_fraction": 0.10851596219574393,
+      "robust_dti": 0.1420413312122063,
+      "gap_dti": 0.19484001404553353,
+      "all_dti": 0.22103290953107396,
+      "known_dti": 0.1420413312122063
+    },
+    {
+      "arm": "sgmc-target",
+      "floor": 0.2,
+      "halo": 0,
+      "tip": 5,
+      "eligible": false,
+      "emitted_fraction": 0.11148579947997943,
+      "robust_dti": 0.1420413312122063,
+      "gap_dti": 0.19266914059828052,
+      "all_dti": 0.22192674305895488,
+      "known_dti": 0.1420413312122063
+    },
+    {
+      "arm": "sgmc-target",
+      "floor": 0.2,
+      "halo": 1,
+      "tip": 0,
+      "eligible": false,
+      "emitted_fraction": 0.10545260385458997,
+      "robust_dti": 0.1420413312122063,
+      "gap_dti": 0.19880836345045277,
+      "all_dti": 0.21553134075112995,
+      "known_dti": 0.1420413312122063
+    },
+    {
+      "arm": "sgmc-target",
+      "floor": 0.2,
+      "halo": 1,
+      "tip": 5,
+      "eligible": false,
+      "emitted_fraction": 0.1085442360036495,
+      "robust_dti": 0.1420413312122063,
+      "gap_dti": 0.19636598212457662,
+      "all_dti": 0.21742675456937174,
+      "known_dti": 0.1420413312122063
+    },
+    {
+      "arm": "sgmc-target",
+      "floor": 0.2,
+      "halo": 2,
+      "tip": 0,
+      "eligible": false,
+      "emitted_fraction": 0.10280247809051751,
+      "robust_dti": 0.1420413312122063,
+      "gap_dti": 0.20219585509386537,
+      "all_dti": 0.20873564124270785,
+      "known_dti": 0.1420413312122063
+    },
+    {
+      "arm": "sgmc-target",
+      "floor": 0.2,
+      "halo": 2,
+      "tip": 5,
+      "eligible": false,
+      "emitted_fraction": 0.10598436893404482,
+      "robust_dti": 0.1420413312122063,
+      "gap_dti": 0.1995714531760623,
+      "all_dti": 0.2123266836719639,
+      "known_dti": 0.1420413312122063
+    },
+    {
+      "arm": "sgmc-target",
+      "floor": 0.25,
+      "halo": 0,
+      "tip": 0,
+      "eligible": false,
+      "emitted_fraction": 0.08377855518666694,
+      "robust_dti": 0.14190813456309384,
+      "gap_dti": 0.20492052176778813,
+      "all_dti": 0.230342954049939,
+      "known_dti": 0.14190813456309384
+    },
+    {
+      "arm": "sgmc-target",
+      "floor": 0.25,
+      "halo": 0,
+      "tip": 5,
+      "eligible": false,
+      "emitted_fraction": 0.0868364762570698,
+      "robust_dti": 0.14190813456309384,
+      "gap_dti": 0.20227166642605895,
+      "all_dti": 0.23188284330310224,
+      "known_dti": 0.14190813456309384
+    },
+    {
+      "arm": "sgmc-target",
+      "floor": 0.25,
+      "halo": 1,
+      "tip": 0,
+      "eligible": false,
+      "emitted_fraction": 0.08133830807358584,
+      "robust_dti": 0.14190813456309384,
+      "gap_dti": 0.20888769783499767,
+      "all_dti": 0.22344647779534862,
+      "known_dti": 0.14190813456309384
+    },
+    {
+      "arm": "sgmc-target",
+      "floor": 0.25,
+      "halo": 1,
+      "tip": 5,
+      "eligible": false,
+      "emitted_fraction": 0.08449627492580844,
+      "robust_dti": 0.14190813456309384,
+      "gap_dti": 0.20593642894533054,
+      "all_dti": 0.22620519419904253,
+      "known_dti": 0.14190813456309384
+    },
+    {
+      "arm": "sgmc-target",
+      "floor": 0.25,
+      "halo": 2,
+      "tip": 0,
+      "eligible": true,
+      "emitted_fraction": 0.07927975736723,
+      "robust_dti": 0.14190813456309384,
+      "gap_dti": 0.2120863942032314,
+      "all_dti": 0.21591515439912073,
+      "known_dti": 0.14190813456309384
+    },
+    {
+      "arm": "sgmc-target",
+      "floor": 0.25,
+      "halo": 2,
+      "tip": 5,
+      "eligible": false,
+      "emitted_fraction": 0.08250949619336674,
+      "robust_dti": 0.14190813456309384,
+      "gap_dti": 0.20894965006581914,
+      "all_dti": 0.22055262734882786,
+      "known_dti": 0.14190813456309384
+    },
+    {
+      "arm": "sgmc-target",
+      "floor": 0.3,
+      "halo": 0,
+      "tip": 0,
+      "eligible": true,
+      "emitted_fraction": 0.05896720129537538,
+      "robust_dti": 0.13140184893648876,
+      "gap_dti": 0.21242468929245564,
+      "all_dti": 0.23566496621515398,
+      "known_dti": 0.13140184893648876
+    },
+    {
+      "arm": "sgmc-target",
+      "floor": 0.3,
+      "halo": 0,
+      "tip": 5,
+      "eligible": true,
+      "emitted_fraction": 0.062137130143250334,
+      "robust_dti": 0.13140184893648876,
+      "gap_dti": 0.20932655109776532,
+      "all_dti": 0.2389660689088307,
+      "known_dti": 0.13140184893648876
+    },
+    {
+      "arm": "sgmc-target",
+      "floor": 0.3,
+      "halo": 1,
+      "tip": 0,
+      "eligible": true,
+      "emitted_fraction": 0.057172901947521636,
+      "robust_dti": 0.13140184893648876,
+      "gap_dti": 0.21614891342089773,
+      "all_dti": 0.2276440703282286,
+      "known_dti": 0.13140184893648876
+    },
+    {
+      "arm": "sgmc-target",
+      "floor": 0.3,
+      "halo": 1,
+      "tip": 5,
+      "eligible": true,
+      "emitted_fraction": 0.06040916549855967,
+      "robust_dti": 0.13140184893648876,
+      "gap_dti": 0.21276230154139267,
+      "all_dti": 0.23236941228024408,
+      "known_dti": 0.13140184893648876
+    },
+    {
+      "arm": "sgmc-target",
+      "floor": 0.3,
+      "halo": 2,
+      "tip": 0,
+      "eligible": true,
+      "emitted_fraction": 0.055714625932084136,
+      "robust_dti": 0.13140184893648876,
+      "gap_dti": 0.21903664229572622,
+      "all_dti": 0.2189741922929797,
+      "known_dti": 0.13140184893648876
+    },
+    {
+      "arm": "sgmc-target",
+      "floor": 0.3,
+      "halo": 2,
+      "tip": 5,
+      "eligible": true,
+      "emitted_fraction": 0.05899765001158139,
+      "robust_dti": 0.13140184893648876,
+      "gap_dti": 0.21549326186319917,
+      "all_dti": 0.22585022126380058,
+      "known_dti": 0.13140184893648876
+    },
+    {
+      "arm": "sgmc-target",
+      "floor": 0.35,
+      "halo": 0,
+      "tip": 0,
+      "eligible": true,
+      "emitted_fraction": 0.036788573901752865,
+      "robust_dti": 0.12310976267827928,
+      "gap_dti": 0.20687126421550442,
+      "all_dti": 0.22626220103480876,
+      "known_dti": 0.12310976267827928
+    },
+    {
+      "arm": "sgmc-target",
+      "floor": 0.35,
+      "halo": 0,
+      "tip": 5,
+      "eligible": true,
+      "emitted_fraction": 0.040027012361091324,
+      "robust_dti": 0.12310976267827928,
+      "gap_dti": 0.2040513218705683,
+      "all_dti": 0.233495905093715,
+      "known_dti": 0.12310976267827928
+    },
+    {
+      "arm": "sgmc-target",
+      "floor": 0.35,
+      "halo": 1,
+      "tip": 0,
+      "eligible": true,
+      "emitted_fraction": 0.0354836289214956,
+      "robust_dti": 0.12310976267827928,
+      "gap_dti": 0.2102002856343616,
+      "all_dti": 0.21712427343491922,
+      "known_dti": 0.12310976267827928
+    },
+    {
+      "arm": "sgmc-target",
+      "floor": 0.35,
+      "halo": 1,
+      "tip": 5,
+      "eligible": true,
+      "emitted_fraction": 0.03876882790929327,
+      "robust_dti": 0.12310976267827928,
+      "gap_dti": 0.2070924473610969,
+      "all_dti": 0.22608999417666198,
+      "known_dti": 0.12310976267827928
+    },
+    {
+      "arm": "sgmc-target",
+      "floor": 0.35,
+      "halo": 2,
+      "tip": 0,
+      "eligible": true,
+      "emitted_fraction": 0.03442009876258592,
+      "robust_dti": 0.12310976267827928,
+      "gap_dti": 0.21276456933133314,
+      "all_dti": 0.2085287554402749,
+      "known_dti": 0.12310976267827928
+    },
+    {
+      "arm": "sgmc-target",
+      "floor": 0.35,
+      "halo": 2,
+      "tip": 5,
+      "eligible": true,
+      "emitted_fraction": 0.0377433586456411,
+      "robust_dti": 0.12310976267827928,
+      "gap_dti": 0.20951081251834658,
+      "all_dti": 0.2196653757054489,
+      "known_dti": 0.12310976267827928
+    },
+    {
+      "arm": "sgmc-target",
+      "floor": 0.4,
+      "halo": 0,
+      "tip": 0,
+      "eligible": true,
+      "emitted_fraction": 0.01895758820068749,
+      "robust_dti": 0.11080796209951742,
+      "gap_dti": 0.16381558870315446,
+      "all_dti": 0.18023251747739075,
+      "known_dti": 0.11080796209951742
+    },
+    {
+      "arm": "sgmc-target",
+      "floor": 0.4,
+      "halo": 0,
+      "tip": 5,
+      "eligible": true,
+      "emitted_fraction": 0.022275410812991597,
+      "robust_dti": 0.11080796209951742,
+      "gap_dti": 0.16352043159866186,
+      "all_dti": 0.19463612441964592,
+      "known_dti": 0.11080796209951742
+    },
+    {
+      "arm": "sgmc-target",
+      "floor": 0.4,
+      "halo": 1,
+      "tip": 0,
+      "eligible": true,
+      "emitted_fraction": 0.018075662884863616,
+      "robust_dti": 0.11080796209951742,
+      "gap_dti": 0.16606212250451508,
+      "all_dti": 0.17006856089951258,
+      "known_dti": 0.11080796209951742
+    },
+    {
+      "arm": "sgmc-target",
+      "floor": 0.4,
+      "halo": 1,
+      "tip": 5,
+      "eligible": true,
+      "emitted_fraction": 0.021423934213373727,
+      "robust_dti": 0.11080796209951742,
+      "gap_dti": 0.16560053051717877,
+      "all_dti": 0.18645121038204973,
+      "known_dti": 0.11080796209951742
+    },
+    {
+      "arm": "sgmc-target",
+      "floor": 0.4,
+      "halo": 2,
+      "tip": 0,
+      "eligible": true,
+      "emitted_fraction": 0.017422102940584768,
+      "robust_dti": 0.11080796209951742,
+      "gap_dti": 0.16745948945524536,
+      "all_dti": 0.16101745661695427,
+      "known_dti": 0.11080796209951742
+    },
+    {
+      "arm": "sgmc-target",
+      "floor": 0.4,
+      "halo": 2,
+      "tip": 5,
+      "eligible": true,
+      "emitted_fraction": 0.020794298260399597,
+      "robust_dti": 0.11080796209951742,
+      "gap_dti": 0.16687461805467854,
+      "all_dti": 0.17976609591533804,
+      "known_dti": 0.11080796209951742
+    }
+  ]
+}

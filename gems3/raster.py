@@ -100,7 +100,8 @@ def validate_submission(path: str | Path, template: str | Path) -> dict:
             "max": maximum if np.isfinite(maximum) else None}
 
 
-def write_submission(field: np.ndarray, template: str | Path, path: str | Path, *, tags=None) -> dict:
+def write_submission(field: np.ndarray, template: str | Path, path: str | Path, *, tags=None,
+                     description: str = "Riftline fault confidence; not calibrated probability") -> dict:
     """No silent clipping or NaN filling. Only outside-footprint masking is automatic."""
     valid, profile = template_info(template)
     arr = np.asarray(field)
@@ -123,7 +124,7 @@ def write_submission(field: np.ndarray, template: str | Path, path: str | Path, 
     try:
         with rasterio.open(tmp, "w", **profile) as dst:
             dst.write(out, 1)
-            dst.set_band_description(1, "Riftline fault confidence; not calibrated probability")
+            dst.set_band_description(1, description)
             dst.update_tags(AREA_OR_POINT="Area", **(tags or {}))
         report = validate_submission(tmp, template)
         if not report["passed"]:

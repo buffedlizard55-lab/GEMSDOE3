@@ -218,10 +218,10 @@
       "publisher": "USGS",
       "url": "https://pubs.usgs.gov/publication/ds1052",
       "kind": "official",
-      "role": "published proxy catalogue; not competition test labels",
+      "role": "independent published fault catalogue: proxy for faults absent from the supplied labels; not competition test labels",
       "access": "public",
       "license": "USGS public data; attribution retained",
-      "used": "inherited code-2 raster for tuning and diagnostics only",
+      "used": "Gapfinder: SGMC traces in TRAINING folds are model targets; tuning/audit SGMC is evaluation-only; SGMC-gap traces are added directly in the fusion/sgmc-gap portfolio files (leaderboard experiment). Riftline used it for tuning/diagnostics only.",
       "claims": [
         {
           "id": "sgmc-caveat",
@@ -317,6 +317,98 @@
           "id": "spatial-dependence",
           "statement": "The authors recommend blocked cross-validation for dependent data, with careful blocking design.",
           "quote": "We recommend that block cross-validation be used wherever dependence structures exist in a dataset"
+        }
+      ]
+    },
+    {
+      "id": "forum-mask",
+      "title": "Scoring clarification: known USGS/INGENIOUS faults are masked (staff answers)",
+      "publisher": "DrivenData staff (chrisk-dd), community forum",
+      "url": "https://community.drivendata.org/raw/11516",
+      "kind": "official",
+      "role": "binding scoring interpretation from the organisers",
+      "access": "public",
+      "license": "forum post; quoted for review",
+      "used": "Gapfinder objective: known pixels excluded from truth and penalty; halo parameter",
+      "claims": [
+        {
+          "id": "mask-exact",
+          "statement": "The known-fault scoring mask is pixel-exact and identical to the supplied training labels.",
+          "quote": "The mask is indeed pixel-exact - it is identical to the provided set of training fault labels."
+        },
+        {
+          "id": "mask-excluded",
+          "statement": "Known USGS/INGENIOUS fault pixels do not count towards penalty terms.",
+          "quote": "Pixels corresponding to known USGS/INGENIOUS faults are masked / excluded from evaluation, so they do not count towards penalty terms."
+        },
+        {
+          "id": "near-known-penalized",
+          "statement": "A prediction near, but not on, a known trace is fully penalised unless near new-fault truth.",
+          "quote": "A predicted pixel that is near a known fault trace but far from a new-fault ground truth pixel will be fully penalized"
+        },
+        {
+          "id": "corrections",
+          "statement": "New-fault truth can lie within 300 m of a known trace (corrections).",
+          "quote": "A new-fault ground truth pixel can indeed lie within 300m of a known fault trace."
+        }
+      ]
+    },
+    {
+      "id": "forum-newfault",
+      "title": "Where do you draw the line? - definition of a new fault (staff answer)",
+      "publisher": "DrivenData staff (chrisk-dd), community forum",
+      "url": "https://community.drivendata.org/raw/11536",
+      "kind": "official",
+      "role": "binding target definition from the organisers",
+      "access": "public",
+      "license": "forum post; quoted for review",
+      "used": "Gapfinder tip-extension hypothesis",
+      "claims": [
+        {
+          "id": "newfault-definition",
+          "statement": "A new fault is any fault pixel not already captured by USGS/INGENIOUS, including new geometry of existing systems.",
+          "quote": "can include newly mapped geometry of an existing fault system"
+        }
+      ]
+    },
+    {
+      "id": "forum-sources",
+      "title": "How were the new test faults identified? (staff answer)",
+      "publisher": "DrivenData staff (chrisk-dd), community forum",
+      "url": "https://community.drivendata.org/raw/11527",
+      "kind": "official",
+      "role": "states that test-label sources are not disclosed",
+      "access": "public",
+      "license": "forum post; quoted for review",
+      "used": "risk register: hidden-label type unknown, motivates source-robust selection",
+      "claims": [
+        {
+          "id": "sources-undisclosed",
+          "statement": "Organisers will not share data sources, fault types or coverage of the test faults.",
+          "quote": "We're not sharing details about the data sources, fault types, or coverage behind the test faults beyond what's in the problem description."
+        }
+      ]
+    },
+    {
+      "id": "sgmc-sciencebase",
+      "title": "SGMC geodatabase data release (ScienceBase) incl. 2026 update notice",
+      "publisher": "USGS ScienceBase",
+      "url": "https://www.sciencebase.gov/catalog/item/5888bf4fe4b05ccb964bab9d",
+      "kind": "official",
+      "role": "data release identity, scale and newer-version notice",
+      "access": "public",
+      "license": "USGS public data; attribution retained",
+      "used": "provenance of the pinned SGMC fault raster; 2026 release not yet used (flagged)",
+      "claims": [
+        {
+          "id": "sgmc-scale",
+          "statement": "SGMC is intended at an approximate scale of 1:1,000,000.",
+          "quote": "at an approximate scale of 1:1,000,000"
+        },
+        {
+          "id": "sgmc-2026",
+          "statement": "An updated 2026 release exists and is recommended by USGS.",
+          "quote": "It is recommended to use the new updated data release"
         }
       ]
     }
