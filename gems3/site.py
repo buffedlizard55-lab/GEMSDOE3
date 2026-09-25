@@ -60,12 +60,12 @@ def shell(filename, title, body):
     nav = "".join(links)
     return f'''<!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="description" content="Riftline: an evidence-first GEMS fault-discovery experiment. Build a locally validated GeoTIFF, inspect the research, and monitor official sources.">
-<meta name="theme-color" content="#123a34"><title>{esc(title)} · Riftline / GEMS3</title>
+<meta name="description" content="GEMSDOE3: an evidence-first GEMS fault-discovery project. Download a locally validated GeoTIFF submission, inspect the experiments, and monitor official sources.">
+<meta name="theme-color" content="#123a34"><title>{esc(title)} · GEMSDOE3</title>
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="assets/site.css">
 <script src="assets/geotiff-writer.js" defer></script><script src="assets/submission-builder.js" defer></script><script src="assets/app.js" defer></script></head>
 <body><a href="#main" class="skip-link">Skip to content</a>
-<aside class="sidebar"><a href="index.html" class="brand" aria-label="Riftline home"><svg viewBox="0 0 40 40" fill="none" aria-hidden="true"><path d="m5 31 9-21 6 12 7-17 8 24 M9 33l9-15 7 15" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round"/></svg><span>riftline<span class="brand-sub">GEMS DISCOVERY LAB</span></span></a>
+<aside class="sidebar"><a href="index.html" class="brand" aria-label="GEMSDOE3 home"><svg viewBox="0 0 40 40" fill="none" aria-hidden="true"><path d="m5 31 9-21 6 12 7-17 8 24 M9 33l9-15 7 15" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round"/></svg><span>gemsdoe3<span class="brand-sub">GEMS DISCOVERY LAB</span></span></a>
 <div class="workspace-label">WORKSPACE <span>03</span></div><nav aria-label="Main navigation">{nav}</nav>
 <div class="sidebar-bottom"><div class="sidebar-note"><span class="dot"></span> Evidence before confidence<p>A new strategy. A traceable result.<br>No unverified score claims.</p></div>
 <a class="side-external" href="{COMP}" target="_blank" rel="noopener noreferrer">Competition {icon('external')}</a><a class="side-external" href="{REPO}" target="_blank" rel="noopener noreferrer">View repository {icon('external')}</a>
