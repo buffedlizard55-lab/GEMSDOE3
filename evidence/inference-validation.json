@@ -1,0 +1,237 @@
+{
+  "model_sha256": "e427f2f0887defdf4c650c6d58240a19ffd55a8cfc514ade018b391e84a8387c",
+  "features_sha256": "4371c82e3b8339b807bdffcf4ef59a225520fe2988d521be208ae33743123bc5",
+  "template_sha256": "2176d08e485aa2cd2860ce8df539db4faf4d76163b38a4dd8c30a40454d35cbc",
+  "feature_metadata": {
+    "key": "38131e45506fbb020ed9eb6fd98b87106331571ce1c2f1c9c4688041a1db6be3",
+    "config": {
+      "version": 1,
+      "implementation_sha256": "50af76a590a233c72cc6be5aa70435f5972d7170a13837113c9c3fd77340c9b5",
+      "raster": "4371c82e3b8339b807bdffcf4ef59a225520fe2988d521be208ae33743123bc5",
+      "valid": "c075e765e015e44f8da6b85aff1f5daa9c39d70d8fc3601d4811984fabe687cf",
+      "bands": [
+        12,
+        19,
+        2,
+        13
+      ],
+      "scales": [
+        1,
+        3,
+        7
+      ]
+    },
+    "shape": [
+      5167373,
+      67
+    ],
+    "names": [
+      "mag_anom",
+      "rtp",
+      "tmi_hg",
+      "geod_2ndinv",
+      "iso_grav_anom_slope",
+      "tc",
+      "geod_shearrate",
+      "geod_dilaterate",
+      "tmi_vg",
+      "deq_n100a15",
+      "iso_grav_anom_vg",
+      "det_elev",
+      "iso_grav_anom",
+      "tmi",
+      "depth_to_base_surf",
+      "ieq_n100a15",
+      "cond_surf",
+      "iso_grav_anom_hg",
+      "det_elev_slope",
+      "b12_s1_relief",
+      "b12_s1_gradient",
+      "b12_s1_curvature",
+      "b12_s1_anisotropy",
+      "b12_s3_relief",
+      "b12_s3_gradient",
+      "b12_s3_curvature",
+      "b12_s3_anisotropy",
+      "b12_s7_relief",
+      "b12_s7_gradient",
+      "b12_s7_curvature",
+      "b12_s7_anisotropy",
+      "b19_s1_relief",
+      "b19_s1_gradient",
+      "b19_s1_curvature",
+      "b19_s1_anisotropy",
+      "b19_s3_relief",
+      "b19_s3_gradient",
+      "b19_s3_curvature",
+      "b19_s3_anisotropy",
+      "b19_s7_relief",
+      "b19_s7_gradient",
+      "b19_s7_curvature",
+      "b19_s7_anisotropy",
+      "b2_s1_relief",
+      "b2_s1_gradient",
+      "b2_s1_curvature",
+      "b2_s1_anisotropy",
+      "b2_s3_relief",
+      "b2_s3_gradient",
+      "b2_s3_curvature",
+      "b2_s3_anisotropy",
+      "b2_s7_relief",
+      "b2_s7_gradient",
+      "b2_s7_curvature",
+      "b2_s7_anisotropy",
+      "b13_s1_relief",
+      "b13_s1_gradient",
+      "b13_s1_curvature",
+      "b13_s1_anisotropy",
+      "b13_s3_relief",
+      "b13_s3_gradient",
+      "b13_s3_curvature",
+      "b13_s3_anisotropy",
+      "b13_s7_relief",
+      "b13_s7_gradient",
+      "b13_s7_curvature",
+      "b13_s7_anisotropy"
+    ],
+    "file_sha256": "c9a55cb6387eab697be4cedcce80cb04d598d1def38ef1776ae97c0048531ec2",
+    "max_context_radius_px": 30,
+    "labels_used": false,
+    "coordinates_used": false,
+    "proxy_used": false
+  },
+  "model_bounded_link_clipped_pixels": 437477,
+  "support_fraction": 0.06821764173014025,
+  "labels_used": false,
+  "validation": {
+    "schema_version": 1,
+    "checked_at": "2026-09-25T01:47:16Z",
+    "passed": true,
+    "meaning": "Local documented-format validation only; no platform acceptance or score implied.",
+    "file": "frozen-rebuild.tif",
+    "sha256": "fe752b2ac8b983e6df6bcdd857af241c15ed6877b39d99615ef2843f1bde3bec",
+    "bytes": 1015760,
+    "template_sha256": "2176d08e485aa2cd2860ce8df539db4faf4d76163b38a4dd8c30a40454d35cbc",
+    "grid": {
+      "width": 3292,
+      "height": 3730,
+      "crs": "EPSG:32611",
+      "transform": [
+        100.0,
+        0.0,
+        243350.0,
+        0.0,
+        -100.0,
+        4508550.0
+      ],
+      "dtype": "float32",
+      "bands": 1,
+      "resolution_m": [
+        100.0,
+        100.0
+      ]
+    },
+    "checks": [
+      {
+        "check": "GeoTIFF driver",
+        "passed": true,
+        "detail": "GTiff"
+      },
+      {
+        "check": "one band",
+        "passed": true,
+        "detail": 1
+      },
+      {
+        "check": "float32",
+        "passed": true,
+        "detail": [
+          "float32"
+        ]
+      },
+      {
+        "check": "template shape",
+        "passed": true,
+        "detail": [
+          [
+            3730,
+            3292
+          ],
+          [
+            3730,
+            3292
+          ]
+        ]
+      },
+      {
+        "check": "template CRS / EPSG:32611",
+        "passed": true,
+        "detail": "EPSG:32611"
+      },
+      {
+        "check": "exact affine transform",
+        "passed": true,
+        "detail": [
+          100.0,
+          0.0,
+          243350.0,
+          0.0,
+          -100.0,
+          4508550.0
+        ]
+      },
+      {
+        "check": "NaN nodata",
+        "passed": true,
+        "detail": "nan"
+      },
+      {
+        "check": "pixel-is-area",
+        "passed": true,
+        "detail": "Area"
+      },
+      {
+        "check": "finite inside template mask",
+        "passed": true,
+        "detail": 0
+      },
+      {
+        "check": "inside values in [0,1]",
+        "passed": true,
+        "detail": 0
+      },
+      {
+        "check": "NaN outside template mask",
+        "passed": true,
+        "detail": 0
+      },
+      {
+        "check": "no hidden mask disagreement",
+        "passed": true,
+        "detail": 0
+      },
+      {
+        "check": "valid reference",
+        "passed": true,
+        "detail": "2176d08e485aa2cd2860ce8df539db4faf4d76163b38a4dd8c30a40454d35cbc"
+      }
+    ],
+    "counts": {
+      "valid_pixels": 5167373,
+      "outside_pixels": 7111787,
+      "invalid_inside": 0,
+      "out_of_range": 0,
+      "non_nan_outside": 0,
+      "mask_mismatches": 0,
+      "nonzero_pixels": 352506
+    },
+    "min": 0.0,
+    "max": 1.0
+  },
+  "pixel_field_sha256": "41eeffea9cc25d49593ae5f0e359d53502eedccef8b34d935577cb0bde03fb04",
+  "competition_score": null,
+  "checked_at": "2026-09-25T02:12:04Z",
+  "matches_published_pixel_field": true,
+  "published_artifact_sha256": "7b6010637ae341b56f7d211eaf892b239822b0668d3f5556af0eecb505a228d3",
+  "code_scope": "Current guard-only/cache-key changes, frozen original model, no new labels or refit"
+}

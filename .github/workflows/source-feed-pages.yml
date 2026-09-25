@@ -1,0 +1,95 @@
+name: Official-source feed and Pages
+on:
+  # Existing repository Pages setting is main:/ (legacy) and deploys merges automatically.
+  # Do NOT race it with a second on-push deployment. Scheduled builds refresh the source feed
+  # and deploy the same public site, without pushing generated commits to main or any branch.
+  schedule:
+    - cron: '23 */6 * * *'
+  workflow_dispatch:
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+concurrency:
+  group: riftline-pages
+  cancel-in-progress: false
+jobs:
+  refresh-and-build:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: pip
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: pip install -r requirements.txt
+      - name: Recover the last published feed before attempting refreshes
+        run: |
+          python - <<'PY'
+          import json, urllib.request
+          from pathlib import Path
+          url = 'https://buffedlizard55-lab.github.io/GEMSDOE3/docs/data/feed.json'
+          try:
+              with urllib.request.urlopen(url, timeout=30) as response:
+                  raw = response.read(2_000_000)
+              feed = json.loads(raw)
+              if feed.get('schema_version') != 1 or not isinstance(feed.get('sources'), list):
+                  raise ValueError('Published feed schema changed')
+              Path('docs/data/feed.json').write_text(json.dumps(feed, indent=2, allow_nan=False) + '\n')
+              print('Loaded last published state; failed refreshes will preserve its success timestamps')
+          except Exception as exc:
+              print(f'Previous deployment unavailable; using dated committed seed: {type(exc).__name__}: {exc}')
+          PY
+      - name: Refresh official sources, preserving failures honestly
+        run: python -m gems3.feed
+      - name: Verify the exact artifact and browser writer before deployment
+        run: |
+          set -euo pipefail
+          python scripts/check_published.py
+          python -m gems3.site
+          python scripts/stage_site.py
+      - uses: actions/upload-artifact@v4
+        with:
+          name: source-audit-${{ github.run_id }}
+          path: docs/data/feed.json
+          retention-days: 30
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: build/site
+  deploy:
+    needs: refresh-and-build
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy the verified static snapshot
+        id: deployment
+        uses: actions/deploy-pages@v4
+  verify-live:
+    needs: deploy
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 6
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: pip install requests==2.32.5
+      - name: Re-fetch actual public page and submission bytes
+        run: python scripts/verify_live.py --attempts 4
+      - name: Retain deployment proof even on failure
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: public-deployment-proof-${{ github.run_id }}
+          path: evidence/public-deployment.json
+          retention-days: 30

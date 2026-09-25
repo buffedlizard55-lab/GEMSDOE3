@@ -1,0 +1,19 @@
+{
+  "source": "https://github.com/buffedlizard55-lab/GEMSDOE",
+  "commit": "cceebbdcf9a7d2890bb0665defcb54dfc66ae452",
+  "verified_git_blobs": 387,
+  "missing": [],
+  "mismatched": [],
+  "excluded_from_new_git": [
+    "data/bridge/gems-geodawn-numerical-features.tif.part-000",
+    "data/bridge/gems-geodawn-numerical-features.tif.part-001",
+    "data/bridge/gems-geodawn-numerical-features.tif.part-002",
+    "data/bridge/gems-geodawn-numerical-features.tif.part-003",
+    "data/bridge/gems-geodawn-numerical-features.tif.part-004"
+  ],
+  "relocations": {
+    ".gitignore": "legacy/.gitignore.upstream",
+    "all other source paths": "legacy/<original path>"
+  },
+  "history_copied": false
+}

@@ -1,0 +1,12 @@
+# CPU pipeline; no torch, GPU, paid API, or notebook required.
+numpy==2.2.6
+scipy==1.15.3
+rasterio==1.4.3
+scikit-image==0.25.2
+scikit-learn==1.7.2
+joblib==1.5.2
+requests==2.32.5
+beautifulsoup4==4.13.5
+pypdf==6.1.0
+PyYAML==6.0.2
+Pillow==11.3.0

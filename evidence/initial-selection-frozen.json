@@ -1,0 +1,23 @@
+{
+  "frozen_at": "2026-09-25T01:00:37Z",
+  "winner": {
+    "arm": "context-distance",
+    "floor": 0.22,
+    "emission": "binary-ridge",
+    "eligible": true,
+    "emitted_fraction": 0.06954317013816899,
+    "tuning": {
+      "dti": 0.2308029193522749,
+      "TP_w": 6576.055289169635,
+      "FP_w": 52448.34572312236,
+      "FN_w": 14282.944710830365,
+      "truth_pixels": 20859,
+      "prediction_pixels": 60041,
+      "prediction_mass": 60041.0,
+      "scored_pixels": 863363,
+      "meaning": "published-catalogue surrogate, not a competition score"
+    }
+  },
+  "rule": "highest tuning-fold union DTI among eligible candidates; tie break by lower prediction mass then arm id then floor then emission",
+  "audit_consulted": false
+}

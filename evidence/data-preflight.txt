@@ -1,0 +1,12 @@
+[features] data/training_features.tif
+    3292x3730 count=19 crs=EPSG:32611 res=(100.0, 100.0) dtype=float32 nodata=-3.4028234663852886e+38
+    bounds=(243350.0, 4135550.0, 572550.0, 4508550.0)  band1 range=[-1052,2109] nan%=57.93
+[labels] data/labels.tif
+    3292x3730 count=1 crs=EPSG:32611 res=(100.0, 100.0) dtype=int8 nodata=-1.0
+    bounds=(243350.0, 4135550.0, 572550.0, 4508550.0)  band1 range=[0,1] nan%=57.92
+[sample] data/sample_submission.tif
+    3292x3730 count=1 crs=EPSG:32611 res=(100.0, 100.0) dtype=float32 nodata=nan
+    bounds=(243350.0, 4135550.0, 572550.0, 4508550.0)  band1 range=[0,1] nan%=57.92
+[bands] 19 feature band tag sets; first: {'band_name': 'mag_anom', 'data_category': 'magnetic_data', 'data_type': 'numeric', 'description': "Magnetic anomaly - deviation from expected Earth's magnetic field"}
+
+OK: data/ passes every pre-flight check; next: python -m src.train --config configs/config.yaml

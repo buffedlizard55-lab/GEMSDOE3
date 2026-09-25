@@ -1,0 +1,3 @@
+# Preserve the pinned archive byte-for-byte, including its original CSV line endings
+# and Markdown hard breaks. Active code still receives normal whitespace checks.
+legacy/** -text -whitespace

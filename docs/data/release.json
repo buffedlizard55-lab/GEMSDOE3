@@ -1,0 +1,13 @@
+{
+  "updated_at": "2026-09-25T03:45:01Z",
+  "local_ready": true,
+  "github_release_verified": null,
+  "pr_created": true,
+  "merged": null,
+  "reason": "Release state is tracked by the linked PR and deployment workflow; the earlier authentication failure is resolved",
+  "artifact_sha256": "7b6010637ae341b56f7d211eaf892b239822b0668d3f5556af0eecb505a228d3",
+  "github_api_available": true,
+  "pr_url": "https://github.com/buffedlizard55-lab/GEMSDOE3/pull/1",
+  "hosted_ci_url": "https://github.com/buffedlizard55-lab/GEMSDOE3/actions/runs/36091380405",
+  "current_status_source": "https://github.com/buffedlizard55-lab/GEMSDOE3/pull/1"
+}

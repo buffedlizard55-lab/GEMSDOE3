@@ -1,0 +1,14 @@
+{
+  "name": "riftline-browser-checks",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Browser regression tests only; the site has no runtime npm dependencies",
+  "scripts": {
+    "test": "node scripts/run_browser_tests.cjs",
+    "test:browser": "node scripts/run_browser_tests.cjs"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.55.1",
+    "@sparticuz/chromium": "138.0.2"
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "observed_at": "2026-09-25T02:12:04Z",
+  "method": "research fetch_page tool; no raw byte hash available",
+  "source": "https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/",
+  "rows": [
+    {
+      "rank": 1,
+      "participant": "DARD",
+      "score": 0.3049
+    },
+    {
+      "rank": 2,
+      "participant": "alexoktaba",
+      "score": 0.2993
+    },
+    {
+      "rank": 3,
+      "participant": "HardcoreTechGod",
+      "score": 0.2854
+    },
+    {
+      "rank": 18,
+      "participant": "extradr19",
+      "score": 0.1563
+    }
+  ],
+  "artifact_mapping": "unknown; no authenticated upload performed",
+  "also_rechecked": "Official problem page chunk 1 confirms float32/single-band/[0,1]/100m/EPSG32611 and DTI alpha .2 beta .8 R300m; rules chunk 1 confirms timeline pointer and account eligibility constraints."
+}

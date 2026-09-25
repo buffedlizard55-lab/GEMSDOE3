@@ -1,0 +1,496 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-09-25T02:12:04Z",
+  "stale_after_hours": 48,
+  "sources": [
+    {
+      "id": "problem",
+      "url": "https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/",
+      "title": "GEMS problem description and submission format",
+      "status": "refresh-unavailable",
+      "last_verified_at": "2026-09-25T00:58:22Z",
+      "last_attempt_at": "2026-09-25T01:49:56Z",
+      "verification_method": "research fetch_page tool: returned primary-page/PDF excerpts; no raw HTTP byte hash available",
+      "checks": [
+        {
+          "claim_id": "new-target",
+          "matched": true,
+          "quote": "These new faults will comprise the test dataset for the initial prize round of the challenge."
+        },
+        {
+          "claim_id": "format-float",
+          "matched": true,
+          "quote": "Your submission contains a single layer with datatype of 32-bit float"
+        },
+        {
+          "claim_id": "format-resolution",
+          "matched": true,
+          "quote": "Your submission is at the same resolution as the training data (100m)"
+        },
+        {
+          "claim_id": "format-crs",
+          "matched": true,
+          "quote": "EPSG 32611"
+        },
+        {
+          "claim_id": "metric-support",
+          "matched": true,
+          "quote": "300 meters (i.e., 3 pixels at 100m resolution)"
+        },
+        {
+          "claim_id": "single-final",
+          "matched": true,
+          "quote": "Competitors must choose a single submission for scoring across both rounds before the deadline"
+        },
+        {
+          "claim_id": "sample-absence",
+          "matched": true,
+          "quote": "A sample submission that predicts total fault absence is provided for your reference"
+        }
+      ],
+      "raw_sha256": null,
+      "stale": false,
+      "error": "SSLError: HTTPSConnectionPool(host='www.drivendata.org', port=443): Max retries exceeded with url: /competitions/306/competition-doe-gems/page/967/ (Caused by SSLError(SSLZeroReturnError(6, 'TLS/SSL connection has been closed (EOF) (_ssl.c:992)')))",
+      "attempt_method": "scheduled HTTPS / normalized quote checks"
+    },
+    {
+      "id": "overview",
+      "url": "https://www.drivendata.org/competitions/306/competition-doe-gems/",
+      "title": "Competition overview and current timeline",
+      "status": "refresh-unavailable",
+      "last_verified_at": "2026-09-25T00:58:22Z",
+      "last_attempt_at": "2026-09-25T01:49:56Z",
+      "verification_method": "research fetch_page tool: returned primary-page/PDF excerpts; no raw HTTP byte hash available",
+      "checks": [
+        {
+          "claim_id": "deadline",
+          "matched": true,
+          "quote": "Dec. 3, 2026, 11:59 p.m. UTC"
+        },
+        {
+          "claim_id": "external-data",
+          "matched": true,
+          "quote": "The use of external data is encouraged in this competition"
+        }
+      ],
+      "raw_sha256": null,
+      "stale": false,
+      "error": "SSLError: HTTPSConnectionPool(host='www.drivendata.org', port=443): Max retries exceeded with url: /competitions/306/competition-doe-gems/ (Caused by SSLError(SSLZeroReturnError(6, 'TLS/SSL connection has been closed (EOF) (_ssl.c:992)')))",
+      "attempt_method": "scheduled HTTPS / normalized quote checks"
+    },
+    {
+      "id": "rules",
+      "url": "https://docs.nlr.gov/docs/fy26osti/96647.pdf",
+      "title": "Official GEMS Prize rules, September 2026",
+      "status": "refresh-unavailable",
+      "last_verified_at": "2026-09-25T00:58:22Z",
+      "last_attempt_at": "2026-09-25T01:49:56Z",
+      "verification_method": "research fetch_page tool: returned primary-page/PDF excerpts; no raw HTTP byte hash available",
+      "checks": [
+        {
+          "claim_id": "weekly-limit",
+          "matched": true,
+          "quote": "three submissions per week"
+        },
+        {
+          "claim_id": "ai-disclosure",
+          "matched": true,
+          "quote": "indicate in the narrative"
+        },
+        {
+          "claim_id": "assets",
+          "matched": true,
+          "quote": "complete code assets and documentation"
+        },
+        {
+          "claim_id": "timeline-authority",
+          "matched": true,
+          "quote": "Please see the competition website gems.drivendata.org for the most current timeline"
+        },
+        {
+          "claim_id": "appendix-time",
+          "matched": true,
+          "quote": "by 5:00 p.m. ET"
+        }
+      ],
+      "raw_sha256": null,
+      "stale": false,
+      "error": "SSLError: HTTPSConnectionPool(host='docs.nlr.gov', port=443): Max retries exceeded with url: /docs/fy26osti/96647.pdf (Caused by SSLError(SSLZeroReturnError(6, 'TLS/SSL connection has been closed (EOF) (_ssl.c:992)')))",
+      "attempt_method": "scheduled HTTPS / normalized quote checks"
+    },
+    {
+      "id": "leaderboard",
+      "url": "https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/",
+      "title": "Public competition leaderboard",
+      "status": "refresh-unavailable",
+      "last_verified_at": "2026-09-25T02:12:04Z",
+      "last_attempt_at": "2026-09-25T01:49:56Z",
+      "verification_method": "Primary leaderboard re-read via research fetch_page tool, chunk 0; not a successful raw HTTP refresh",
+      "checks": [],
+      "raw_sha256": null,
+      "stale": false,
+      "error": "SSLError: HTTPSConnectionPool(host='www.drivendata.org', port=443): Max retries exceeded with url: /competitions/306/competition-doe-gems/leaderboard/ (Caused by SSLError(SSLZeroReturnError(6, 'TLS/SSL connection has been closed (EOF) (_ssl.c:992)')))",
+      "attempt_method": "scheduled HTTPS / normalized quote checks",
+      "latest_primary_observation_at": "2026-09-25T02:12:04Z"
+    },
+    {
+      "id": "data-tab",
+      "url": "https://www.drivendata.org/competitions/306/competition-doe-gems/data/",
+      "title": "Official competition data tab",
+      "status": "refresh-unavailable",
+      "last_verified_at": "2026-09-25T00:58:22Z",
+      "last_attempt_at": "2026-09-25T01:49:56Z",
+      "verification_method": "research fetch_page tool: returned primary-page/PDF excerpts; no raw HTTP byte hash available",
+      "checks": [],
+      "raw_sha256": null,
+      "stale": false,
+      "error": "SSLError: HTTPSConnectionPool(host='www.drivendata.org', port=443): Max retries exceeded with url: /competitions/306/competition-doe-gems/data/ (Caused by SSLError(SSLZeroReturnError(6, 'TLS/SSL connection has been closed (EOF) (_ssl.c:992)')))",
+      "attempt_method": "scheduled HTTPS / normalized quote checks"
+    },
+    {
+      "id": "about",
+      "url": "https://www.drivendata.org/competitions/306/competition-doe-gems/page/968/",
+      "title": "Competition about page and recommended literature",
+      "status": "refresh-unavailable",
+      "last_verified_at": "2026-09-25T00:58:22Z",
+      "last_attempt_at": "2026-09-25T01:49:56Z",
+      "verification_method": "research fetch_page tool: returned primary-page/PDF excerpts; no raw HTTP byte hash available",
+      "checks": [
+        {
+          "claim_id": "high-resolution",
+          "matched": true,
+          "quote": "high-resolution airborne magnetic and radiometric data"
+        }
+      ],
+      "raw_sha256": null,
+      "stale": false,
+      "error": "SSLError: HTTPSConnectionPool(host='www.drivendata.org', port=443): Max retries exceeded with url: /competitions/306/competition-doe-gems/page/968/ (Caused by SSLError(SSLZeroReturnError(6, 'TLS/SSL connection has been closed (EOF) (_ssl.c:992)')))",
+      "attempt_method": "scheduled HTTPS / normalized quote checks"
+    },
+    {
+      "id": "reference",
+      "url": "https://github.com/drivendataorg/gems-prize-reference-solution",
+      "title": "Official GEMS reference solution",
+      "status": "refresh-unavailable",
+      "last_verified_at": "2026-09-25T00:58:22Z",
+      "last_attempt_at": "2026-09-25T01:49:56Z",
+      "verification_method": "research fetch_page tool: returned primary-page/PDF excerpts; no raw HTTP byte hash available",
+      "checks": [
+        {
+          "claim_id": "reference-identity",
+          "matched": true,
+          "quote": "Reference solution for the GEMS Prize Challenge"
+        }
+      ],
+      "raw_sha256": null,
+      "stale": false,
+      "error": "SSLError: HTTPSConnectionPool(host='github.com', port=443): Max retries exceeded with url: /drivendataorg/gems-prize-reference-solution (Caused by SSLError(SSLCertVerificationError(1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:992)')))",
+      "attempt_method": "scheduled HTTPS / normalized quote checks"
+    },
+    {
+      "id": "geodawn",
+      "url": "https://www.usgs.gov/data/geodawn-airborne-magnetic-and-radiometric-surveys-northwestern-great-basin-nevada-and",
+      "title": "GeoDAWN magnetic and radiometric surveys",
+      "status": "refresh-unavailable",
+      "last_verified_at": "2026-09-25T00:58:22Z",
+      "last_attempt_at": "2026-09-25T01:49:56Z",
+      "verification_method": "research fetch_page tool: returned primary-page/PDF excerpts; no raw HTTP byte hash available",
+      "checks": [
+        {
+          "claim_id": "geodawn-rights",
+          "matched": true,
+          "quote": "This work is marked with CC0 1.0 Universal"
+        },
+        {
+          "claim_id": "survey-blocks",
+          "matched": true,
+          "quote": "Winnemucca, Fallon, Hawthorne, and Tonopah"
+        }
+      ],
+      "raw_sha256": null,
+      "stale": false,
+      "error": "SSLError: HTTPSConnectionPool(host='www.usgs.gov', port=443): Max retries exceeded with url: /data/geodawn-airborne-magnetic-and-radiometric-surveys-northwestern-great-basin-nevada-and (Caused by SSLError(SSLZeroReturnError(6, 'TLS/SSL connection has been closed (EOF) (_ssl.c:992)')))",
+      "attempt_method": "scheduled HTTPS / normalized quote checks"
+    },
+    {
+      "id": "ingenious",
+      "url": "https://gdr.openei.org/submissions/1391",
+      "title": "INGENIOUS Great Basin regional dataset compilation",
+      "status": "refresh-unavailable",
+      "last_verified_at": "2026-09-25T00:58:22Z",
+      "last_attempt_at": "2026-09-25T01:49:56Z",
+      "verification_method": "research fetch_page tool: returned primary-page/PDF excerpts; no raw HTTP byte hash available",
+      "checks": [
+        {
+          "claim_id": "ingenious-redistribution",
+          "matched": true,
+          "quote": "These datasets may be redistributed with attribution"
+        }
+      ],
+      "raw_sha256": null,
+      "stale": false,
+      "error": "SSLError: HTTPSConnectionPool(host='gdr.openei.org', port=443): Max retries exceeded with url: /submissions/1391 (Caused by SSLError(SSLZeroReturnError(6, 'TLS/SSL connection has been closed (EOF) (_ssl.c:992)')))",
+      "attempt_method": "scheduled HTTPS / normalized quote checks"
+    },
+    {
+      "id": "sgmc",
+      "url": "https://pubs.usgs.gov/publication/ds1052",
+      "title": "State Geologic Map Compilation, Data Series 1052",
+      "status": "refresh-unavailable",
+      "last_verified_at": "2026-09-25T00:58:22Z",
+      "last_attempt_at": "2026-09-25T01:49:56Z",
+      "verification_method": "research fetch_page tool: returned primary-page/PDF excerpts; no raw HTTP byte hash available",
+      "checks": [
+        {
+          "claim_id": "sgmc-caveat",
+          "matched": true,
+          "quote": "geologic units have not been reconciled across State boundaries"
+        }
+      ],
+      "raw_sha256": null,
+      "stale": false,
+      "error": "SSLError: HTTPSConnectionPool(host='pubs.usgs.gov', port=443): Max retries exceeded with url: /publication/ds1052 (Caused by SSLError(SSLZeroReturnError(6, 'TLS/SSL connection has been closed (EOF) (_ssl.c:992)')))",
+      "attempt_method": "scheduled HTTPS / normalized quote checks"
+    },
+    {
+      "id": "3dep",
+      "url": "https://www.usgs.gov/3d-elevation-program/about-3dep-products-services",
+      "title": "3DEP products and services",
+      "status": "refresh-unavailable",
+      "last_verified_at": "2026-09-25T00:58:22Z",
+      "last_attempt_at": "2026-09-25T01:49:56Z",
+      "verification_method": "research fetch_page tool: returned primary-page/PDF excerpts; no raw HTTP byte hash available",
+      "checks": [
+        {
+          "claim_id": "3dep-free",
+          "matched": true,
+          "quote": "All 3DEP products are available, free of charge and without use restrictions"
+        }
+      ],
+      "raw_sha256": null,
+      "stale": false,
+      "error": "SSLError: HTTPSConnectionPool(host='www.usgs.gov', port=443): Max retries exceeded with url: /3d-elevation-program/about-3dep-products-services (Caused by SSLError(SSLZeroReturnError(6, 'TLS/SSL connection has been closed (EOF) (_ssl.c:992)')))",
+      "attempt_method": "scheduled HTTPS / normalized quote checks"
+    },
+    {
+      "id": "hermant",
+      "url": "https://pangea.stanford.edu/ERE/db/GeoConf/papers/SGW/2025/Hermant.pdf",
+      "title": "Using Deep Learning to Map Quaternary Faults in Western USA (2025)",
+      "status": "refresh-unavailable",
+      "last_verified_at": "2026-09-25T00:58:22Z",
+      "last_attempt_at": "2026-09-25T01:49:56Z",
+      "verification_method": "research fetch_page tool: returned primary-page/PDF excerpts; no raw HTTP byte hash available",
+      "checks": [
+        {
+          "claim_id": "positive-tiles",
+          "matched": true,
+          "quote": "Only tiles whose labels contain at least one fault pixel"
+        }
+      ],
+      "raw_sha256": null,
+      "stale": false,
+      "error": "SSLError: HTTPSConnectionPool(host='pangea.stanford.edu', port=443): Max retries exceeded with url: /ERE/db/GeoConf/papers/SGW/2025/Hermant.pdf (Caused by SSLError(SSLZeroReturnError(6, 'TLS/SSL connection has been closed (EOF) (_ssl.c:992)')))",
+      "attempt_method": "scheduled HTTPS / normalized quote checks"
+    },
+    {
+      "id": "matteo",
+      "url": "https://doi.org/10.1029/2020JB021269",
+      "title": "Automatic Fault Mapping in Remote Optical Images and Topographic Data With Deep Learning (2021)",
+      "status": "refresh-unavailable",
+      "last_verified_at": "2026-09-25T00:58:22Z",
+      "last_attempt_at": "2026-09-25T01:49:56Z",
+      "verification_method": "research fetch_page tool: returned primary-page/PDF excerpts; no raw HTTP byte hash available",
+      "checks": [
+        {
+          "claim_id": "matteo-title",
+          "matched": true,
+          "quote": "Automatic Fault Mapping in Remote Optical Images and Topographic Data With Deep Learning"
+        }
+      ],
+      "raw_sha256": null,
+      "stale": false,
+      "error": "SSLError: HTTPSConnectionPool(host='doi.org', port=443): Max retries exceeded with url: /10.1029/2020JB021269 (Caused by SSLError(SSLZeroReturnError(6, 'TLS/SSL connection has been closed (EOF) (_ssl.c:992)')))",
+      "attempt_method": "scheduled HTTPS / normalized quote checks"
+    },
+    {
+      "id": "nnpu",
+      "url": "https://proceedings.neurips.cc/paper/2017/hash/7cce53cf90577442771720a370c3c723-Abstract.html",
+      "title": "Positive-Unlabeled Learning with Non-Negative Risk Estimator (2017)",
+      "status": "refresh-unavailable",
+      "last_verified_at": "2026-09-25T00:58:22Z",
+      "last_attempt_at": "2026-09-25T01:49:56Z",
+      "verification_method": "research fetch_page tool: returned primary-page/PDF excerpts; no raw HTTP byte hash available",
+      "checks": [
+        {
+          "claim_id": "nnpu-claim",
+          "matched": true,
+          "quote": "we propose a non-negative risk estimator for PU learning"
+        }
+      ],
+      "raw_sha256": null,
+      "stale": false,
+      "error": "SSLError: HTTPSConnectionPool(host='proceedings.neurips.cc', port=443): Max retries exceeded with url: /paper/2017/hash/7cce53cf90577442771720a370c3c723-Abstract.html (Caused by SSLError(SSLZeroReturnError(6, 'TLS/SSL connection has been closed (EOF) (_ssl.c:992)')))",
+      "attempt_method": "scheduled HTTPS / normalized quote checks"
+    },
+    {
+      "id": "spatial-cv",
+      "url": "https://doi.org/10.1111/ecog.02881",
+      "title": "Cross-validation strategies for structured data (2017)",
+      "status": "refresh-unavailable",
+      "last_verified_at": "2026-09-25T00:58:22Z",
+      "last_attempt_at": "2026-09-25T01:49:56Z",
+      "verification_method": "research fetch_page tool: returned primary-page/PDF excerpts; no raw HTTP byte hash available",
+      "checks": [
+        {
+          "claim_id": "spatial-dependence",
+          "matched": true,
+          "quote": "We recommend that block cross-validation be used wherever dependence structures exist in a dataset"
+        }
+      ],
+      "raw_sha256": null,
+      "stale": false,
+      "error": "SSLError: HTTPSConnectionPool(host='doi.org', port=443): Max retries exceeded with url: /10.1111/ecog.02881 (Caused by SSLError(SSLZeroReturnError(6, 'TLS/SSL connection has been closed (EOF) (_ssl.c:992)')))",
+      "attempt_method": "scheduled HTTPS / normalized quote checks"
+    }
+  ],
+  "leaderboard": {
+    "verified_at": "2026-09-25T02:12:04Z",
+    "source": "https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/",
+    "rows": [
+      {
+        "rank": 1,
+        "participant": "DARD",
+        "score": 0.3049
+      },
+      {
+        "rank": 2,
+        "participant": "alexoktaba",
+        "score": 0.2993
+      },
+      {
+        "rank": 3,
+        "participant": "HardcoreTechGod",
+        "score": 0.2854
+      },
+      {
+        "rank": 18,
+        "participant": "extradr19",
+        "score": 0.1563
+      }
+    ],
+    "leader": {
+      "rank": 1,
+      "participant": "DARD",
+      "score": 0.3049
+    },
+    "tracked_user": {
+      "rank": 18,
+      "participant": "extradr19",
+      "score": 0.1563
+    },
+    "artifact_mapping": "unknown; account-level best score does not identify a candidate file",
+    "scope": "Selected rows re-read in primary leaderboard chunk 0; not the complete leaderboard"
+  },
+  "score_history": [
+    {
+      "checked_at": "2026-09-25T00:58:22Z",
+      "leader": 0.3049,
+      "extradr19": 0.1563
+    }
+  ],
+  "alerts": [
+    {
+      "source_id": "problem",
+      "status": "refresh-unavailable",
+      "stale": false,
+      "detail": "SSLError: HTTPSConnectionPool(host='www.drivendata.org', port=443): Max retries exceeded with url: /competitions/306/competition-doe-gems/page/967/ (Caused by SSLError(SSLZeroReturnError(6, 'TLS/SSL connection has been closed (EOF) (_ssl.c:992)')))"
+    },
+    {
+      "source_id": "overview",
+      "status": "refresh-unavailable",
+      "stale": false,
+      "detail": "SSLError: HTTPSConnectionPool(host='www.drivendata.org', port=443): Max retries exceeded with url: /competitions/306/competition-doe-gems/ (Caused by SSLError(SSLZeroReturnError(6, 'TLS/SSL connection has been closed (EOF) (_ssl.c:992)')))"
+    },
+    {
+      "source_id": "rules",
+      "status": "refresh-unavailable",
+      "stale": false,
+      "detail": "SSLError: HTTPSConnectionPool(host='docs.nlr.gov', port=443): Max retries exceeded with url: /docs/fy26osti/96647.pdf (Caused by SSLError(SSLZeroReturnError(6, 'TLS/SSL connection has been closed (EOF) (_ssl.c:992)')))"
+    },
+    {
+      "source_id": "leaderboard",
+      "status": "refresh-unavailable",
+      "stale": false,
+      "detail": "SSLError: HTTPSConnectionPool(host='www.drivendata.org', port=443): Max retries exceeded with url: /competitions/306/competition-doe-gems/leaderboard/ (Caused by SSLError(SSLZeroReturnError(6, 'TLS/SSL connection has been closed (EOF) (_ssl.c:992)')))"
+    },
+    {
+      "source_id": "data-tab",
+      "status": "refresh-unavailable",
+      "stale": false,
+      "detail": "SSLError: HTTPSConnectionPool(host='www.drivendata.org', port=443): Max retries exceeded with url: /competitions/306/competition-doe-gems/data/ (Caused by SSLError(SSLZeroReturnError(6, 'TLS/SSL connection has been closed (EOF) (_ssl.c:992)')))"
+    },
+    {
+      "source_id": "about",
+      "status": "refresh-unavailable",
+      "stale": false,
+      "detail": "SSLError: HTTPSConnectionPool(host='www.drivendata.org', port=443): Max retries exceeded with url: /competitions/306/competition-doe-gems/page/968/ (Caused by SSLError(SSLZeroReturnError(6, 'TLS/SSL connection has been closed (EOF) (_ssl.c:992)')))"
+    },
+    {
+      "source_id": "reference",
+      "status": "refresh-unavailable",
+      "stale": false,
+      "detail": "SSLError: HTTPSConnectionPool(host='github.com', port=443): Max retries exceeded with url: /drivendataorg/gems-prize-reference-solution (Caused by SSLError(SSLCertVerificationError(1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:992)')))"
+    },
+    {
+      "source_id": "geodawn",
+      "status": "refresh-unavailable",
+      "stale": false,
+      "detail": "SSLError: HTTPSConnectionPool(host='www.usgs.gov', port=443): Max retries exceeded with url: /data/geodawn-airborne-magnetic-and-radiometric-surveys-northwestern-great-basin-nevada-and (Caused by SSLError(SSLZeroReturnError(6, 'TLS/SSL connection has been closed (EOF) (_ssl.c:992)')))"
+    },
+    {
+      "source_id": "ingenious",
+      "status": "refresh-unavailable",
+      "stale": false,
+      "detail": "SSLError: HTTPSConnectionPool(host='gdr.openei.org', port=443): Max retries exceeded with url: /submissions/1391 (Caused by SSLError(SSLZeroReturnError(6, 'TLS/SSL connection has been closed (EOF) (_ssl.c:992)')))"
+    },
+    {
+      "source_id": "sgmc",
+      "status": "refresh-unavailable",
+      "stale": false,
+      "detail": "SSLError: HTTPSConnectionPool(host='pubs.usgs.gov', port=443): Max retries exceeded with url: /publication/ds1052 (Caused by SSLError(SSLZeroReturnError(6, 'TLS/SSL connection has been closed (EOF) (_ssl.c:992)')))"
+    },
+    {
+      "source_id": "3dep",
+      "status": "refresh-unavailable",
+      "stale": false,
+      "detail": "SSLError: HTTPSConnectionPool(host='www.usgs.gov', port=443): Max retries exceeded with url: /3d-elevation-program/about-3dep-products-services (Caused by SSLError(SSLZeroReturnError(6, 'TLS/SSL connection has been closed (EOF) (_ssl.c:992)')))"
+    },
+    {
+      "source_id": "hermant",
+      "status": "refresh-unavailable",
+      "stale": false,
+      "detail": "SSLError: HTTPSConnectionPool(host='pangea.stanford.edu', port=443): Max retries exceeded with url: /ERE/db/GeoConf/papers/SGW/2025/Hermant.pdf (Caused by SSLError(SSLZeroReturnError(6, 'TLS/SSL connection has been closed (EOF) (_ssl.c:992)')))"
+    },
+    {
+      "source_id": "matteo",
+      "status": "refresh-unavailable",
+      "stale": false,
+      "detail": "SSLError: HTTPSConnectionPool(host='doi.org', port=443): Max retries exceeded with url: /10.1029/2020JB021269 (Caused by SSLError(SSLZeroReturnError(6, 'TLS/SSL connection has been closed (EOF) (_ssl.c:992)')))"
+    },
+    {
+      "source_id": "nnpu",
+      "status": "refresh-unavailable",
+      "stale": false,
+      "detail": "SSLError: HTTPSConnectionPool(host='proceedings.neurips.cc', port=443): Max retries exceeded with url: /paper/2017/hash/7cce53cf90577442771720a370c3c723-Abstract.html (Caused by SSLError(SSLZeroReturnError(6, 'TLS/SSL connection has been closed (EOF) (_ssl.c:992)')))"
+    },
+    {
+      "source_id": "spatial-cv",
+      "status": "refresh-unavailable",
+      "stale": false,
+      "detail": "SSLError: HTTPSConnectionPool(host='doi.org', port=443): Max retries exceeded with url: /10.1111/ecog.02881 (Caused by SSLError(SSLZeroReturnError(6, 'TLS/SSL connection has been closed (EOF) (_ssl.c:992)')))"
+    }
+  ],
+  "automation": "Every 6 hours in GitHub Actions when enabled; schedules may be delayed. No browser scraping.",
+  "initial_observation_window": "2026-09-25T00:43:00Z through 2026-09-25T00:58:22Z",
+  "last_refresh_attempt_at": "2026-09-25T01:49:56Z"
+}

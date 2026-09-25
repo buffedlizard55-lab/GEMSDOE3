@@ -1,0 +1,1 @@
+Refreshed 15 sources; 15 explicit alerts. Failed sources retained last successful evidence.

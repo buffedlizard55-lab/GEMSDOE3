@@ -1,0 +1,162 @@
+{
+  "direct_tif": true,
+  "zip": true,
+  "field_bitwise_equivalent_except_nan_encoding": true,
+  "mask_matches_reference": true,
+  "artifact_sha256": "7b6010637ae341b56f7d211eaf892b239822b0668d3f5556af0eecb505a228d3",
+  "javascript_writer": {
+    "passed": true,
+    "sha256": "73df410eb123f6a43e4fca6deb2b11ec300aadc22d482e764e1f4964c44a2a47",
+    "bytes": 522952,
+    "measurement": {
+      "valid": 5167373,
+      "outside": 7111787,
+      "nonzero": 352506,
+      "min": 0,
+      "max": 1
+    },
+    "layout": {
+      "width": 3292,
+      "height": 3730,
+      "nStrips": 59,
+      "rowsPerStrip": 64,
+      "compression": 8,
+      "deflated": true,
+      "ifdStart": 8,
+      "ifdBytes": 222,
+      "extrasBytes": 706,
+      "dataStart": 936,
+      "totalBytes": 522952,
+      "rawFieldBytes": 49116640,
+      "containerBytes": 522952,
+      "strippedBytes": 521927
+    },
+    "note": "Riftline context-distance | sigma=1,3,7 | u=1.0 | binary-ridge f=0.22 | s=20260925 | 7b6010637a | build 20260925T023122528Z c0a82346",
+    "filename": "riftline-context-distance-20260925T023122528Z-7b6010637a-c0a82346.tif"
+  },
+  "independent_rasterio_validation": {
+    "schema_version": 1,
+    "checked_at": "2026-09-25T02:31:23Z",
+    "passed": true,
+    "meaning": "Local documented-format validation only; no platform acceptance or score implied.",
+    "file": "browser.tif",
+    "sha256": "73df410eb123f6a43e4fca6deb2b11ec300aadc22d482e764e1f4964c44a2a47",
+    "bytes": 522952,
+    "template_sha256": "2176d08e485aa2cd2860ce8df539db4faf4d76163b38a4dd8c30a40454d35cbc",
+    "grid": {
+      "width": 3292,
+      "height": 3730,
+      "crs": "EPSG:32611",
+      "transform": [
+        100.0,
+        0.0,
+        243350.0,
+        0.0,
+        -100.0,
+        4508550.0
+      ],
+      "dtype": "float32",
+      "bands": 1,
+      "resolution_m": [
+        100.0,
+        100.0
+      ]
+    },
+    "checks": [
+      {
+        "check": "GeoTIFF driver",
+        "passed": true,
+        "detail": "GTiff"
+      },
+      {
+        "check": "one band",
+        "passed": true,
+        "detail": 1
+      },
+      {
+        "check": "float32",
+        "passed": true,
+        "detail": [
+          "float32"
+        ]
+      },
+      {
+        "check": "template shape",
+        "passed": true,
+        "detail": [
+          [
+            3730,
+            3292
+          ],
+          [
+            3730,
+            3292
+          ]
+        ]
+      },
+      {
+        "check": "template CRS / EPSG:32611",
+        "passed": true,
+        "detail": "EPSG:32611"
+      },
+      {
+        "check": "exact affine transform",
+        "passed": true,
+        "detail": [
+          100.0,
+          0.0,
+          243350.0,
+          0.0,
+          -100.0,
+          4508550.0
+        ]
+      },
+      {
+        "check": "NaN nodata",
+        "passed": true,
+        "detail": "nan"
+      },
+      {
+        "check": "pixel-is-area",
+        "passed": true,
+        "detail": "Area"
+      },
+      {
+        "check": "finite inside template mask",
+        "passed": true,
+        "detail": 0
+      },
+      {
+        "check": "inside values in [0,1]",
+        "passed": true,
+        "detail": 0
+      },
+      {
+        "check": "NaN outside template mask",
+        "passed": true,
+        "detail": 0
+      },
+      {
+        "check": "no hidden mask disagreement",
+        "passed": true,
+        "detail": 0
+      },
+      {
+        "check": "valid reference",
+        "passed": true,
+        "detail": "2176d08e485aa2cd2860ce8df539db4faf4d76163b38a4dd8c30a40454d35cbc"
+      }
+    ],
+    "counts": {
+      "valid_pixels": 5167373,
+      "outside_pixels": 7111787,
+      "invalid_inside": 0,
+      "out_of_range": 0,
+      "non_nan_outside": 0,
+      "mask_mismatches": 0,
+      "nonzero_pixels": 352506
+    },
+    "min": 0.0,
+    "max": 1.0
+  }
+}

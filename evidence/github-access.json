@@ -1,0 +1,37 @@
+{
+  "checked_at": "2026-09-25T03:45:01Z",
+  "status": "GitHub restored; branch pushed and PR created; current merge/deployment state is available at the linked PR and Actions",
+  "branch": "arena/01a0d603-gemsdoe3",
+  "repo_metadata_http": 200,
+  "push_performed": true,
+  "pushed_commit": "b454c58196126d8401490babc1daaf1deed6bed0",
+  "pr_created": true,
+  "pr_number": 1,
+  "pr_url": "https://github.com/buffedlizard55-lab/GEMSDOE3/pull/1",
+  "hosted_ci": {
+    "url": "https://github.com/buffedlizard55-lab/GEMSDOE3/actions/runs/36091380405",
+    "head_sha": "b454c58196126d8401490babc1daaf1deed6bed0",
+    "conclusion": "success",
+    "verification_method": "GitHub check/run metadata; Python/artifact and Chromium gates are configured in the successful verify job"
+  },
+  "merge_performed_at_recording": false,
+  "public_deployment_verified_at_recording": false,
+  "current_status_source": "https://github.com/buffedlizard55-lab/GEMSDOE3/pull/1",
+  "prior_failed_attempt": {
+    "checked_at": "2026-09-25T02:34:21Z",
+    "status": "blocked; GitHub API authentication still needs reconnection",
+    "repo_metadata_http": 401,
+    "message": "Bad credentials",
+    "earlier_pages_setting_update_http": 403,
+    "pages_setting_scope": "Legacy main:/ read successfully earlier; modifying Pages configuration was not permitted. Later credential failure is a separate problem.",
+    "push_performed": false,
+    "pr_created": false,
+    "merge_performed": false,
+    "new_public_deployment_verified": false,
+    "branch": "arena/01a0d603-gemsdoe3",
+    "push_attempted": true,
+    "push_returncode": 128,
+    "push_result": "\nfatal: could not read Username for 'https://github.com': terminal prompts disabled\n",
+    "push_attempt_commit": "826c87a5a8f228585226e894bb610314275365b2"
+  }
+}

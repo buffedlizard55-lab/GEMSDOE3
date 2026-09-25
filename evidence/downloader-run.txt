@@ -1,0 +1,5 @@
+Free disk: 15.1 GB
+Verified existing training_features.tif
+Verified existing labels.tif
+Verified existing sample_submission.tif
+PASS: 3292 x 3730, 5,167,373 valid pixels
