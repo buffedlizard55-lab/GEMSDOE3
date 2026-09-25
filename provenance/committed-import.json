@@ -1,6 +1,5 @@
 {
-  "verified_at": "2026-09-25T02:39:21Z",
-  "import_commit": "826c87a",
+  "verified_at": "2026-09-25T03:45:01Z",
   "upstream_commit": "cceebbdcf9a7d2890bb0665defcb54dfc66ae452",
   "imported_local_blob_count": 387,
   "committed_archived_blobs": 382,
@@ -8,5 +7,8 @@
   "staged_blob_ids_matched_upstream": true,
   "normalization": "legacy/** -text -whitespace preserves exact original bytes and line endings",
   "missing": [],
-  "mismatched": []
+  "mismatched": [],
+  "prior_local_commit_reference": "826c87a",
+  "verification_context": "382 archived blob IDs rechecked in the Git index before the successful PR branch push; the original local commit reference is historical.",
+  "published_import_commit": "b454c58196126d8401490babc1daaf1deed6bed0"
 }

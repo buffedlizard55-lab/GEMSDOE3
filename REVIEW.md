@@ -1,6 +1,6 @@
 # Three-pass review — 2026-09-25
 
-Three local implementation/review passes were executed. **GitHub release is blocked by a subsequently failing connection (HTTP 401), not falsely marked deployed.** The candidate has no measured competition score. Machine-readable status and request coverage are in `evidence/review.json`.
+Three local implementation/review passes were executed. The initial GitHub authentication failure is historical: access has been restored, [PR #1](https://github.com/buffedlizard55-lab/GEMSDOE3/pull/1) exists, and [hosted CI](https://github.com/buffedlizard55-lab/GEMSDOE3/actions/runs/36091380405) passed. The PR and deployment workflow are the authoritative current release state; earlier local passes are not themselves deployment proof. The candidate has no measured competition score. Machine-readable status and request coverage are in `evidence/review.json`.
 
 ## Pass 1 — implement and execute
 
@@ -36,7 +36,7 @@ Three local implementation/review passes were executed. **GitHub release is bloc
 - **99 Python tests passed, no warnings. 11 real Chromium tests passed**, including real download + Rasterio validation, corrupt payload rejection, functional source filters/navigation, stale/unavailable feeds, mobile width, same-origin assets, mixed releases, receipt/direct-file identity and JavaScript-off fallback. Fixed the no-JavaScript test to inspect the rendered fallback element rather than Playwright’s excluded `noscript` container.
 - Verified the actual **local HTTP** page and TIF, ZIP, field and mask byte hashes. This is not a public Pages deployment claim. Current screenshots were inspected at desktop and mobile sizes.
 - Added bounded post-deployment HTTP byte verification to the Pages workflow, and weekly CPU candidate packaging without automatic model promotion, branch writes or DrivenData upload.
-- **Blocked release steps:** authenticated GitHub metadata returned 401; GitHub reconnect was requested in Arena. Actual push/PR/merge and public Pages status must be taken from `evidence/github-access.json` / live GitHub checks, not from these local passes. Pages configuration editing had separately returned 403 earlier.
+- **Initial release interruption (historical):** authenticated GitHub metadata returned 401; GitHub reconnect was requested in Arena. Actual push/PR/merge and public Pages status must be taken from `evidence/github-access.json` / live GitHub checks, not from these local passes. Pages configuration editing had separately returned 403 earlier.
 
 ## Evidence
 

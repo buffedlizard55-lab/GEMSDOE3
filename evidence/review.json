@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-25T02:31:10Z",
+  "updated_at": "2026-09-25T03:45:01Z",
   "passes": [
     {
       "pass": 1,
@@ -16,14 +16,14 @@
     {
       "pass": 3,
       "title": "Full-request release check",
-      "status": "completed locally; remote release blocked",
-      "summary": "99 Python and 11 actual Chromium checks passed; real local HTTP artifact hashes and label-free inference matched. Original prompt re-read, source claims rechecked, masked/precision/publisher gates hardened. GitHub 401 prevents asserting PR, merge or public deployment."
+      "status": "local review complete; hosted CI passed; release tracked in PR #1",
+      "summary": "99 Python and 11 Chromium checks passed in the local review. Hosted Python/artifact and Chromium gates also passed for the initial PR head. The prior authentication block was resolved; merge/deployment are tracked by the PR and release workflow."
     }
   ],
   "artifact_sha256": "7b6010637ae341b56f7d211eaf892b239822b0668d3f5556af0eecb505a228d3",
   "local_checks_complete": true,
   "entire_request_fully_complete": false,
-  "release_status": "blocked by GitHub HTTP 401; no successful remote operation inferred",
+  "release_status": "GitHub access restored; PR #1 created and initial hosted CI passed. Current state: https://github.com/buffedlizard55-lab/GEMSDOE3/pull/1",
   "competition_score": null,
   "test_evidence": {
     "pass1_python": "evidence/pass1-tests.xml",
@@ -67,8 +67,10 @@
     },
     {
       "requirement": "PR, merge, GitHub Pages deployment",
-      "state": "blocked pending functioning GitHub authentication",
-      "limit": "Last GH metadata request returned 401. Check operation evidence before claiming completion."
+      "state": "PR #1 created; initial hosted CI passed; current merge/deployment state tracked on GitHub",
+      "limit": "Do not confuse a check pass with a scored competition submission. Use the PR and actual deployment verification for release status."
     }
-  ]
+  ],
+  "hosted_ci_url": "https://github.com/buffedlizard55-lab/GEMSDOE3/actions/runs/36091380405",
+  "release_pr_url": "https://github.com/buffedlizard55-lab/GEMSDOE3/pull/1"
 }

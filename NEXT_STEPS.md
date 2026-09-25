@@ -1,10 +1,10 @@
 # Start here after reading README.md
 
-## Immediate release blocker
+## Release handoff
 
-The local model, artifact, site and three review passes are complete. GitHub metadata started returning **401 Bad credentials** at 2026-09-25 01:47 UTC. Reconnect GitHub in Arena; do not ask for passwords/tokens. Check `evidence/github-access.json` for the latest actual push/PR status before making claims.
+GitHub access is working again. [PR #1](https://github.com/buffedlizard55-lab/GEMSDOE3/pull/1) contains the release on `arena/01a0d603-gemsdoe3`; [its initial hosted CI](https://github.com/buffedlizard55-lab/GEMSDOE3/actions/runs/36091380405) passed the Python/artifact and Chromium verification gates. Consult the PR for the current merge state and Actions for actual Pages deployment and public-byte verification. The earlier 401 failure is preserved as historical evidence, not a current instruction to reconnect.
 
-After the connection is restored: stay on `arena/01a0d603-gemsdoe3`, run the active checks, push only that branch, create the PR using `.github/PULL_REQUEST_TEMPLATE.md`, wait for real CI, merge if checks/permissions permit, then verify the actual Pages response. The source-feed workflow includes a post-deployment byte-hash check. Update README/review/release status only after those operations really succeed. Current intended Pages URLs do not prove the new version is deployed.
+For future changes, remain on the assigned branch, run the active checks, and use a PR rather than writing to main directly. A CI pass is not a competition score; an Actions configuration is not a deployment. The source-feed workflow includes public page/TIF/ZIP/payload byte-hash verification after deployment. Retain that result before asserting that a new version is live.
 
 ## Objective
 

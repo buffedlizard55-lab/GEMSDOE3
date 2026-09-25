@@ -8,8 +8,8 @@ A one-click, **format-validated GeoTIFF submission** for the DOE GEMS Prize, sup
 
 **Maximize P(Win):** prioritize scientific evidence, spatial generalization, rule compliance and useful experiments over optimistic claims. **Own the Outcome:** implement, execute, inspect the actual result, fix failures and leave the next session a reliable base.
 
-- **Planned Pages URL (publication not verified yet):** https://buffedlizard55-lab.github.io/GEMSDOE3/docs/index.html
-- **Planned executive-summary URL:** https://buffedlizard55-lab.github.io/GEMSDOE3/docs/executive_summary.html
+- **Pages URL (deployment status is tracked below):** https://buffedlizard55-lab.github.io/GEMSDOE3/docs/index.html
+- **Executive-summary URL:** https://buffedlizard55-lab.github.io/GEMSDOE3/docs/executive_summary.html
 - **Official competition:** https://www.drivendata.org/competitions/306/competition-doe-gems/
 - **Requirements and metric:** https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/
 - **Official rules:** https://docs.nlr.gov/docs/fy26osti/96647.pdf
@@ -22,8 +22,8 @@ The website's download card is the first actionable section. It identifies the a
 - **Note:** `Riftline context-distance | sigma=1,3,7 | u=1.0 | binary-ridge f=0.22 | s=20260925 | 7b6010637a`
 - **Measured:** 13 format checks; 452,194 pixels different from the archived comparison; label-free frozen-model inference matches every published pixel. **99 Python tests and 11 real Chromium tests passed** after three local review passes.
 - **Model limit:** the all-data refit failed the 8% support guard; the unchanged selected spatial-holdout model is published instead. One diagnostic split, no independent replication, no competition upload or measured score gain.
-- **GitHub release blocked:** the connection began returning HTTP 401. Reconnect GitHub in Arena—never post credentials. Local readiness does **not** establish a pushed branch, PR, merge, hosted CI run or public deployment. Consult `evidence/github-access.json` for the measured operation status; the URLs above are intended destinations, not proof this version is live.
-- **Feed honesty:** all 15 direct HTTP source refreshes were blocked in this sandbox and remain flagged. The public leaderboard was separately re-read through the research tool. Scheduled workflow code is ready but is not active on main until it is published.
+- **Release tracking:** GitHub access was restored and [PR #1](https://github.com/buffedlizard55-lab/GEMSDOE3/pull/1) was created from `arena/01a0d603-gemsdoe3` into `main`. [Hosted CI](https://github.com/buffedlizard55-lab/GEMSDOE3/actions/runs/36091380405) passed the Python/artifact and Chromium verification gates for the initial PR head. Use the PR and [Actions](https://github.com/buffedlizard55-lab/GEMSDOE3/actions) for the current merge/deployment state; a local build or PR creation alone does not prove deployment. `evidence/github-access.json` preserves the earlier authentication failure and recovery evidence.
+- **Feed honesty:** the initial 15 direct HTTP source refreshes were blocked in the sandbox and remain dated evidence, not fresh successes. The public leaderboard was separately re-read through the research tool. After merge, the source-feed workflow refreshes the published snapshot and exposes failures; consult its actual run and per-source timestamps.
 
 ## What was copied, and what is new
 
@@ -54,7 +54,7 @@ python -m http.server 8000 --bind 0.0.0.0 --directory build/site
 # Open /docs/index.html
 ```
 
-The downloader verifies each segment, total size and whole-file SHA-256 before atomic placement. It will not replace valid data with an HTML login page or a corrupted response. It uses the **user-supplied mirror's inherited GitHub bridge**, not an authenticated official download. The official data tab still requires enrollment. When raw-host HTTPS is blocked, the downloader can use the already configured GitHub CLI for the same pinned public object. That fallback needs a functioning GitHub connection; this session’s attempted fresh-network fallback was blocked by HTTP 401, while all canonical files already placed locally remained intact.
+The downloader verifies each segment, total size and whole-file SHA-256 before atomic placement. It will not replace valid data with an HTML login page or a corrupted response. It uses the **user-supplied mirror's inherited GitHub bridge**, not an authenticated official download. The official data tab still requires enrollment. When raw-host HTTPS is blocked, the downloader can use the already configured GitHub CLI for the same pinned public object. That fallback needs a functioning GitHub connection; the initial build session’s attempted fresh-network fallback was blocked by HTTP 401, while all canonical files already placed locally remained intact.
 
 Outputs and trained models live in ignored `outputs/`; input rasters and feature caches in ignored `data/`. Allow several GB of working disk and roughly 3–4 GB RAM for the full-grid CPU experiment. Timing and actual package versions are recorded in the experiment report. Large files are not committed. The website ships only the small validated candidate, compressed pixel payload, mask, manifests and evidence.
 
@@ -69,7 +69,7 @@ Frozen-model inference without labels is available with `python -m gems3.infer`;
 
 A weekly CPU workflow is configured to train and package candidates after publication to the default branch without manual data placement; it does **not** automatically promote a rerun or upload to DrivenData. Real browser tests run with `npm ci && node scripts/run_browser_tests.cjs` (Linux x64, pinned npm Chromium, no system install).
 
-The feed uses fixed primary-source URLs, conservative exact-quote checks, HTTP timeouts, source/content hashes where raw bytes are available, explicit stale states and preserved last-success times. Scheduled GitHub Pages automation is configured separately from training; no hosted execution is claimed while GitHub access is blocked. Scheduled jobs may be delayed or disabled by GitHub; a static page is not a continuously running scraper. The UI reports actual evidence age, not a fabricated “live” state.
+The feed uses fixed primary-source URLs, conservative exact-quote checks, HTTP timeouts, source/content hashes where raw bytes are available, explicit stale states and preserved last-success times. Scheduled GitHub Pages automation is configured separately from training; hosted execution and deployment are verified through the linked workflow runs, not inferred from configuration. Scheduled jobs may be delayed or disabled by GitHub; a static page is not a continuously running scraper. The UI reports actual evidence age, not a fabricated “live” state.
 
 ## Verification and limitations
 
@@ -95,7 +95,7 @@ The feed uses fixed primary-source URLs, conservative exact-quote checks, HTTP t
 | `research/` | Primary-source catalogue, bounded literature review and claim ledger |
 | `provenance/` | Exact upstream import manifest and source review provenance |
 | `tests/` | Active regression and browser-generation tests |
-| `.github/workflows/` | Prepared CI, weekly CPU experiments and source-feed/Pages jobs; hosted activation pending |
+| `.github/workflows/` | CI, weekly CPU experiments and source-feed/Pages jobs; actual run state is recorded in GitHub Actions |
 | `legacy/` | Preserved upstream code, site and historical evidence, not active automation |
 
 ---
