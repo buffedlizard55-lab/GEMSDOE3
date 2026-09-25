@@ -195,6 +195,7 @@ the audit fold.</caption><thead><tr><th>Comparison</th><th>Δ gap</th><th>CI95</
 the hidden labels.</caption><thead><tr><th>Reference</th><th>File</th><th>Tune gap</th><th>Tune all</th>
 <th>Tune known</th><th>Audit gap</th><th>Audit all</th><th>Audit known</th></tr></thead>
 <tbody>{refs}</tbody></table></div>
+<figure class="gapfinder-figure"><img src="assets/pindrop-preview.png" alt="The published Pindrop nodes file across the footprint: green marks the emitted single-pixel nodes, amber marks the USGS SGMC traces the gap proxy is built from" loading="lazy"><figcaption><strong>The published nodes file.</strong> Green = the {sel["emitted_pixels"]:,} emitted single-pixel nodes ({sel["emitted_fraction"]:.3%} of the template footprint); amber = the USGS SGMC traces the catalogue-gap proxy is built from. Max-pooled 5&times;, which makes a schedule spaced at {sel["spacing"]} px look almost continuous &mdash; the file itself is isolated pixels, not a filled map. Predictions, not confirmed faults, and no competition score exists for it.</figcaption></figure>
 <div class="warning-box"><strong>Rotation, not independence.</strong> {esc(pt["config"]["rotation_disclosure"])}</div>
 <div class="two-column"><section class="white-card"><span class="eyebrow">DEPLOYED MODEL</span>
 <h2>{esc(dep["model_role"])}</h2><dl class="fact-list">

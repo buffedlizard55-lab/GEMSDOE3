@@ -32,11 +32,13 @@ Read `README.md` (with the preserved brief at the bottom), `AGENTS.md`, `REVIEW.
 
 ```bash
 python -m venv .venv && source .venv/bin/activate && pip install -r requirements-dev.txt
+npm ci --no-audit --no-fund   # pinned Chromium for the real browser suite; no browser CDN needed
 bash scripts/download_competition_data.sh && python scripts/prepare_data.py
 OMP_NUM_THREADS=2 OPENBLAS_NUM_THREADS=2 python -m gems3.pindrop --config configs/pindrop-v4.json --output outputs/pindrop-v4-run3
 python -m gems3.pindrop_publish --report outputs/pindrop-v4-run3/experiment.json
 python -m gems3.site && python scripts/check_published.py && python -m pytest
-python scripts/stage_site.py && python -m http.server 8000 --bind 0.0.0.0 --directory build/site
+python scripts/stage_site.py && node scripts/run_browser_tests.cjs   # 13 real Chromium checks over build/site
+python -m http.server 8000 --bind 0.0.0.0 --directory build/site
 ```
 
 Expect the frozen selection `union-target / nodes / spacing 4 / budget 0.0300 / halo 0 / tip 0`, the same three 155,021-pixel files, and the identical pixels for the two union-arm files (the discovery arm may differ by ~1e-4 of its pixels; see item 3). Roughly 9 minutes of CPU for the experiment on two cores.

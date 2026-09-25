@@ -254,6 +254,24 @@ def test_archived_portfolio_is_labelled_as_history_not_advice():
     assert html.index('id="portfolio"') < html.index('id="portfolio-previous"')
 
 
+def test_rendered_pages_have_no_duplicate_element_ids():
+    """Duplicate ids break strict locators and assistive technology (found by the Chromium suite).
+
+    The home page renders two portfolios (the live one and the archived session-3 one). Both carried
+    id="portfolio-status" until the archived block was given its own id.
+    """
+    from bs4 import BeautifulSoup
+
+    for path in sorted((ROOT / "docs").glob("*.html")):
+        soup = BeautifulSoup(path.read_text(), "html.parser")
+        ids = [tag["id"] for tag in soup.find_all(attrs={"id": True})]
+        duplicates = sorted({value for value in ids if ids.count(value) > 1})
+        assert not duplicates, f"{path.name} repeats ids: {duplicates}"
+    home = (ROOT / "docs/index.html").read_text()
+    assert home.count('id="portfolio-status"') == 1
+    assert 'id="portfolio-status-portfolio-previous"' in home
+
+
 def test_pindrop_limitations_are_published_on_the_site():
     html = (ROOT / "docs/experiments.html").read_text()
     # The section is rendered from the published report: eyebrow upper-cased, run named by its id.
@@ -264,6 +282,10 @@ def test_pindrop_limitations_are_published_on_the_site():
     report = read_json(ROOT / "docs/data/pindrop-experiment.json")
     for text in report["limitations"]:
         assert text in html, f"limitation missing from the site: {text}"
+    # The published preview must be shown with its honest caption, and the asset must exist.
+    assert "assets/pindrop-preview.png" in html
+    assert (ROOT / "docs/assets/pindrop-preview.png").is_file()
+    assert "not a filled map" in html
 
 
 def test_template_info_still_defines_the_footprint_used_by_the_sweep():

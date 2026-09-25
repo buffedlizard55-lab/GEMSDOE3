@@ -53,6 +53,9 @@ def portfolio_section(port: dict | None, where: str = "home", section_id: str = 
     heading_id = f"portfolio-heading-{where}"
     if not section_id or not section_id.replace("-", "").isalnum():
         raise ValueError("Portfolio section id must be a simple identifier")
+    # Exactly one element may own the live status id: app.js writes the clipboard result there, and a
+    # second block (an archived portfolio on the same page) must not create a duplicate DOM id.
+    status_id = "portfolio-status" if section_id == "portfolio" else f"portfolio-status-{section_id}"
     if where == "previous":
         # An archived manifest is evidence, not advice: its badges and hypotheses are the words that
         # were published at the time. The heading says so instead of repeating "upload this first".
@@ -81,7 +84,7 @@ def portfolio_section(port: dict | None, where: str = "home", section_id: str = 
 <p>{intro}</p></div>
 {steps}</div>
 <div class="portfolio-grid">{''.join(portfolio_card({**i, "role": "previous"} if where == "previous" else i) for i in items)}</div>
-<p class="portfolio-status" id="portfolio-status" role="status" aria-live="polite">{esc(port['rule'])} Files published {esc(port['published_at'])}.</p>
+<p class="portfolio-status" id="{status_id}" role="status" aria-live="polite">{esc(port['rule'])} Files published {esc(port['published_at'])}.</p>
 </section>'''
 
 

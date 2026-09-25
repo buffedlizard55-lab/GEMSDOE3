@@ -170,9 +170,15 @@ python -m gems3.pindrop_publish --report outputs/pindrop-v4-run3/experiment.json
 python -m gems3.site
 python scripts/stage_site.py
 python -m pytest
+npm ci --no-audit --no-fund && node scripts/run_browser_tests.cjs   # 13 real Chromium checks against build/site
 python -m http.server 8000 --bind 0.0.0.0 --directory build/site
 # Open /docs/index.html
 ```
+
+The Chromium suite runs in this environment after `npm ci`: the repository pins a brotli-compressed
+Chromium through `@sparticuz/chromium` (no browser CDN, no system install), so `node scripts/run_browser_tests.cjs`
+starts its own static server over `build/site` and runs the same 13 checks hosted CI runs. Fixing a duplicate
+DOM id in session 4 was only possible because the suite was executed locally instead of trusting CI alone.
 
 The downloader verifies each segment, total size and whole-file SHA-256 before atomic placement. It will not replace valid data with an HTML login page or a corrupted response. It uses the **user-supplied mirror's inherited GitHub bridge**, not an authenticated official download. The official data tab still requires enrollment. When raw-host HTTPS is blocked, the downloader can use the already configured GitHub CLI for the same pinned public object. That fallback needs a functioning GitHub connection; the initial build session’s attempted fresh-network fallback was blocked by HTTP 401, while all canonical files already placed locally remained intact.
 
@@ -187,7 +193,7 @@ python -m gems3.feed
 
 Frozen-model inference without labels is available with `python -m gems3.infer`; only load a model whose hash is pinned by your trusted experiment manifest. The executed model-side source snapshot is preserved in `evidence/training-source/`. Additional guard-only fixes in active code do not retroactively change that run’s recorded source identity.
 
-A weekly CPU workflow is configured to train and package candidates after publication to the default branch without manual data placement; it does **not** automatically promote a rerun or upload to DrivenData. Real browser tests run with `npm ci && node scripts/run_browser_tests.cjs` (Linux x64, pinned npm Chromium, no system install).
+A weekly CPU workflow is configured to train and package candidates after publication to the default branch without manual data placement; it does **not** automatically promote a rerun or upload to DrivenData. Real browser tests run with `npm ci && node scripts/run_browser_tests.cjs` (Linux x64, pinned npm Chromium, no system install) and pass locally as of session 4: **13/13**, evidence in `evidence/browser-tests.json`.
 
 The feed uses fixed primary-source URLs, conservative exact-quote checks, HTTP timeouts, source/content hashes where raw bytes are available, explicit stale states and preserved last-success times. Scheduled GitHub Pages automation is configured separately from training; hosted execution and deployment are verified through the linked workflow runs, not inferred from configuration. Scheduled jobs may be delayed or disabled by GitHub; a static page is not a continuously running scraper. The UI reports actual evidence age, not a fabricated “live” state.
 
@@ -198,6 +204,7 @@ The feed uses fixed primary-source URLs, conservative exact-quote checks, HTTP t
 - A historical failure had NaN inside the scored footprint. Range errors can also mean negative values, values above one, infinity or other invalid content; no single error message alone proves the cause.
 - The mirrored example contains fault positives although the official page describes an all-zero example. Its **grid and mask only** are used. The feature mask differs from the submission mask. These irregularities are recorded in `evidence/data.json`.
 - No access to hidden expert labels, DrivenData authenticated upload, or the user's private submissions. Enrollment, eligibility/legal attestations, upload and final submission selection cannot honestly be automated in this unauthenticated session. Never send passwords/tokens in chat.
+- **Session 4 site integrity:** the home page renders two portfolios (live and archived) and both previously carried `id="portfolio-status"`, a duplicate DOM id that broke strict locators in the Chromium suite; the archived block now owns `portfolio-status-portfolio-previous`, and a test asserts no rendered page repeats an id.
 - **Session 4 control integrity:** the publisher refuses any report whose recorded policy contradicts the file variant it describes (a reviewed run shipped the selected node policy on the dense control) and prints the report path and hash it is publishing; the regression test reproduces the original defect from the preserved run-1 report.
 - **Session 4 reproducibility:** the frozen selection and the two union-arm files were pixel-identical across three full runs; the `discovery-target` file differed in 116 of its 155,021 emitted pixels between run 1 and runs 2–3, so that arm's retraining is not bit-reproducible and no claim of determinism is made for it. Cause not established.
 - **Session 4 budget caveat:** the k=4 schedule saturates below a 3% budget in the tuning region, so the top rows of the sweep are duplicates of the largest feasible schedule and the published file emits 99.7% of all available nodes.
