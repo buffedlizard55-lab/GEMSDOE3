@@ -179,7 +179,7 @@ def portfolio_verification(port: dict | None) -> str:
         blocks.append(f'<details class="file-details"><summary>{esc(item["title"])} · {item["checks_passed"]}/{item["checks_total"]} gates · '
                       f'<code>{esc(item["sha256"][:10])}</code></summary><div class="table-scroll"><table><thead><tr><th>Gate</th>'
                       f'<th>Requirement</th><th>Measured detail</th></tr></thead><tbody>{rows}</tbody></table></div></details>')
-    return (f'<section class="section-block" id="portfolio-gates"><div class="section-header"><div><div class="eyebrow">GAPFINDER PORTFOLIO</div>'
+    return (f'<section class="section-block" id="portfolio-gates"><div class="section-header"><div><div class="eyebrow">{(esc(port.get("strategy", "published")).upper() if isinstance(port, dict) else "PUBLISHED")} PORTFOLIO</div>'
             f'<h2>Every portfolio file, re-read and re-checked.</h2></div><a class="text-link" href="data/portfolio.json">Manifest ↗</a></div>'
             f'<p>The publisher re-validates each GeoTIFF against the hash-pinned template, confirms that the ZIP holds exactly that file, '
             f'and refuses to publish on any failure. Zero emitted pixels lie on supplied labels.</p>{"".join(blocks)}</section>')

@@ -58,5 +58,6 @@
     "conclusions": "success",
     "note": "Site brand changed to the stable GEMSDOE3 name; page title, meta description and sidebar aria-label only."
   },
-  "pass3_evidence": "evidence/session3-pass3-tests.xml (119 tests on the merged tree)"
+  "pass3_evidence": "evidence/session3-pass3-tests.xml (119 tests on the merged tree)",
+  "final_tidy_up": "The live verification page was re-read after the merges and its portfolio section header still read 'GAPFINDER PORTFOLIO' above the Coverline files. The heading now derives from the live manifest's strategy field, so it reads 'COVERAGE-V3 PORTFOLIO'; the site was re-rendered, re-checked and re-merged."
 }
