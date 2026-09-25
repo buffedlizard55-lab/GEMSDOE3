@@ -2,9 +2,10 @@
 
 ## Release handoff
 
-GitHub access is working again. [PR #1](https://github.com/buffedlizard55-lab/GEMSDOE3/pull/1) contains the release on `arena/01a0d603-gemsdoe3`; [its initial hosted CI](https://github.com/buffedlizard55-lab/GEMSDOE3/actions/runs/36091380405) passed the Python/artifact and Chromium verification gates. Consult the PR for the current merge state and Actions for actual Pages deployment and public-byte verification. The earlier 401 failure is preserved as historical evidence, not a current instruction to reconnect.
-
-For future changes, remain on the assigned branch, run the active checks, and use a PR rather than writing to main directly. A CI pass is not a competition score; an Actions configuration is not a deployment. The source-feed workflow includes public page/TIF/ZIP/payload byte-hash verification after deployment. Retain that result before asserting that a new version is live.
+- Session 1 shipped in [PR #1](https://github.com/buffedlizard55-lab/GEMSDOE3/pull/1), which is merged.
+- Session 2 (Gapfinder v2) is [PR #2](https://github.com/buffedlizard55-lab/GEMSDOE3/pull/2) from `arena/01a0d6bb-gemsdoe3`. [Hosted CI](https://github.com/buffedlizard55-lab/GEMSDOE3/actions/runs/36096808442) passed on its first head.
+- Consult GitHub for the current merge state, and the source-feed/Pages workflow for public byte verification. That verification now includes every portfolio file.
+- Stay on the assigned branch and use PRs, never direct pushes to main. A CI pass is not a competition score, and an Actions configuration is not a deployment.
 
 ## Objective
 
