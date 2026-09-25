@@ -1,4 +1,4 @@
-# Riftline · GEMSDOE3
+# Gapfinder · GEMSDOE3 (formerly Riftline)
 
 **Start every work session here.** Read this README, the preserved project brief below, `AGENTS.md`, `NEXT_STEPS.md`, and the latest evidence before changing the project.
 
@@ -14,16 +14,51 @@ A one-click, **format-validated GeoTIFF submission** for the DOE GEMS Prize, sup
 - **Requirements and metric:** https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/
 - **Official rules:** https://docs.nlr.gov/docs/fy26osti/96647.pdf
 
-The website's download card is the first actionable section. It identifies the artifact, short submission Note, checks, and **unsubmitted / score unknown** status. A local catalogue score is never presented as a leaderboard score. The public leaderboard was independently read on 2026-09-25: leader **0.3049**, extradr19 **0.1563**. We do not know the exact file associated with that account's submission. See `docs/data/feed.json` for timestamps and subsequent changes.
+The website opens with the **Gapfinder portfolio**: three format-validated GeoTIFFs in a recommended upload order. Each has a unique filename, a copyable Note and an **unsubmitted / score unknown** status. The session-1 Riftline file stays below as the previous candidate. A local catalogue score is never presented as a leaderboard score. The public leaderboard was read on 2026-09-25 through the research tool: leader **0.3049** (DARD), extradr19 **0.1563**. We do not know which file was behind that account's submission. See `docs/data/feed.json` for timestamps.
 
-## Current verified result — 2026-09-25
+## Current verified result: Gapfinder v2 (session 2, 2026-09-25)
 
-- **Ready locally:** `docs/downloads/riftline-context-distance-20260925T011817Z-7b6010637a.tif` (1,015,914 bytes), plus a ZIP containing exactly that TIF. The live preview has the download/generation buttons.
-- **Note:** `Riftline context-distance | sigma=1,3,7 | u=1.0 | binary-ridge f=0.22 | s=20260925 | 7b6010637a`
-- **Measured:** 13 format checks; 452,194 pixels different from the archived comparison; label-free frozen-model inference matches every published pixel. **99 Python tests and 11 real Chromium tests passed** after three local review passes.
-- **Model limit:** the all-data refit failed the 8% support guard; the unchanged selected spatial-holdout model is published instead. One diagnostic split, no independent replication, no competition upload or measured score gain.
-- **Release tracking:** GitHub access was restored and [PR #1](https://github.com/buffedlizard55-lab/GEMSDOE3/pull/1) was created from `arena/01a0d603-gemsdoe3` into `main`. [Hosted CI](https://github.com/buffedlizard55-lab/GEMSDOE3/actions/runs/36091380405) passed the Python/artifact and Chromium verification gates for the initial PR head. Use the PR and [Actions](https://github.com/buffedlizard55-lab/GEMSDOE3/actions) for the current merge/deployment state; a local build or PR creation alone does not prove deployment. `evidence/github-access.json` preserves the earlier authentication failure and recovery evidence.
-- **Feed honesty:** the initial 15 direct HTTP source refreshes were blocked in the sandbox and remain dated evidence, not fresh successes. The public leaderboard was separately re-read through the research tool. After merge, the source-feed workflow refreshes the published snapshot and exposes failures; consult its actual run and per-source timestamps.
+**Upload in this order** (3 uploads/week; one final selection):
+
+| # | File (`docs/downloads/`) | Note to paste | Pixels = 1 |
+|---|---|---|---|
+| 1 SUBMIT FIRST | `gapfinder-v2-fusion-20260925T045011Z-682a7bbbfe.tif` | `Gapfinder v2 fusion \| two-catalogue HGB ridge f=0.4 h=2 L=0 + SGMC-gap traces \| 682a7bbbfe` | 229,468 (4.44%) |
+| 2 SUBMIT SECOND | `gapfinder-v2-ml-20260925T045012Z-73e97f79f6.tif` | `Gapfinder v2 ML-only \| two-catalogue HGB ridge f=0.4 h=2 L=0 \| no SGMC traces \| 73e97f79f6` | 178,548 (3.46%) |
+| 3 OPTIONAL THIRD | `gapfinder-v2-sgmc-gap-20260925T045014Z-7251c22bb4.tif` | `Gapfinder v2 SGMC-gap only \| USGS SGMC faults >300m from labels \| no model \| 7251c22bb4` | 61,664 (1.19%) |
+
+Each file passed 13/13 strict format gates on read-back: exact template CRS, transform and shape; float32; NaN exactly outside the mask; finite values in [0,1] inside. Each ZIP contains exactly its TIF. No file emits on a supplied-label pixel. This is what fixes the earlier "Predicted values must be in range [0, 1]" rejection class.
+
+**Why this strategy.** DrivenData staff confirmed that supplied USGS/INGENIOUS pixels are masked **pixel-exactly** from scoring, that predictions near known traces but away from new truth are **fully penalised**, and that "new" includes continuations of known systems ([forum 11516](https://community.drivendata.org/raw/11516), [11536](https://community.drivendata.org/raw/11536)). Riftline was trained to reproduce the supplied labels. On-label pixels earn nothing, and near-label pixels are penalised unless new truth is nearby. Gapfinder instead:
+- trains on a second, independent public catalogue: USGS SGMC faults, in training regions only;
+- never emits on supplied labels, with an optional halo around them;
+- optionally extends known fault tips;
+- selects on held-out regions with three proxies: SGMC faults >300 m from labels ("gap"), all SGMC faults ("all"), and held-out supplied faults ("known").
+
+The **fusion** file adds the SGMC-gap traces directly. The **ML-only** file omits them, so the score difference between files 1 and 2 measures their value. The **SGMC-gap** file tests the published map on its own.
+
+**Measured locally** (proxy DTI; different truth from the hidden labels, **not** leaderboard-comparable):
+- Frozen selection: `two-catalogue-target f=0.40 h=2 L=0`, by max min(gap, all, known) on tuning fold 2.
+- Audit fold 3, selected policy: gap 0.182 / all 0.176 / known 0.150.
+- Riftline file: gap 0.092 / all 0.156 / known 0.328. Riftline trained on fold 3, so its known score is in-sample.
+- Paired block bootstrap vs the supplied-labels-only arm: gap +0.096 [0.053, 0.129], all +0.063 [0.019, 0.096] (7 blocks).
+- All-fold refit accepted at 3.46% support (8% cap).
+- Full record: `evidence/gapfinder-v2-experiment.json` and the site's Experiments page.
+
+**Honest caveats:**
+- **v1 → v2.** v1 (`evidence/gapfinder-v1-*`) picked an SGMC-only model. A post-hoc check showed it finds held-out supplied faults poorly (0.108), so v2 added the known proxy to selection. Fold 3 had already been inspected, so **the v2 audit is not independent**.
+- **Four attempts.** v2 took four attempts, all logged in `evidence/gapfinder-v2-errata.json`: a proxy leak we caught, a source-integrity guard stop, an audit/tie-break mismatch, and the published run with an identical frozen selection.
+- **Circularity.** SGMC is a ~1:1,000,000 compilation. Trained-on-SGMC/scored-on-SGMC measures geographic transfer, not source transfer.
+- **Unscored.** No upload has been made, and only the leaderboard can say whether any file beats 0.3049.
+
+**Tests:** 110 Python tests pass locally, including 11 new Gapfinder tests (portfolio uniqueness, prominence, notes, ZIP content, geometry, sampling, proxy and bootstrap). The Chromium suite status is recorded in `REVIEW.md`.
+
+### Previous candidate: Riftline (session 1)
+
+- `docs/downloads/riftline-context-distance-20260925T011817Z-7b6010637a.tif` (1,015,914 bytes) plus a single-file ZIP. Note: `Riftline context-distance | sigma=1,3,7 | u=1.0 | binary-ridge f=0.22 | s=20260925 | 7b6010637a`. Unscored.
+- 13 format checks; 452,194 pixels differ from the archived comparison; label-free frozen-model inference matches every published pixel.
+- Model limit: the all-data refit failed the 8% support guard, so the unchanged spatial-holdout model is published.
+- Release history: [PR #1](https://github.com/buffedlizard55-lab/GEMSDOE3/pull/1) merged into `main` with [hosted CI](https://github.com/buffedlizard55-lab/GEMSDOE3/actions/runs/36091380405) green. `evidence/github-access.json` preserves the earlier authentication failure and recovery.
+- Feed honesty: the initial 15 direct HTTP source refreshes were blocked in the sandbox and remain dated evidence, not fresh successes.
 
 ## What was copied, and what is new
 
@@ -31,7 +66,7 @@ The starting GEMSDOE3 repository contained only a 10-byte README. The complete *
 
 **Storage exception:** the five feature-stack bridge parts (418,912,844 bytes combined) are available through the pinned upstream snapshot, restored by our downloader and excluded from new Git history. The full upstream Git history is not duplicated. Small original rasters/evidence remain preserved. See `THIRD_PARTY.md` for attribution, rights and source limitations.
 
-**New active strategy:** distance-aware regression using 19 supplied geophysical bands plus label-free multiscale context at 1, 3 and 7 pixels. Compare raw-feature, contextual and cautious-unlabeled-weight arms; select oriented-ridge emission only on a tuning region; freeze that decision before a separate spatial audit; attempt the frozen refit under the same quality guard, retaining the unchanged selected model if the refit fails; reject invalid files before publication. Proxy labels are diagnostic/tuning evidence, never training targets or prediction features. This is PU-inspired weighting, **not** a claim of an unbiased PU estimator or calibrated probabilities.
+**Session 1 strategy (Riftline, now the previous candidate):** distance-aware regression using 19 supplied geophysical bands plus label-free multiscale context at 1, 3 and 7 pixels. Compare raw-feature, contextual and cautious-unlabeled-weight arms; select oriented-ridge emission only on a tuning region; freeze that decision before a separate spatial audit; attempt the frozen refit under the same quality guard, retaining the unchanged selected model if the refit fails; reject invalid files before publication. In Riftline, proxy labels were diagnostic/tuning evidence, never training targets or prediction features. Gapfinder deliberately trains on SGMC; see above. This is PU-inspired weighting, **not** a claim of an unbiased PU estimator or calibrated probabilities.
 
 The primary data-placement blocker is resolved by the pinned bridge. No GPU or DrivenData credentials are required for this CPU experiment. The project still cannot guarantee improvement beyond 0.3049: only an actual competition submission can establish its public score, and final private rankings remain unknown.
 
@@ -45,8 +80,10 @@ source .venv/bin/activate
 pip install -r requirements-dev.txt
 bash scripts/download_competition_data.sh
 python scripts/prepare_data.py
-OMP_NUM_THREADS=2 OPENBLAS_NUM_THREADS=2 python -m gems3.train
+OMP_NUM_THREADS=2 OPENBLAS_NUM_THREADS=2 python -m gems3.train      # session 1: Riftline
 python -m gems3.publish
+OMP_NUM_THREADS=2 OPENBLAS_NUM_THREADS=2 python -m gems3.gapfinder --config configs/gapfinder-v2.json  # ~7 min CPU
+python -m gems3.gapfinder_publish --report outputs/gapfinder-v2/experiment.json
 python -m gems3.site
 python scripts/stage_site.py
 python -m pytest
@@ -89,6 +126,8 @@ The feed uses fixed primary-source URLs, conservative exact-quote checks, HTTP t
 | Path | Purpose |
 |---|---|
 | `gems3/` | Active downloader, model, features, metric, strict exporter, feed and publisher |
+| `gems3/gapfinder.py`, `gems3/geometry.py`, `gems3/gapfinder_publish.py`, `gems3/site_gapfinder.py` | Gapfinder experiment, tip geometry, portfolio publisher and site sections |
+| `configs/gapfinder.json`, `configs/gapfinder-v2.json` | Frozen Gapfinder v1 design and the disclosed v2 amendment |
 | `configs/riftline.json` | Fixed experiment/selection rule plus explicitly dated post-failure deployment policy |
 | `docs/` | Static, subpath-safe site and download/generation assets |
 | `evidence/` | Fresh local measurements and review trail |

@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-25T03:45:01Z",
+  "updated_at": "2026-09-25T05:05:00Z",
   "passes": [
     {
       "pass": 1,
@@ -72,5 +72,54 @@
     }
   ],
   "hosted_ci_url": "https://github.com/buffedlizard55-lab/GEMSDOE3/actions/runs/36091380405",
-  "release_pr_url": "https://github.com/buffedlizard55-lab/GEMSDOE3/pull/1"
+  "release_pr_url": "https://github.com/buffedlizard55-lab/GEMSDOE3/pull/1",
+  "sessions": [
+    {
+      "session": 2,
+      "date": "2026-09-25",
+      "strategy": "gapfinder-v2",
+      "artifacts": [
+        {
+          "variant": "fusion",
+          "file": "gapfinder-v2-fusion-20260925T045011Z-682a7bbbfe.tif",
+          "sha256": "682a7bbbfe55e1ed3a3cc2d8a7fa0c5cff36d97954f55c5a655d42824e60f1f3",
+          "note": "Gapfinder v2 fusion | two-catalogue HGB ridge f=0.4 h=2 L=0 + SGMC-gap traces | 682a7bbbfe",
+          "competition_score": null
+        },
+        {
+          "variant": "ml",
+          "file": "gapfinder-v2-ml-20260925T045012Z-73e97f79f6.tif",
+          "sha256": "73e97f79f635ebf8932b74357db271d0b71c9263b67e5a45fd4c267dc3e11825",
+          "note": "Gapfinder v2 ML-only | two-catalogue HGB ridge f=0.4 h=2 L=0 | no SGMC traces | 73e97f79f6",
+          "competition_score": null
+        },
+        {
+          "variant": "sgmc-gap",
+          "file": "gapfinder-v2-sgmc-gap-20260925T045014Z-7251c22bb4.tif",
+          "sha256": "7251c22bb489198ae4709611c29cef3ac799d8942c2f1779086d5b59ae0e3097",
+          "note": "Gapfinder v2 SGMC-gap only | USGS SGMC faults >300m from labels | no model | 7251c22bb4",
+          "competition_score": null
+        }
+      ],
+      "passes": [
+        {
+          "pass": 1,
+          "title": "Implement and execute Gapfinder",
+          "status": "complete: v1 + v2 (4 attempts, errata) + portfolio published; 110 Python tests"
+        },
+        {
+          "pass": 2,
+          "title": "Adversarial review",
+          "status": "complete: fixed app.js identity-overwrite bug, portfolio browser + live-verify checks; 110 Python + 13 Chromium passed"
+        },
+        {
+          "pass": 3,
+          "title": "Original request recheck",
+          "status": "complete: requirements mapped; limitations added; no score claims"
+        }
+      ],
+      "competition_score": null,
+      "errata": "evidence/gapfinder-v2-errata.json"
+    }
+  ]
 }

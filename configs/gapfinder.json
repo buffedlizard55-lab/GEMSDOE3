@@ -1,0 +1,57 @@
+{
+  "name": "gapfinder-v1",
+  "frozen_before_run": "2026-09-25T04:30Z (written before any Gapfinder model was trained or scored)",
+  "seed": 20260926,
+  "objective": "Predict fault pixels NOT already in labels.tif. Official staff answers: the known-fault scoring mask is pixel-exact and identical to the training labels; 'new fault' includes newly mapped geometry of existing systems; predictions near (not on) known traces are fully penalized.",
+  "official_basis": [
+    "https://community.drivendata.org/raw/11516",
+    "https://community.drivendata.org/raw/11536",
+    "https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/#performance-metric"
+  ],
+  "block_px": 512,
+  "buffer_px": 48,
+  "buffer_rationale": "30 px feature radius + ridge smoothing/NMS support (~5 px) + 3 px metric kernel = 38 px < 48 px",
+  "training_folds": [0, 1],
+  "tuning_fold": 2,
+  "audit_fold": 3,
+  "fold_rotation_note": "Riftline tuned on fold 0 and read its audit on fold 1. Gapfinder evaluates only on folds 2 and 3, which were never used as Riftline evaluation regions.",
+  "derived_bands": [12, 19, 2, 13],
+  "scales_px": [1, 3, 7],
+  "max_near_samples": 100000,
+  "max_unlabeled_samples": 140000,
+  "model": {
+    "max_iter": 140,
+    "max_leaf_nodes": 31,
+    "learning_rate": 0.08,
+    "min_samples_leaf": 50,
+    "l2_regularization": 5.0,
+    "early_stopping": false
+  },
+  "arms": [
+    {"id": "qfault-target", "positives": ["known"], "role": "control: supplied labels only (Riftline-like target)"},
+    {"id": "two-catalogue-target", "positives": ["known", "sgmc"], "role": "new: supplied labels plus independent USGS SGMC fault traces in the TRAINING folds only"},
+    {"id": "sgmc-target", "positives": ["sgmc"], "role": "new: learns only from faults the supplied catalogue does not contain"}
+  ],
+  "floors": [0.12, 0.22, 0.35, 0.5],
+  "halo_px": [0, 1, 2],
+  "halo_meaning": "zero emitted pixels with 0 < distance-to-known <= halo; known pixels themselves are always 0 (masked by the scorer)",
+  "tip_extension_px": [0, 5],
+  "tip_meaning": "straight along-strike ray beyond each free end of the supplied fault skeleton, direction from its last 8 skeleton pixels",
+  "emission": "binary oriented-ridge (Hessian NMS) - linear-fractional DTI favours binary emission",
+  "proxies": {
+    "gap": "SGMC fault pixels >= 3.2 px from any known pixel (legacy proxy value 2)",
+    "all": "all SGMC fault pixels not exactly on a known pixel (proxy values 1 or 2, minus known)",
+    "evaluation_mask": "template-valid AND NOT known AND fold interior (competition-faithful: known pixels excluded as the organisers do)"
+  },
+  "selection": "maximize min(DTI_gap, DTI_all) on the tuning fold among eligible candidates (robust to the proxy definition); tie-break lower prediction mass, then arm, floor, halo, tip",
+  "max_emitted_fraction": 0.08,
+  "min_emitted_fraction": 0.0001,
+  "refit": "fraction-consistent sampling: the refit keeps every exact positive and samples near/unlabeled strata at the SAME inclusion fractions used for the holdout model, so the class mixture does not drift (fix for Riftline's refit failure). Accept refit only if its full-grid support passes the gate AND is within a factor 1.5 of the holdout model's full-grid support; otherwise publish the unchanged holdout model.",
+  "portfolio": {
+    "fusion": "selected ML emission OR SGMC-gap traces (p=1)",
+    "ml": "selected ML emission only",
+    "sgmc-gap": "SGMC-gap traces only (pure hypothesis test; no model)"
+  },
+  "portfolio_rationale": "SGMC is also the local proxy, so the value of adding SGMC traces directly CANNOT be measured locally without circularity. It is a leaderboard experiment: fusion minus ml isolates it.",
+  "score_warning": "All local numbers use public catalogues, not hidden expert labels. No leaderboard score is implied."
+}

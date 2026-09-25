@@ -1,0 +1,94 @@
+Reusing verified label-free feature cache
+
+[qfault-target] training on 258,021 rows
+  f=0.12 h=0 L=0  gap=0.1185 all=0.1447 support=14.494%
+  f=0.12 h=0 L=5  gap=0.1181 all=0.1469 support=14.774%
+  f=0.12 h=1 L=0  gap=0.1210 all=0.1363 support=14.099%
+  f=0.12 h=1 L=5  gap=0.1205 all=0.1398 support=14.397%
+  f=0.12 h=2 L=0  gap=0.1230 all=0.1290 support=13.763%
+  f=0.12 h=2 L=5  gap=0.1224 all=0.1338 support=14.072%
+  f=0.22 h=0 L=0  gap=0.1046 all=0.1366 support=7.553%
+  f=0.22 h=0 L=5  gap=0.1051 all=0.1426 support=7.857%
+  f=0.22 h=1 L=0  gap=0.1070 all=0.1238 support=7.279%
+  f=0.22 h=1 L=5  gap=0.1074 all=0.1318 support=7.596%
+  f=0.22 h=2 L=0  gap=0.1086 all=0.1142 support=7.061%
+  f=0.22 h=2 L=5  gap=0.1090 all=0.1239 support=7.384%
+  f=0.35 h=0 L=0  gap=0.0323 all=0.0710 support=0.831%
+  f=0.35 h=0 L=5  gap=0.0409 all=0.0953 support=1.164%
+  f=0.35 h=1 L=0  gap=0.0329 all=0.0501 support=0.739%
+  f=0.35 h=1 L=5  gap=0.0415 all=0.0780 support=1.076%
+  f=0.35 h=2 L=0  gap=0.0326 all=0.0360 support=0.681%
+  f=0.35 h=2 L=5  gap=0.0414 all=0.0667 support=1.019%
+  f=0.50 h=0 L=0  gap=0.0076 all=0.0334 support=0.090%
+  f=0.50 h=0 L=5  gap=0.0198 all=0.0675 support=0.430%
+  f=0.50 h=1 L=0  gap=0.0076 all=0.0189 support=0.059%
+  f=0.50 h=1 L=5  gap=0.0199 all=0.0549 support=0.400%
+  f=0.50 h=2 L=0  gap=0.0069 all=0.0102 support=0.043%
+  f=0.50 h=2 L=5  gap=0.0193 all=0.0476 support=0.384%
+
+[two-catalogue-target] training on 285,138 rows
+  f=0.12 h=0 L=0  gap=0.1594 all=0.1840 support=16.262%
+  f=0.12 h=0 L=5  gap=0.1582 all=0.1845 support=16.538%
+  f=0.12 h=1 L=0  gap=0.1626 all=0.1784 support=15.851%
+  f=0.12 h=1 L=5  gap=0.1613 all=0.1799 support=16.146%
+  f=0.12 h=2 L=0  gap=0.1654 all=0.1720 support=15.500%
+  f=0.12 h=2 L=5  gap=0.1639 all=0.1750 support=15.806%
+  f=0.22 h=0 L=0  gap=0.1769 all=0.2033 support=13.628%
+  f=0.22 h=0 L=5  gap=0.1753 all=0.2038 support=13.912%
+  f=0.22 h=1 L=0  gap=0.1807 all=0.1971 support=13.245%
+  f=0.22 h=1 L=5  gap=0.1789 all=0.1986 support=13.546%
+  f=0.22 h=2 L=0  gap=0.1839 all=0.1900 support=12.924%
+  f=0.22 h=2 L=5  gap=0.1820 all=0.1933 support=13.235%
+  f=0.35 h=0 L=0  gap=0.1921 all=0.2222 support=7.774%
+  f=0.35 h=0 L=5  gap=0.1899 all=0.2246 support=8.080%
+  f=0.35 h=1 L=0  gap=0.1966 all=0.2130 support=7.495%
+  f=0.35 h=1 L=5  gap=0.1940 all=0.2171 support=7.813%
+  f=0.35 h=2 L=0  gap=0.2003 all=0.2032 support=7.267%
+  f=0.35 h=2 L=5  gap=0.1975 all=0.2096 support=7.591%
+  f=0.50 h=0 L=0  gap=0.0640 all=0.0979 support=0.958%
+  f=0.50 h=0 L=5  gap=0.0703 all=0.1200 support=1.290%
+  f=0.50 h=1 L=0  gap=0.0649 all=0.0815 support=0.872%
+  f=0.50 h=1 L=5  gap=0.0712 all=0.1066 support=1.209%
+  f=0.50 h=2 L=0  gap=0.0654 all=0.0679 support=0.811%
+  f=0.50 h=2 L=5  gap=0.0717 all=0.0957 support=1.149%
+
+[sgmc-target] training on 268,350 rows
+  f=0.12 h=0 L=0  gap=0.1754 all=0.2002 support=14.172%
+  f=0.12 h=0 L=5  gap=0.1739 all=0.2008 support=14.456%
+  f=0.12 h=1 L=0  gap=0.1789 all=0.1959 support=13.799%
+  f=0.12 h=1 L=5  gap=0.1772 all=0.1974 support=14.099%
+  f=0.12 h=2 L=0  gap=0.1821 all=0.1901 support=13.467%
+  f=0.12 h=2 L=5  gap=0.1803 all=0.1931 support=13.778%
+  f=0.22 h=0 L=0  gap=0.1993 all=0.2254 support=9.864%
+  f=0.22 h=0 L=5  gap=0.1969 all=0.2264 support=10.165%
+  f=0.22 h=1 L=0  gap=0.2033 all=0.2195 support=9.581%
+  f=0.22 h=1 L=5  gap=0.2007 all=0.2215 support=9.892%
+  f=0.22 h=2 L=0  gap=0.2067 all=0.2123 support=9.338%
+  f=0.22 h=2 L=5  gap=0.2038 all=0.2161 support=9.658%
+  f=0.35 h=0 L=0  gap=0.2069 all=0.2263 support=3.679%
+  f=0.35 h=0 L=5  gap=0.2041 all=0.2335 support=4.003%
+  f=0.35 h=1 L=0  gap=0.2102 all=0.2171 support=3.548%
+  f=0.35 h=1 L=5  gap=0.2071 all=0.2261 support=3.877%
+  f=0.35 h=2 L=0  gap=0.2128 all=0.2085 support=3.442%
+  f=0.35 h=2 L=5  gap=0.2095 all=0.2197 support=3.774%
+  f=0.50 h=0 L=0  gap=0.0224 all=0.0312 support=0.139%
+  f=0.50 h=0 L=5  gap=0.0340 all=0.0666 support=0.480%
+  f=0.50 h=1 L=0  gap=0.0225 all=0.0255 support=0.116%
+  f=0.50 h=1 L=5  gap=0.0342 all=0.0618 support=0.457%
+  f=0.50 h=2 L=0  gap=0.0226 all=0.0219 support=0.102%
+  f=0.50 h=2 L=5  gap=0.0343 all=0.0593 support=0.443%
+
+FROZEN: sgmc-target f=0.35 h=1 L=0
+AUDIT qfault-target: gap=0.0940 all=0.1181
+AUDIT two-catalogue-target: gap=0.1899 all=0.1875
+AUDIT sgmc-target: gap=0.1785 all=0.1811
+Refit sgmc-target on 853,517 rows (fraction-consistent)
+PASS gapfinder-fusion-20260925T042352Z-ed835a5f2a.tif
+  NOTE: Gapfinder fusion | sgmc HGB ridge f=0.35 h=1 L=0 + SGMC-gap traces | ed835a5f2a
+PASS gapfinder-ml-20260925T042354Z-b695d05536.tif
+  NOTE: Gapfinder ML-only | sgmc HGB ridge f=0.35 h=1 L=0 | no SGMC traces | b695d05536
+PASS gapfinder-sgmc-gap-20260925T042355Z-6f93f1fd10.tif
+  NOTE: Gapfinder SGMC-gap only | USGS SGMC faults >300m from labels | no model | 6f93f1fd10
+
+Done in 321.1 s. No competition score has been measured.
+EXIT 0

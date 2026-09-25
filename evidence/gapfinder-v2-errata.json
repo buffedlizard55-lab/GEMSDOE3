@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "experiment": "gapfinder-v2",
+  "published_run": {
+    "log": "evidence/gapfinder-v2-run.txt",
+    "experiment": "evidence/gapfinder-v2-experiment.json",
+    "preregistered_at": "2026-09-25T04:43:23Z",
+    "completed_at": "2026-09-25T04:50:15Z",
+    "config_sha256": "439cc768a7c84d34fe32e88d393c8d4ffcbd5a9e0e55fa73ec05e633219f42bd",
+    "source_sha256": "df4d213fd62beba347098e053f75b6cf10339e38152296581184a42973e09038",
+    "selection_frozen_sha256": "864980e1edaaee9963e1530db2f09a5e5e652abebbbaba93d65104038abb7f4c"
+  },
+  "attempts": [
+    {
+      "attempt": 1,
+      "outcome": "aborted by us before selection",
+      "log": "evidence/gapfinder-v2-aborted.txt",
+      "reason": "Leak in known_proxy: tip-extension rays are built from supplied traces and start 1 px beyond each tip, so they earned kernel credit from those same truth pixels (known DTI rose with L=5, e.g. 0.141 -> 0.218 at f=0.35). Fixed by excluding tip rays from the known proxy; config text amended before attempt 2."
+    },
+    {
+      "attempt": 2,
+      "outcome": "stopped by the run's own source-integrity guard after selection and audit",
+      "log": "evidence/gapfinder-v2-attempt2-aborted.txt",
+      "reason": "A documentation-path edit (sed) touched a docstring in gems3/gapfinder.py during the run. RuntimeError('Source changed during run'); nothing was published."
+    },
+    {
+      "attempt": 3,
+      "outcome": "completed, superseded",
+      "log": "evidence/gapfinder-v2-attempt3-superseded.txt",
+      "reason": "The known proxy is flat across halo, so halos tied on the min() rule. The global selection broke ties by lower prediction mass (h=2) but the per-arm best used for the audit kept the first tie (h=0). The audit row therefore described a different policy than the deployed one. Fixed: per-arm best uses the pre-registered ordering; an assertion now requires the selected policy to be audited; reference files also receive the known proxy."
+    },
+    {
+      "attempt": 4,
+      "outcome": "published",
+      "log": "evidence/gapfinder-v2-run.txt",
+      "check": "Frozen winner and all 90 tuning candidates identical to attempt 3 (deterministic); only the audit row for the selected arm and reference known scores changed."
+    }
+  ],
+  "config_text_erratum": "configs/gapfinder-v2.json field frozen_before_run says '2026-09-25T04:48Z'. That was a hand-typed estimate and is wrong; the machine-recorded preregistration time is 2026-09-25T04:43:23Z. The config file was not edited afterwards because its SHA-256 is bound to the run record. It also still references evidence/gapfinder-v2-aborted.log, which is stored as .txt (logs are gitignored).",
+  "independence": "Fold 3 was inspected during the v1 post-hoc diagnostic before v2 was designed, so the v2 audit is not an independent test.",
+  "design_weakness": "Because the known proxy ignores halo and tip, it dominates min() for some arms and halo/tip are then chosen by the mass tie-break, not by evidence."
+}

@@ -8,7 +8,7 @@ For future changes, remain on the assigned branch, run the active checks, and us
 
 ## Objective
 
-Produce a reproducible GEMS submission that genuinely improves discovery, with a clear path to leaderboard testing. A format-valid artifact or a local proxy gain is **not** proof of a score above 0.3049.
+Produce a reproducible GEMS submission that genuinely improves discovery of faults **absent from the supplied labels**, with a clear path to leaderboard testing. A format-valid artifact or a local proxy gain is **not** proof of a score above 0.3049.
 
 ## Carried work reviewed first
 
@@ -25,17 +25,27 @@ The initial full-data refit exceeded the predeclared 8% support cap (11.2964%). 
 
 The current deployed-model role is explicit in the experiment report. If it is the frozen holdout model, it trained only on spatial folds 2 and 3; do not describe it as an all-data-trained model. Cautious unlabeled weighting did not win this comparison. Preserve that negative result.
 
+## Session 2 summary (Gapfinder)
+
+- The previous next steps were reviewed first. Step 2 (refit distribution shift) is **done**: fraction-consistent sampling, and the Gapfinder refits passed the 8% cap (v1 3.84%, v2 3.46%). Step 3 is partially done: buffer raised to 48 px, a new tune/audit rotation (tune fold 2, audit fold 3), and a second catalogue used as the target.
+- Official clarifications (forum 11516, 11536, 11527) changed the objective. Supplied-label pixels are masked, near-label false positives are fully penalised, and continuations count as new. See `research/sources.json` ids `forum-*`.
+- Published the Gapfinder v2 portfolio (fusion / ML-only / SGMC-gap). The whole v1 → v2 record, including four v2 attempts, is in `evidence/gapfinder-*` and `evidence/gapfinder-v2-errata.json`.
+
 ## Ordered next actions
 
-1. **Get a real competition measurement tied to the artifact.** Use the executive summary, keep the exact downloaded TIFF/build hash and Note, upload through the enrolled account, retain submission ID and public score. Only then can we claim an improvement or regression. Do not infer identity from extradr19’s account-level best score. Limit: no DrivenData authentication in this session; no password or token should be posted in chat.
-2. **Fix all-data refit distribution shift as a new, versioned experiment.** Current sampling retains all exact positives while capping other strata, so the class/target mixture changes when the training region expands. Test consistent stratified sampling or principled inverse-inclusion weights. Freeze the new recipe before using a fresh/rotated audit; do not simply relax the 8% cap or tune a threshold against the already-read audit.
-3. **Rotate spatial folds, then test source transfer.** Increase/ablate the buffer (e.g. 48 px): the present 32 px exceeds the feature-only radius of 30 px but not the full feature-plus-ridge-postprocessing support. Do not call these fields statistically independent merely because target masks are disjoint. Keep the small candidate space and measure paired effects over independent blocks. Existing SGMC source informs tuning; using other SGMC geography is not source independence. Add a genuinely distinct published catalogue only after provenance, overlap and rights checks.
-4. **Carry out the prior-session 1 m DEM pilot.** Use a small official USGS tile set, record byte hashes, datum/CRS/mask and licenses, derive at 10 m, aggregate to the exact submission grid, compare to the 100 m control. No 1 m terrain was used in the current artifact. Complete region-wide downloads only if the pilot justifies their resource cost.
-5. **Evaluate principled PU loss / patch context on CPU before scaling.** The current unlabeled-weight arm is heuristic, not nnPU. A calibrated class prior or small patch model is a testable upgrade, not an automatic win. Larger deep training benefits from GPU access but is not a blocker to usable CPU submissions.
-6. **Resume historical pseudo-label folds only with the right controls.** Complete folds 2 and 3 if still useful, but separate same-source gains from discovery. Do not overwrite or retroactively relabel the preserved upstream evidence. Avoid spending compute merely to strengthen a circular proxy score.
-7. **Monitor feed and workflow reliability.** Check actual Pages response, scheduled workflow logs and freshness states. Publisher blocking, changed clauses, disabled Actions schedules, GitHub token restrictions and failed downloads must remain visible. Avoid automatic branch writes; deploy a checked snapshot as a Pages artifact.
-8. **Keep run directories versioned.** Do not overwrite raw confidence arrays when comparing reproducibility; the first raw-control array was lost on rerun, so its hash mismatch cannot be quantified retrospectively. Keep failed candidates separate from the published source/model record.
-9. **Competition compliance before finalization.** Read latest official rules, eligibility criteria, one-final-submission rule, 3/week quota, date wording, source licenses and generative-AI disclosure. Package code, environment and resource requirements. Clarify discrepancies with organizers; do not invent legal certainty.
+1. **Upload the portfolio in order and record the scores.** File 1 (fusion), then file 2 (ML-only), then optionally file 3 (SGMC-gap), with the Notes from the site. Record platform submission ID + public score against the SHA prefix in each Note (e.g. `evidence/leaderboard-results.json`).
+   - fusion − ml measures the value of adding SGMC traces directly.
+   - sgmc-gap alone measures how closely the hidden labels follow the published map.
+   - These results decide the next design. Requires the user's enrolled account; never post credentials.
+2. **Use the leaderboard result to choose the next pre-registration.**
+   - If SGMC-gap alone scores well, hidden labels resemble bedrock-map faults: try the **2026 SGMC GeMS release** (https://doi.org/10.5066/P1A3DQZK), newer and not yet used, and snap its ~1:1M traces onto ridges of the model field.
+   - If ML-only ≥ fusion, drop direct SGMC traces and tune model support.
+   - Pre-register a support-cap sweep. The proxy prefers support above 8% for some arms, but this is **not** evidence that the leaderboard does.
+3. **Fix the selection-rule weakness.** The known proxy ignores halo and tip, so for some arms those were chosen by the mass tie-break. Score the known proxy on the *emitted* field with an explicit rule about known-pixel handling, or select halo/tip on gap/all only.
+4. **Use a truly fresh audit.** Fold 3 has now been seen twice. Rotate to a new block origin or offset grid and pre-register before looking. Report paired block-bootstrap effects.
+5. **High-resolution terrain pilot** (carried over): run a small, hash-pinned USGS 3DEP 1 m/10 m tile set in GitHub Actions (the sandbox blocks some hosts). Derive scarp/lineament features at 10 m, aggregate to the 100 m grid, and compare against the 100 m control on held-out geography.
+6. **A third independent fault source for auditing**, e.g. state survey 1:250k/1:100k maps with licences compatible with the rules. Needed before any source-transfer claim.
+7. **Carry-overs:** PU loss / patch models on CPU first; historical pseudo-label folds 2–3 only with source controls; feed/workflow monitoring. The four new `forum-*`/`sgmc-sciencebase` sources show as "not checked" until the scheduled feed runs. Compliance review before final selection (one final file, 3/week, generative-AI disclosure, reproducible code).
 
 ## Access/resource limits
 

@@ -1,0 +1,35 @@
+Reusing verified label-free feature cache
+
+[qfault-target] training on 258,021 rows
+  f=0.20 h=0 L=0  gap=0.1098 all=0.1405 known=0.1647 support=9.172%
+  f=0.20 h=0 L=5  gap=0.1099 all=0.1452 known=0.1776 support=9.470%
+  f=0.20 h=1 L=0  gap=0.1123 all=0.1294 known=0.1647 support=8.863%
+  f=0.20 h=1 L=5  gap=0.1123 all=0.1358 known=0.1776 support=9.175%
+  f=0.20 h=2 L=0  gap=0.1141 all=0.1199 known=0.1647 support=8.609%
+  f=0.20 h=2 L=5  gap=0.1141 all=0.1280 known=0.1776 support=8.929%
+  f=0.25 h=0 L=0  gap=0.0928 all=0.1268 known=0.1717 support=5.119%
+  f=0.25 h=0 L=5  gap=0.0942 all=0.1359 known=0.1982 support=5.434%
+  f=0.25 h=1 L=0  gap=0.0949 all=0.1118 known=0.1717 support=4.907%
+  f=0.25 h=1 L=5  gap=0.0961 all=0.1233 known=0.1982 support=5.232%
+  f=0.25 h=2 L=0  gap=0.0961 all=0.1005 known=0.1717 support=4.745%
+  f=0.25 h=2 L=5  gap=0.0973 all=0.1140 known=0.1982 support=5.074%
+  f=0.30 h=0 L=0  gap=0.0616 all=0.0975 known=0.1654 support=2.276%
+  f=0.30 h=0 L=5  gap=0.0661 all=0.1141 known=0.2163 support=2.604%
+  f=0.30 h=1 L=0  gap=0.0628 all=0.0793 known=0.1654 support=2.139%
+  f=0.30 h=1 L=5  gap=0.0673 all=0.0989 known=0.2163 support=2.472%
+  f=0.30 h=2 L=0  gap=0.0631 all=0.0665 known=0.1654 support=2.045%
+  f=0.30 h=2 L=5  gap=0.0678 all=0.0887 known=0.2163 support=2.381%
+  f=0.35 h=0 L=0  gap=0.0323 all=0.0710 known=0.1412 support=0.831%
+  f=0.35 h=0 L=5  gap=0.0409 all=0.0953 known=0.2175 support=1.164%
+  f=0.35 h=1 L=0  gap=0.0329 all=0.0501 known=0.1412 support=0.739%
+  f=0.35 h=1 L=5  gap=0.0415 all=0.0780 known=0.2175 support=1.076%
+  f=0.35 h=2 L=0  gap=0.0326 all=0.0360 known=0.1412 support=0.681%
+  f=0.35 h=2 L=5  gap=0.0414 all=0.0667 known=0.2175 support=1.019%
+  f=0.40 h=0 L=0  gap=0.0192 all=0.0562 known=0.1108 support=0.329%
+  f=0.40 h=0 L=5  gap=0.0298 all=0.0854 known=0.2038 support=0.665%
+  f=0.40 h=1 L=0  gap=0.0194 all=0.0354 known=0.1108 support=0.264%
+  f=0.40 h=1 L=5  gap=0.0301 all=0.0680 known=0.2038 support=0.604%
+  f=0.40 h=2 L=0  gap=0.0189 all=0.0224 known=0.1108 support=0.226%
+  f=0.40 h=2 L=5  gap=0.0298 all=0.0573 known=0.2038 support=0.567%
+
+[two-catalogue-target] training on 285,138 rows
