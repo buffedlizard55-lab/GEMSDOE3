@@ -14,6 +14,16 @@ from gems3.raster import template_info, validate_submission
 from gems3.schedule import MAX_SAFE_SPACING_PX, budget_count, prefix_field, suppression_order
 
 
+def committed_template():
+    """The same template CI has: `data/` is not committed, so the pinned bridge mirror is the fallback.
+
+    The two files are byte-identical (sha256 2176d08e485aa2cd..., 5,167,373 template-valid pixels), which is
+    asserted by the experiment's recorded input hash rather than assumed.
+    """
+    candidates = (ROOT / "data/sample_submission.tif", ROOT / "legacy/data/bridge/example_submission.tif")
+    return next((c for c in candidates if c.exists()), None)
+
+
 def base_candidate(**overrides):
     candidate = {"robust_dti": 0.2, "emitted_fraction": 0.02, "arm": "union-target", "layer": "nodes",
                  "spacing": 4, "budget": 0.02, "halo": 0, "tip": 0}
@@ -118,7 +128,7 @@ def test_published_pindrop_portfolio_is_valid_unique_and_unscored():
     assert [i["role"] for i in items] == ["primary", "independent", "control"]
     assert "CONTROL" in items[-1]["badge"]
     assert len({i["sha256"] for i in items}) == 3 and len({i["note"] for i in items}) == 3
-    template = ROOT / "data/sample_submission.tif"
+    template = committed_template()
     for item in items:
         path = ROOT / "docs" / item["file"]
         assert hashlib.sha256(path.read_bytes()).hexdigest() == item["sha256"]
@@ -128,10 +138,8 @@ def test_published_pindrop_portfolio_is_valid_unique_and_unscored():
         with zipfile.ZipFile(ROOT / "docs" / item["zip"]) as z:
             assert z.namelist() == [item["filename"]]
             assert hashlib.sha256(z.read(item["filename"])).hexdigest() == item["sha256"]
-        if template.exists():
-            assert validate_submission(path, template)["passed"]
-        else:
-            assert item["validation"]["passed"]
+        assert template is not None, "one of the two identical template copies must exist"
+        assert validate_submission(path, template)["passed"]
     archived = read_json(ROOT / "docs/data/portfolio-coverage-v3.json")
     assert [i["variant"] for i in archived["items"]] == ["fusion", "wide", "ml"]
     gapfinder = read_json(ROOT / "docs/data/portfolio-gapfinder-v2.json")
@@ -202,14 +210,13 @@ def test_archived_coverage_portfolio_files_are_still_published_and_valid():
     """Session 3's files stay downloadable, so their manifest must stay verifiable."""
     import hashlib
 
-    template = ROOT / "data/sample_submission.tif"
+    template = committed_template()
     manifest = read_json(ROOT / "docs/data/portfolio-coverage-v3.json")
     for item in manifest["items"]:
         path = ROOT / "docs" / item["file"]
         assert path.is_file()
         assert hashlib.sha256(path.read_bytes()).hexdigest() == item["sha256"]
-        if template.exists():
-            assert validate_submission(path, template)["passed"]
+        assert validate_submission(path, template)["passed"]
 
 
 def test_publisher_refuses_a_report_whose_control_policy_contradicts_its_pixels():
@@ -260,6 +267,8 @@ def test_pindrop_limitations_are_published_on_the_site():
 
 
 def test_template_info_still_defines_the_footprint_used_by_the_sweep():
-    valid, profile = template_info(ROOT / "data/sample_submission.tif")
+    template = committed_template()
+    assert template is not None
+    valid, profile = template_info(template)
     assert int(valid.sum()) == read_json(ROOT / "docs/data/pindrop-experiment.json")["valid_pixels"]
     assert profile["crs"].to_epsg() == 32611
