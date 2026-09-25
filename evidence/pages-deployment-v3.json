@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "checked_at": "2026-09-25T06:20:00Z",
+  "checked_at": "2026-09-25T06:35:00Z",
   "question": "Is the published GitHub Pages site serving the Coverline v3 portfolio?",
   "method": "Fetched https://buffedlizard55-lab.github.io/GEMSDOE3/docs/data/portfolio.json with the Arena research tool. Direct HTTPS from this sandbox to github.io is blocked (curl exit 35, HTTP 000), so the hosted content was read through the research tool rather than curl.",
   "url": "https://buffedlizard55-lab.github.io/GEMSDOE3/docs/data/portfolio.json",
@@ -50,5 +50,13 @@
   "limitations": [
     "A successful deployment is not a competition score.",
     "The manifest served by Pages matches the repository copy byte-for-byte in the fields compared (strategy, published_at, filenames, sha256, notes, pixel counts); a raw byte comparison was not possible from this sandbox because github.io is blocked."
-  ]
+  ],
+  "post_brand_change": {
+    "pull_request_ci": "https://github.com/buffedlizard55-lab/GEMSDOE3/actions/runs/36100980564",
+    "post_merge_ci": "https://github.com/buffedlizard55-lab/GEMSDOE3/actions/runs/36101076916",
+    "pages_deployment": "https://github.com/buffedlizard55-lab/GEMSDOE3/actions/runs/36101076778",
+    "conclusions": "success",
+    "note": "Site brand changed to the stable GEMSDOE3 name; page title, meta description and sidebar aria-label only."
+  },
+  "pass3_evidence": "evidence/session3-pass3-tests.xml (119 tests on the merged tree)"
 }
