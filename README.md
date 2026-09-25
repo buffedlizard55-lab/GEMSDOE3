@@ -50,6 +50,7 @@ Each file passed 13/13 strict format gates on read-back: exact template CRS, tra
 - **Rotation, not independence.** Fold 2 here overlaps geography that v2 used for tuning and audit; the audit is a disclosed rotation, not a fresh survey area.
 - **Source circularity.** The fusion file uses SGMC (~1:1,000,000 compilation) as data; scoring it locally on SGMC would be circular, so SGMC traces inside the fusion file are not locally scored.
 - Limits: no 1 m DEM, no GPU, no hidden labels, no authenticated upload; one partition.
+- **Release:** [PR #3](https://github.com/buffedlizard55-lab/GEMSDOE3/pull/3) merged into `main` (merge commit `fb87915`) after [hosted CI](https://github.com/buffedlizard55-lab/GEMSDOE3/actions/runs/36100426189) passed, including the extended Chromium suite. [Post-merge CI](https://github.com/buffedlizard55-lab/GEMSDOE3/actions/runs/36100580048) and the [Pages deployment](https://github.com/buffedlizard55-lab/GEMSDOE3/actions/runs/36100579392) succeeded, and the deployed manifest was read back through the research tool (`evidence/pages-deployment-v3.json`). Deployment is not a score.
 
 ### Previous candidate: Gapfinder v2 (session 2)
 

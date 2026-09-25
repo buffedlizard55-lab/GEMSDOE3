@@ -1,212 +1,213 @@
 {
- "updated_at": "2026-09-25T06:05:00Z",
- "passes": [
-  {
-   "pass": 1,
-   "title": "Implement and execute (session 3)",
-   "status": "completed",
-   "summary": "Coverline v3 implemented from the pre-registered config and executed end to end on CPU (run 1: 664.4 s; frozen tversky-weighted-classifier support 4%, halo 2, tip 5). Publisher and site sections written; 6 pipeline tests plus 3 publisher gates added. Local suite 110 -> 119 tests."
-  },
-  {
-   "pass": 2,
-   "title": "Adversarial review and fixes (session 3)",
-   "status": "completed",
-   "summary": "Found and fixed an unscorable marginal-value table (mask erased the supplied-label context's own truth), recorded it as an erratum, re-ran (429.7 s) and regression-tested. Measured reproducibility with a third same-source run: pixel arrays bit-identical (0 differing pixels), file bytes differ only through the timestamped selection_sha256 tag, holdout audit drift <= 5.7e-05. Compact Notes (<=120 chars), corrected experiment labels, closed-loop raster/report tag test, stale render caught and rebuilt."
-  },
-  {
-   "pass": 3,
-   "title": "Original request and release recheck (session 3)",
-   "status": "completed",
-   "summary": "Re-read the preserved brief requirement by requirement; stated the exact metric improvement test beside the leading-order break-even on the site; re-rendered all six pages; 119 Python tests and ruff clean; Chromium spec extended for the strip-first requirement and enforced by hosted CI."
-  }
- ],
- "artifact_sha256": "3ccf68834ad2e3de331252cc14de72d5d30284a7da70aebe86445299c01adf26",
- "local_checks_complete": true,
- "entire_request_fully_complete": false,
- "release_status": "Coverline v3 published locally; pull request and hosted CI pending in this pass",
- "competition_score": null,
- "test_evidence": {
-  "pass1_python": "evidence/pass1-tests.xml",
-  "pass2_python": "evidence/pass2-tests.xml",
-  "pass3_python": "evidence/pass3-tests.xml",
-  "chromium": "evidence/browser-tests.json",
-  "independent_browser_reader": "evidence/browser-validation.json",
-  "frozen_inference": "evidence/inference-validation.json",
-  "local_http": "evidence/local-http-verification.json",
-  "session3_pass1_python": "evidence/session3-pass1-tests.xml",
-  "session3_pass2_python": "evidence/session3-pass2-tests.xml",
-  "session3_pass3_python": "evidence/session3-pass3-tests.xml",
-  "coverage_v3_run_log": "evidence/coverage-v3-run.txt",
-  "coverage_v3_reproducibility": "evidence/coverage-v3-reproducibility.json",
-  "coverage_v3_erdoc": "evidence/coverage-v3-errata.json"
- },
- "requirements": [
-  {
-   "requirement": "Upstream source/site copy",
-   "state": "complete snapshot imported and verified",
-   "limit": "Five large data segments are not recommitted; restore from pinned upstream. No duplicate Git history."
-  },
-  {
-   "requirement": "Autonomous data placement and new training",
-   "state": "executed with real data on CPU",
-   "limit": "Unauthenticated official data tab; user-supplied mirror checksums, not newly authenticated official hashes."
-  },
-  {
-   "requirement": "Executive guide, official-source table, current feed",
-   "state": "implemented; dated source evidence preserved",
-   "limit": "Raw HTTP refreshes blocked here; hosted scheduled execution not yet verified."
-  },
-  {
-   "requirement": "Research and scientific improvement",
-   "state": "three measured arms, retained negative results and uncertainty",
-   "limit": "No proof of leaderboard gain, no 1 m DEM/GPU pilot, incomplete prior pseudo-label folds, one non-independent-repeat audit."
-  },
-  {
-   "requirement": "Prompt/core values and three passes",
-   "state": "preserved and executed locally",
-   "limit": "No claim that semantic correctness or legal eligibility is universally certified."
-  },
-  {
-   "requirement": "PR, merge, GitHub Pages deployment",
-   "state": "PR #1 created; initial hosted CI passed; current merge/deployment state tracked on GitHub",
-   "limit": "Do not confuse a check pass with a scored competition submission. Use the PR and actual deployment verification for release status."
-  },
-  {
-   "requirement": "Unique valid submission and obvious TIF generator",
-   "state": "complete for session 3: Coverline v3 fusion/wide/ml published with an upload strip first on the home page and in the executive summary",
-   "limit": "Format validation is local; no competition acceptance or score. Emitted pixels are a metric-derived budget, not calibrated probabilities. The fusion file's SGMC component cannot be scored locally without circularity."
-  },
-  {
-   "requirement": "Reproducibility of the published artifact",
-   "state": "measured across three runs: pixel content bit-identical, frozen decisions identical",
-   "limit": "File bytes are not reproducible: the selection_sha256 GeoTIFF tag covers a frozen-selection record with a wall-clock timestamp, and holdout audit scores drift <= 5.7e-05 under threaded training."
-  }
- ],
- "hosted_ci_url": "https://github.com/buffedlizard55-lab/GEMSDOE3/actions/runs/36091380405",
- "release_pr_url": "https://github.com/buffedlizard55-lab/GEMSDOE3/pull/1",
- "sessions": [
-  {
-   "session": 2,
-   "date": "2026-09-25",
-   "strategy": "gapfinder-v2",
-   "artifacts": [
-    {
-     "variant": "fusion",
-     "file": "gapfinder-v2-fusion-20260925T045011Z-682a7bbbfe.tif",
-     "sha256": "682a7bbbfe55e1ed3a3cc2d8a7fa0c5cff36d97954f55c5a655d42824e60f1f3",
-     "note": "Gapfinder v2 fusion | two-catalogue HGB ridge f=0.4 h=2 L=0 + SGMC-gap traces | 682a7bbbfe",
-     "competition_score": null
-    },
-    {
-     "variant": "ml",
-     "file": "gapfinder-v2-ml-20260925T045012Z-73e97f79f6.tif",
-     "sha256": "73e97f79f635ebf8932b74357db271d0b71c9263b67e5a45fd4c267dc3e11825",
-     "note": "Gapfinder v2 ML-only | two-catalogue HGB ridge f=0.4 h=2 L=0 | no SGMC traces | 73e97f79f6",
-     "competition_score": null
-    },
-    {
-     "variant": "sgmc-gap",
-     "file": "gapfinder-v2-sgmc-gap-20260925T045014Z-7251c22bb4.tif",
-     "sha256": "7251c22bb489198ae4709611c29cef3ac799d8942c2f1779086d5b59ae0e3097",
-     "note": "Gapfinder v2 SGMC-gap only | USGS SGMC faults >300m from labels | no model | 7251c22bb4",
-     "competition_score": null
-    }
-   ],
-   "passes": [
-    {
-     "pass": 1,
-     "title": "Implement and execute Gapfinder",
-     "status": "complete: v1 + v2 (4 attempts, errata) + portfolio published; 110 Python tests"
-    },
-    {
-     "pass": 2,
-     "title": "Adversarial review",
-     "status": "complete: fixed app.js identity-overwrite bug, portfolio browser + live-verify checks; 110 Python + 13 Chromium passed"
-    },
-    {
-     "pass": 3,
-     "title": "Original request recheck",
-     "status": "complete: requirements mapped; limitations added; no score claims"
-    }
-   ],
-   "competition_score": null,
-   "errata": "evidence/gapfinder-v2-errata.json"
-  },
-  {
-   "session": 3,
-   "date": "2026-09-25",
-   "strategy": "coverage-v3",
-   "artifacts": [
-    {
-     "variant": "fusion",
-     "file": "coverage-v3-fusion-20260925T054015Z-3ccf68834a.tif",
-     "sha256": "3ccf68834ad2e3de331252cc14de72d5d30284a7da70aebe86445299c01adf26",
-     "note": "Coverline v3 fusion | Tversky-weighted classifier | s=4.00% h=2 L=5 | + SGMC-gap traces | 3ccf68834a",
-     "competition_score": null
-    },
-    {
-     "variant": "wide",
-     "file": "coverage-v3-wide-20260925T054019Z-0ac095a7ed.tif",
-     "sha256": "0ac095a7ed6c8a142cdd8f686e001dfdec765f9a0e21ee53ddc69ae4cc4cddbf",
-     "note": "Coverline v3 wide | Tversky-weighted classifier | s=12.00% h=0 L=5 | recall probe | 0ac095a7ed",
-     "competition_score": null
-    },
-    {
-     "variant": "ml",
-     "file": "coverage-v3-ml-20260925T054017Z-92d5062aea.tif",
-     "sha256": "92d5062aeaf17a9a397bb595e14e0b91887e4a358da4e53cbc417a56d9967981",
-     "note": "Coverline v3 ml | Tversky-weighted classifier | s=4.00% h=2 L=5 | no SGMC traces | 92d5062aea",
-     "competition_score": null
-    }
-   ],
-   "run": {
-    "seconds": 429.7,
-    "completed_at": "2026-09-25T05:40:21Z",
-    "audit": {
-     "two-catalogue-regressor": {
-      "gap": 0.186384,
-      "all": 0.201279,
-      "known": 0.17283
-     },
-     "tversky-weighted-classifier": {
-      "gap": 0.200926,
-      "all": 0.212022,
-      "known": 0.173089
-     }
-    },
-    "selected": {
-     "arm": "tversky-weighted-classifier",
-     "support_target": 0.04,
-     "floor": 0.4940699636936188,
-     "halo": 2,
-     "tip": 5,
-     "robust_dti": 0.1964850095429573
-    }
-   },
-   "score_note": "No upload performed; the leaderboard is the only source of a competition score."
-  }
- ],
- "historical_passes": {
-  "note": "The session-1 release used these three passes (files evidence/pass1-tests.xml .. pass3-tests.xml, 8-11 Chromium checks). Kept so the earlier record is not lost when 'passes' tracks the current session.",
+  "updated_at": "2026-09-25T06:05:00Z",
   "passes": [
-   {
-    "pass": 1,
-    "title": "Implement and execute",
-    "status": "completed",
-    "summary": "71 unit/artifact tests and 8 actual Chromium tests passed. New real-data TIF and ZIP published after 13 format gates; actual browser output independently read by Rasterio. Refit rejection and numerical-repeatability irregularity retained."
-   },
-   {
-    "pass": 2,
-    "title": "Adversarial review",
-    "status": "completed",
-    "summary": "93 Python and 8 Chromium checks passed. Fixed cache/source binding, invalid-input guards, staging escape risks and browser identity/receipt edge cases; recorded refit and reproducibility limitations."
-   },
-   {
-    "pass": 3,
-    "title": "Full-request release check",
-    "status": "local review complete; hosted CI passed; release tracked in PR #1",
-    "summary": "99 Python and 11 Chromium checks passed in the local review. Hosted Python/artifact and Chromium gates also passed for the initial PR head. The prior authentication block was resolved; merge/deployment are tracked by the PR and release workflow."
-   }
-  ]
- }
+    {
+      "pass": 1,
+      "title": "Implement and execute (session 3)",
+      "status": "completed",
+      "summary": "Coverline v3 implemented from the pre-registered config and executed end to end on CPU (run 1: 664.4 s; frozen tversky-weighted-classifier support 4%, halo 2, tip 5). Publisher and site sections written; 6 pipeline tests plus 3 publisher gates added. Local suite 110 -> 119 tests."
+    },
+    {
+      "pass": 2,
+      "title": "Adversarial review and fixes (session 3)",
+      "status": "completed",
+      "summary": "Found and fixed an unscorable marginal-value table (mask erased the supplied-label context's own truth), recorded it as an erratum, re-ran (429.7 s) and regression-tested. Measured reproducibility with a third same-source run: pixel arrays bit-identical (0 differing pixels), file bytes differ only through the timestamped selection_sha256 tag, holdout audit drift <= 5.7e-05. Compact Notes (<=120 chars), corrected experiment labels, closed-loop raster/report tag test, stale render caught and rebuilt."
+    },
+    {
+      "pass": 3,
+      "title": "Original request and release recheck (session 3)",
+      "status": "completed",
+      "summary": "Re-read the preserved brief requirement by requirement; stated the exact metric improvement test beside the leading-order break-even on the site; re-rendered all six pages; 119 Python tests and ruff clean; Chromium spec extended for the strip-first requirement and enforced by hosted CI."
+    }
+  ],
+  "artifact_sha256": "3ccf68834ad2e3de331252cc14de72d5d30284a7da70aebe86445299c01adf26",
+  "local_checks_complete": true,
+  "entire_request_fully_complete": false,
+  "release_status": "Coverline v3 merged into main (PR #3, merge commit fb87915) after hosted CI passed; post-merge CI and the Pages deployment also passed, and the deployed manifest was read back with the research tool (evidence/pages-deployment-v3.json). No competition score exists.",
+  "competition_score": null,
+  "test_evidence": {
+    "pass1_python": "evidence/pass1-tests.xml",
+    "pass2_python": "evidence/pass2-tests.xml",
+    "pass3_python": "evidence/pass3-tests.xml",
+    "chromium": "evidence/browser-tests.json",
+    "independent_browser_reader": "evidence/browser-validation.json",
+    "frozen_inference": "evidence/inference-validation.json",
+    "local_http": "evidence/local-http-verification.json",
+    "session3_pass1_python": "evidence/session3-pass1-tests.xml",
+    "session3_pass2_python": "evidence/session3-pass2-tests.xml",
+    "session3_pass3_python": "evidence/session3-pass3-tests.xml",
+    "coverage_v3_run_log": "evidence/coverage-v3-run.txt",
+    "coverage_v3_reproducibility": "evidence/coverage-v3-reproducibility.json",
+    "coverage_v3_erdoc": "evidence/coverage-v3-errata.json"
+  },
+  "requirements": [
+    {
+      "requirement": "Upstream source/site copy",
+      "state": "complete snapshot imported and verified",
+      "limit": "Five large data segments are not recommitted; restore from pinned upstream. No duplicate Git history."
+    },
+    {
+      "requirement": "Autonomous data placement and new training",
+      "state": "executed with real data on CPU",
+      "limit": "Unauthenticated official data tab; user-supplied mirror checksums, not newly authenticated official hashes."
+    },
+    {
+      "requirement": "Executive guide, official-source table, current feed",
+      "state": "implemented; dated source evidence preserved",
+      "limit": "Raw HTTP refreshes blocked here; hosted scheduled execution not yet verified."
+    },
+    {
+      "requirement": "Research and scientific improvement",
+      "state": "three measured arms, retained negative results and uncertainty",
+      "limit": "No proof of leaderboard gain, no 1 m DEM/GPU pilot, incomplete prior pseudo-label folds, one non-independent-repeat audit."
+    },
+    {
+      "requirement": "Prompt/core values and three passes",
+      "state": "preserved and executed locally",
+      "limit": "No claim that semantic correctness or legal eligibility is universally certified."
+    },
+    {
+      "requirement": "PR, merge, GitHub Pages deployment",
+      "state": "PR #1 created; initial hosted CI passed; current merge/deployment state tracked on GitHub",
+      "limit": "Do not confuse a check pass with a scored competition submission. Use the PR and actual deployment verification for release status."
+    },
+    {
+      "requirement": "Unique valid submission and obvious TIF generator",
+      "state": "complete for session 3: Coverline v3 fusion/wide/ml published with an upload strip first on the home page and in the executive summary",
+      "limit": "Format validation is local; no competition acceptance or score. Emitted pixels are a metric-derived budget, not calibrated probabilities. The fusion file's SGMC component cannot be scored locally without circularity."
+    },
+    {
+      "requirement": "Reproducibility of the published artifact",
+      "state": "measured across three runs: pixel content bit-identical, frozen decisions identical",
+      "limit": "File bytes are not reproducible: the selection_sha256 GeoTIFF tag covers a frozen-selection record with a wall-clock timestamp, and holdout audit scores drift <= 5.7e-05 under threaded training."
+    }
+  ],
+  "hosted_ci_url": "https://github.com/buffedlizard55-lab/GEMSDOE3/actions/runs/36100426189",
+  "release_pr_url": "https://github.com/buffedlizard55-lab/GEMSDOE3/pull/3",
+  "sessions": [
+    {
+      "session": 2,
+      "date": "2026-09-25",
+      "strategy": "gapfinder-v2",
+      "artifacts": [
+        {
+          "variant": "fusion",
+          "file": "gapfinder-v2-fusion-20260925T045011Z-682a7bbbfe.tif",
+          "sha256": "682a7bbbfe55e1ed3a3cc2d8a7fa0c5cff36d97954f55c5a655d42824e60f1f3",
+          "note": "Gapfinder v2 fusion | two-catalogue HGB ridge f=0.4 h=2 L=0 + SGMC-gap traces | 682a7bbbfe",
+          "competition_score": null
+        },
+        {
+          "variant": "ml",
+          "file": "gapfinder-v2-ml-20260925T045012Z-73e97f79f6.tif",
+          "sha256": "73e97f79f635ebf8932b74357db271d0b71c9263b67e5a45fd4c267dc3e11825",
+          "note": "Gapfinder v2 ML-only | two-catalogue HGB ridge f=0.4 h=2 L=0 | no SGMC traces | 73e97f79f6",
+          "competition_score": null
+        },
+        {
+          "variant": "sgmc-gap",
+          "file": "gapfinder-v2-sgmc-gap-20260925T045014Z-7251c22bb4.tif",
+          "sha256": "7251c22bb489198ae4709611c29cef3ac799d8942c2f1779086d5b59ae0e3097",
+          "note": "Gapfinder v2 SGMC-gap only | USGS SGMC faults >300m from labels | no model | 7251c22bb4",
+          "competition_score": null
+        }
+      ],
+      "passes": [
+        {
+          "pass": 1,
+          "title": "Implement and execute Gapfinder",
+          "status": "complete: v1 + v2 (4 attempts, errata) + portfolio published; 110 Python tests"
+        },
+        {
+          "pass": 2,
+          "title": "Adversarial review",
+          "status": "complete: fixed app.js identity-overwrite bug, portfolio browser + live-verify checks; 110 Python + 13 Chromium passed"
+        },
+        {
+          "pass": 3,
+          "title": "Original request recheck",
+          "status": "complete: requirements mapped; limitations added; no score claims"
+        }
+      ],
+      "competition_score": null,
+      "errata": "evidence/gapfinder-v2-errata.json"
+    },
+    {
+      "session": 3,
+      "date": "2026-09-25",
+      "strategy": "coverage-v3",
+      "artifacts": [
+        {
+          "variant": "fusion",
+          "file": "coverage-v3-fusion-20260925T054015Z-3ccf68834a.tif",
+          "sha256": "3ccf68834ad2e3de331252cc14de72d5d30284a7da70aebe86445299c01adf26",
+          "note": "Coverline v3 fusion | Tversky-weighted classifier | s=4.00% h=2 L=5 | + SGMC-gap traces | 3ccf68834a",
+          "competition_score": null
+        },
+        {
+          "variant": "wide",
+          "file": "coverage-v3-wide-20260925T054019Z-0ac095a7ed.tif",
+          "sha256": "0ac095a7ed6c8a142cdd8f686e001dfdec765f9a0e21ee53ddc69ae4cc4cddbf",
+          "note": "Coverline v3 wide | Tversky-weighted classifier | s=12.00% h=0 L=5 | recall probe | 0ac095a7ed",
+          "competition_score": null
+        },
+        {
+          "variant": "ml",
+          "file": "coverage-v3-ml-20260925T054017Z-92d5062aea.tif",
+          "sha256": "92d5062aeaf17a9a397bb595e14e0b91887e4a358da4e53cbc417a56d9967981",
+          "note": "Coverline v3 ml | Tversky-weighted classifier | s=4.00% h=2 L=5 | no SGMC traces | 92d5062aea",
+          "competition_score": null
+        }
+      ],
+      "run": {
+        "seconds": 429.7,
+        "completed_at": "2026-09-25T05:40:21Z",
+        "audit": {
+          "two-catalogue-regressor": {
+            "gap": 0.186384,
+            "all": 0.201279,
+            "known": 0.17283
+          },
+          "tversky-weighted-classifier": {
+            "gap": 0.200926,
+            "all": 0.212022,
+            "known": 0.173089
+          }
+        },
+        "selected": {
+          "arm": "tversky-weighted-classifier",
+          "support_target": 0.04,
+          "floor": 0.4940699636936188,
+          "halo": 2,
+          "tip": 5,
+          "robust_dti": 0.1964850095429573
+        }
+      },
+      "score_note": "No upload performed; the leaderboard is the only source of a competition score."
+    }
+  ],
+  "historical_passes": {
+    "note": "The session-1 release used these three passes (files evidence/pass1-tests.xml .. pass3-tests.xml, 8-11 Chromium checks). Kept so the earlier record is not lost when 'passes' tracks the current session.",
+    "passes": [
+      {
+        "pass": 1,
+        "title": "Implement and execute",
+        "status": "completed",
+        "summary": "71 unit/artifact tests and 8 actual Chromium tests passed. New real-data TIF and ZIP published after 13 format gates; actual browser output independently read by Rasterio. Refit rejection and numerical-repeatability irregularity retained."
+      },
+      {
+        "pass": 2,
+        "title": "Adversarial review",
+        "status": "completed",
+        "summary": "93 Python and 8 Chromium checks passed. Fixed cache/source binding, invalid-input guards, staging escape risks and browser identity/receipt edge cases; recorded refit and reproducibility limitations."
+      },
+      {
+        "pass": 3,
+        "title": "Full-request release check",
+        "status": "local review complete; hosted CI passed; release tracked in PR #1",
+        "summary": "99 Python and 11 Chromium checks passed in the local review. Hosted Python/artifact and Chromium gates also passed for the initial PR head. The prior authentication block was resolved; merge/deployment are tracked by the PR and release workflow."
+      }
+    ]
+  },
+  "deployment_evidence": "evidence/pages-deployment-v3.json"
 }

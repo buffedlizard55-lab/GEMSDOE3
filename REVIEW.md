@@ -27,7 +27,7 @@ Session 3 replaced the published portfolio with the metric-derived **Coverline v
 - Re-read the preserved brief line by line and mapped it to the current state (recorded in `evidence/review.json`): upstream copy preserved; a genuinely different strategy executed with real data; one-step download obvious at the top of the site and in the executive summary; unique filename and ≤120-character Note per file; the [0,1] rejection class addressed by construction and by an independent validator; official-source register with links; three explicit passes with test evidence.
 - Quality improvements made in this pass: the site's algebra text now states the exact improvement test `a·(1 − 0.2·DTI) > 0.2·DTI·b` beside the leading-order break-even column, and the README carries the v3 numbers, the reproducibility result and the corrected caveats.
 - Final local verification: **119 Python tests pass**, `ruff check gems3/ tests/` clean, `node --check` clean, all six pages re-rendered from the published JSON.
-- Release state: tracked in the release record at the end of this file; hosted CI, the merge and the Pages deployment are the authorities, not this local run.
+- Release state: **PR #3 merged into `main`** (merge commit `fb87915`). [Pull-request CI](https://github.com/buffedlizard55-lab/GEMSDOE3/actions/runs/36100426189) (Python + real Chromium), [post-merge CI](https://github.com/buffedlizard55-lab/GEMSDOE3/actions/runs/36100580048) and the [Pages deployment](https://github.com/buffedlizard55-lab/GEMSDOE3/actions/runs/36100579392) all report success; the deployed v3 manifest was read back through the research tool and recorded in `evidence/pages-deployment-v3.json`. Deployment and CI are not a competition score.
 
 ## Evidence added this session
 
