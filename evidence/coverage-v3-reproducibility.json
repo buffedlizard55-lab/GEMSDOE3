@@ -1,0 +1,115 @@
+{
+  "schema_version": 1,
+  "experiment": "coverage-v3",
+  "question": "Are the published portfolio files reproducible run to run?",
+  "runs_compared": [
+    {
+      "run": "run 1, superseded",
+      "experiment_json": "outputs/coverage-v3-run1/experiment.json",
+      "source_sha256": "e1266ae9fd443f2f609b41d89ccd706f61a466ebd7d2df67e024ce114f1ae56b",
+      "portfolio_sha256": {
+        "fusion": "c6dc39eaae360ba9e02302215b109807fac52ea03706466eb0644a0637529102",
+        "ml": "6d2deedfb53ee5c43ea6f3ac22221ebf85383bc82a007109454c27c93011f536",
+        "wide": "eb2eb532bd1dc74de5471e52b40828ea6d92416a95672870a9a09cdd00b45fc7"
+      },
+      "note": "contained the vacuous marginal table (evidence/coverage-v3-errata.json); its binaries were deleted"
+    },
+    {
+      "run": "run 2, published",
+      "experiment_json": "outputs/coverage-v3/experiment.json",
+      "source_sha256": "c83caffbe18d90e2951eb00e2ac33c5111ae0d46532e6321daa862661d339ad3",
+      "log": "evidence/coverage-v3-run.txt",
+      "portfolio_sha256": {
+        "fusion": "3ccf68834ad2e3de331252cc14de72d5d30284a7da70aebe86445299c01adf26",
+        "ml": "92d5062aeaf17a9a397bb595e14e0b91887e4a358da4e53cbc417a56d9967981",
+        "wide": "0ac095a7ed6c8a142cdd8f686e001dfdec765f9a0e21ee53ddc69ae4cc4cddbf"
+      }
+    },
+    {
+      "run": "repro, same source and config as run 2",
+      "experiment_json": "outputs/coverage-v3-repro/experiment.json",
+      "source_sha256": "c83caffbe18d90e2951eb00e2ac33c5111ae0d46532e6321daa862661d339ad3",
+      "log": "evidence/coverage-v3-repro.txt",
+      "portfolio_sha256": {
+        "fusion": "e9adf8c2a53b4f53fe26cfe0409d831f8d147b8cef1e081cf3f12c6494cf415f",
+        "ml": "c178c675880a5583dcc36e0048114cd6ea6beb254ea2dbe29a1f2c1e31859725",
+        "wide": "8b48bdca75fa4ff789ba4839fa0daef9b549f4207a5b3ede1f00695be2e9ba32"
+      }
+    }
+  ],
+  "config_sha256_identical": true,
+  "source_sha256_identical": true,
+  "pixel_content": {
+    "fusion": {
+      "run2_sha256": "3ccf68834ad2e3de331252cc14de72d5d30284a7da70aebe86445299c01adf26",
+      "repro_sha256": "e9adf8c2a53b4f53fe26cfe0409d831f8d147b8cef1e081cf3f12c6494cf415f",
+      "nonzero_run2": 246258,
+      "nonzero_repro": 246258,
+      "differing_pixels": 0,
+      "max_abs_difference": 0.0
+    },
+    "ml": {
+      "run2_sha256": "92d5062aeaf17a9a397bb595e14e0b91887e4a358da4e53cbc417a56d9967981",
+      "repro_sha256": "c178c675880a5583dcc36e0048114cd6ea6beb254ea2dbe29a1f2c1e31859725",
+      "nonzero_run2": 195126,
+      "nonzero_repro": 195126,
+      "differing_pixels": 0,
+      "max_abs_difference": 0.0
+    },
+    "wide": {
+      "run2_sha256": "0ac095a7ed6c8a142cdd8f686e001dfdec765f9a0e21ee53ddc69ae4cc4cddbf",
+      "repro_sha256": "8b48bdca75fa4ff789ba4839fa0daef9b549f4207a5b3ede1f00695be2e9ba32",
+      "nonzero_run2": 624025,
+      "nonzero_repro": 624025,
+      "differing_pixels": 0,
+      "max_abs_difference": 0.0
+    }
+  },
+  "geotiff_tags": {
+    "differing": [
+      "selection_sha256"
+    ],
+    "identical": [
+      "AREA_OR_POINT",
+      "arm",
+      "policy",
+      "seed",
+      "strategy",
+      "variant"
+    ],
+    "why_selection_sha256_differs": "selection_sha256 is the hash of selection-frozen.json, which records frozen_at (wall clock): run 2 2026-09-25T05:37:49Z vs repro 2026-09-25T05:46:53Z"
+  },
+  "decision_layer": {
+    "candidate_floors_identical": 96,
+    "candidates_compared": 96,
+    "max_abs_robust_dti_difference": 0.0,
+    "selected_identical": true,
+    "wide_identical": true,
+    "refit_model_sha256_identical": true,
+    "refit_model_sha256": "6d60bb93278367f41115b22ffbfd2003ba761da179373797e2ff9e8d37c4e237"
+  },
+  "numeric_drift_flagged": {
+    "audit_all_dti_holdout_arms": {
+      "run1": {
+        "two-catalogue-regressor": 0.20122198955050824,
+        "tversky-weighted-classifier": 0.21202192902341352
+      },
+      "run2": {
+        "two-catalogue-regressor": 0.2012788903010502,
+        "tversky-weighted-classifier": 0.21202192902341352
+      },
+      "repro": {
+        "two-catalogue-regressor": 0.20122198955050824,
+        "tversky-weighted-classifier": 0.21199132047489966
+      }
+    },
+    "max_abs_drift_run2_vs_repro": 5.690075054196053e-05,
+    "explanation": "HistGradientBoosting fitting is not bit-deterministic under threading, so the holdout-field kernel scores drift in the 5th decimal. The frozen decisions (96/96 support floors, selection, wide policy) and the refit model bytes were identical in all three runs."
+  },
+  "conclusion": [
+    "Pixel content is bit-identical across runs (0 differing pixels, maximum absolute difference 0.0).",
+    "GeoTIFF bytes are NOT identical: the only differing tag is selection_sha256, which covers a frozen-selection file that records a wall-clock timestamp.",
+    "A file hash cannot serve as a cross-run artifact identity for this experiment; the pixel array and the captured decision layer can.",
+    "No republication was performed: the published files are run 2's, and they are content-identical to the repro."
+  ]
+}

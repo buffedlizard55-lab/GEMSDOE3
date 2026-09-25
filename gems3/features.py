@@ -14,14 +14,25 @@ from .common import read_json, sha256, write_json
 FEATURE_VERSION = 1
 
 
-def spatial_partition(shape: tuple[int, int], block_px: int = 512, buffer_px: int = 32):
-    """Deterministic label-independent four-way spatial split, with eroded block interiors."""
+def spatial_partition(shape: tuple[int, int], block_px: int = 512, buffer_px: int = 32,
+                      origin: tuple[int, int] = (0, 0)):
+    """Deterministic label-independent four-way spatial split, with eroded block interiors.
+
+    `origin` shifts every block boundary by that many pixels, which rotates the partition without
+    changing its block size. Rotating is the only honest way to obtain a second look at the same
+    survey footprint: the blocks are new but the underlying region necessarily overlaps. Callers
+    that rotate must disclose the overlap instead of calling the result independent.
+    """
     if block_px <= 2 * buffer_px + 3 or buffer_px < 3:
         raise ValueError("Blocks need nonempty interiors and at least the 3 px metric buffer")
-    rr, cc = np.indices(shape, dtype="int32")
-    folds = ((rr // block_px) * 3 + (cc // block_px) * 5) % 4
-    inside = ((rr % block_px >= buffer_px) & (rr % block_px < block_px - buffer_px)
-              & (cc % block_px >= buffer_px) & (cc % block_px < block_px - buffer_px)
+    oy, ox = int(origin[0]), int(origin[1])
+    if not 0 <= oy < block_px or not 0 <= ox < block_px:
+        raise ValueError("Block origin must fall inside one block period")
+    rr, cc = np.indices(shape, dtype="int64")
+    sr, sc = rr + oy, cc + ox
+    folds = ((sr // block_px) * 3 + (sc // block_px) * 5) % 4
+    inside = ((sr % block_px >= buffer_px) & (sr % block_px < block_px - buffer_px)
+              & (sc % block_px >= buffer_px) & (sc % block_px < block_px - buffer_px)
               & (rr < shape[0] - buffer_px) & (cc < shape[1] - buffer_px))
     return folds.astype("uint8"), inside
 

@@ -11,7 +11,7 @@
       "role": "binding format and target",
       "access": "public",
       "license": "competition rules",
-      "used": "requirements",
+      "used": "requirements, objective definition and emission design",
       "claims": [
         {
           "id": "new-target",
@@ -47,8 +47,39 @@
           "id": "sample-absence",
           "statement": "The official page describes an all-absence sample, unlike the supplied mirror's positive values.",
           "quote": "A sample submission that predicts total fault absence is provided for your reference"
+        },
+        {
+          "id": "metric-equations",
+          "statement": "The metric is a distance-weighted Tversky index with alpha=0.2, beta=0.8 and a triangular kernel of 300 m support; TP_w/FP_w/FN_w are defined as maxima over the 300 m neighbourhood.",
+          "quote": "For this competition, we set \ud835\udefc=0.2 and \ud835\udefd=0.8, which reduces the penalty for false positive predictions and increases the penalty for false negative predictions."
+        },
+        {
+          "id": "metric-worked-example",
+          "statement": "The published worked example gives TP_w=3.00, FP_w=1.89, FN_w=2.00 and TI_w=0.60.",
+          "quote": "TP\ud835\udc64=3.00,FP\ud835\udc64=1.89,FN\ud835\udc64=2.00"
+        },
+        {
+          "id": "initial-round-labels",
+          "statement": "The Initial Prize Round scores against a private set of expert-labelled faults that are not in the public database; the Final Prize Round rescores the same single submission against an expanded label set.",
+          "quote": "These new faults have been manually labeled by fault experts and comprise the test dataset for the competition."
+        },
+        {
+          "id": "labels-provenance",
+          "statement": "Supplied labels come from the USGS Quaternary fault maps and the INGENIOUS project.",
+          "quote": "The labels for this challenge come from the USGS quaternary fault maps and from INGENIOUS."
+        },
+        {
+          "id": "dem-links",
+          "statement": "The data download includes 1m_DEM_links.csv listing URLs for 1 m-resolution DEM data.",
+          "quote": "you will find a CSV file called 1m_DEM_links.csv that contains links where DEM data at 1m resolution can be downloaded."
+        },
+        {
+          "id": "metric-motivation",
+          "statement": "Distance weighting exists because rasterization is lossy and portions of the existing fault data may be misaligned from the true surface-fault location.",
+          "quote": "Rasterization is lossy and can induce off\u2011by\u2011one errors near pixel boundaries. In addition, portions of the existing fault data may be misaligned from the true location of the surface fault"
         }
-      ]
+      ],
+      "retrieved": "2026-09-25 (Arena research tool, both content chunks; equations and examples quoted verbatim)"
     },
     {
       "id": "overview",

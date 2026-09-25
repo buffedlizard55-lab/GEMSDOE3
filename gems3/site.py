@@ -6,6 +6,7 @@ import html
 from pathlib import Path
 
 from .common import ROOT, read_json
+from .site_coverage import algebra_section, coverage_experiment_section, coverage_summary, upload_strip
 from .site_gapfinder import (
     clarifications_section,
     experiment_section,
@@ -96,12 +97,14 @@ def heading(kicker, title, description, extra=""):
     return f'<div class="page-heading"><div class="eyebrow">{kicker}</div><h1>{title}</h1><p>{description}</p>{extra}</div>'
 
 
-def build_home(meta, report, feed, port=None):
+def build_home(meta, report, feed, port=None, cx=None):
     board = feed.get("leaderboard", {})
     leader, tracked = board.get("leader", {}), board.get("tracked_user") or {}
     delta = report["artifact"]["new_pixel_field"]
-    return f'''<div class="overview-heading"><div><div class="eyebrow">EXPERIMENT 002 · GAPFINDER <span class="eyebrow-line"></span> FIND WHAT THE LABELS MISS</div><h1>Find the faults.<br><span>Not the ones already known.</span></h1><p>The hidden test faults are, by definition, missing from the supplied labels. Gapfinder learns from a second, independent USGS fault map and never predicts on a supplied label, which the organisers confirmed are masked from scoring.</p></div><a class="text-link" href="executive_summary.html">Read the executive summary {icon('arrow')}</a></div>
+    strip = upload_strip(port)
+    return f'''{strip}<div class="overview-heading"><div><div class="eyebrow">EXPERIMENT 003 · COVERLINE <span class="eyebrow-line"></span> COVER WHAT THE LABELS MISS</div><h1>Find the faults.<br><span>Not the ones already known.</span></h1><p>The hidden test faults are missing from the supplied labels by construction. This run derives its emission budget from the official metric itself — every emitted pixel costs 0.2 of the Tversky denominator, so a pixel has to cover ground truth that nothing else covers — then sweeps twelve support levels on a rotated spatial partition.</p></div><a class="text-link" href="executive_summary.html">Read the executive summary {icon('arrow')}</a></div>
 {portfolio_section(port, "home")}
+{algebra_section(cx)}
 <div class="section-header section-block"><div><div class="eyebrow">PREVIOUS CANDIDATE · SESSION 1</div><h2>Riftline stays available as a fallback.</h2></div><a class="text-link" href="experiments.html">Compare on the experiments page {icon('arrow')}</a></div>
 <div class="hero-grid">{download_card(meta, previous=bool(port))}<section class="map-card" aria-label="Measured prediction overview"><div class="map-title"><span class="dot"></span> GEODAWN / NEVADA & CALIFORNIA <span class="mono">UTM 11N</span></div><div class="map-view"><div class="map-grid"></div><img src="assets/prediction-preview.png" alt="Actual Riftline confidence field across the GeoDAWN footprint; brighter traces mark model predictions, not verified faults"><span class="map-north">N<br>↑</span><span class="map-coordinates">100 M GRID<br>EPSG:32611</span></div><div class="map-legend"><span><i></i> Model-predicted traces</span><span>Max-pooled preview</span></div><div class="map-caption"><h3>A new field. Not a renamed file.</h3><p>{delta['different_valid_pixels']:,} valid pixels differ from the archived ensemble ({delta['different_fraction']:.1%}). These are predictions—not confirmed discoveries.</p><a href="experiments.html">Inspect the experiment {icon('arrow')}</a></div></section></div>
 <div class="metrics-row"><article><span class="metric-label">PUBLIC LEADER</span><strong data-leader-score>{score(leader.get('score'))}</strong><small><span data-leader-name>{esc(leader.get('participant', 'Unknown'))}</span> · official snapshot</small></article><article><span class="metric-label">EXTRADR19 · BEST PUBLIC</span><strong data-user-score>{score(tracked.get('score'))}</strong><small>Account-level result, not artifact-linked</small></article><article><span class="metric-label">GAPFINDER FILES</span><strong class="not-scored">Unscored<span>↗</span></strong><small>Ready for an authenticated upload</small></article><article><span class="metric-label">RIFTLINE · LOCAL UNION DTI</span><strong>{score(report['audit']['union']['dti'])}</strong><small>Different labels. Not leaderboard-comparable.</small></article></div>
@@ -127,14 +130,14 @@ def deployment_notice(report):
             '<a href="data/experiment.json">Measured deployment record ↗</a></p>')
 
 
-def build_summary(meta, report, port=None, gx=None):
+def build_summary(meta, report, port=None, gx=None, cx=None):
     return heading("EXECUTIVE SUMMARY", "From a tested file<br>to a real submission.", "Download file 1, upload it, paste its Note. Below: why these files, what is still unknown, and what a successful download does not prove.") + f'''
-{portfolio_section(port, "summary")}{gapfinder_summary(port, gx)}
+{portfolio_section(port, "summary")}{coverage_summary(cx)}{gapfinder_summary(port, gx)}
 <div class="section-header section-block"><div><div class="eyebrow">PREVIOUS CANDIDATE · SESSION 1</div><h2>Riftline: kept as a fallback.</h2></div></div>
 <div class="summary-grid">{download_card(meta, True, previous=bool(port))}<div class="summary-side"><div class="status-pill neutral-pill">SESSION 1 OUTCOME</div><h2>A distinct candidate.<br>An unknown public score.</h2><p>The CPU experiment compared three arms. <strong>{esc(meta['arm'])}</strong> was selected on the tuning fold; its recipe was frozen before spatial audit.</p>{deployment_notice(report)}<p>We have not uploaded this candidate to DrivenData and do not have its competition score. Account-level leaderboard changes are never automatically assigned to this file.</p><div class="callout">The old data-placement blocker is resolved. No GPU, paid data source or local install is needed to download this artifact.</div><a href="experiments.html" class="text-link">Read the measured results {icon('arrow')}</a></div></div>
 <section id="steps" class="section-block"><div class="eyebrow">THE HANDOFF</div><h2>Submit in six steps.</h2><div class="steps-list">
 <article><span>1</span><div><h3>Confirm eligibility and competition enrollment.</h3><p>Open the <a href="{COMP}" target="_blank" rel="noopener noreferrer">official competition</a>, sign in to your DrivenData account and enroll. Review <a href="{RULES}">rules §1.3 and §3.1</a>. We cannot make legal attestations or authenticate as you.</p></div></article>
-<article><span>2</span><div><h3>Click “Download .tif” on card 1 at the top of this page.</h3><p>Each Gapfinder file was re-read and checked against the pinned template before publishing (CRS, transform, shape, float32, NaN exactly outside the mask, finite values in [0, 1] inside). Use the next card’s file for your next upload. Do not upload this web page, a PDF, or an evidence JSON.</p></div></article>
+<article><span>2</span><div><h3>Click “Download .tif” on card 1 at the top of this page (or on the strip above).</h3><p>Every published file is re-read and checked against the pinned template before publishing (CRS, transform, shape, float32, NaN exactly outside the mask, finite values in [0, 1] inside). Use the next card’s file for your next upload. Do not upload this web page, a PDF, or an evidence JSON.</p></div></article>
 <article><span>3</span><div><h3>In DrivenData, choose Submit → Make new submission.</h3><p>Under <strong>File to submit</strong>, choose the downloaded <code>.tif</code>. The form also permits a ZIP containing one GeoTIFF; the supplied ZIP contains exactly one file. The TIF is the simplest path. Do not upload an outer GitHub Actions artifact ZIP, which also contains reports and model files.</p></div></article>
 <article><span>4</span><div><h3>Paste that file’s Note.</h3><p>Use the Copy button on the same card. Each Note names the variant, model policy and the first 10 hex characters of the file’s SHA-256. You can match a leaderboard entry to a file later. Keep the filename and hash with the result.</p></div></article>
 <article><span>5</span><div><h3>Submit, then read the platform response.</h3><p>A local pass is not a platform acceptance or an accuracy guarantee. If rejected, retain the exact filename and message. If accepted, keep the submission ID and public score to link the result to this candidate.</p></div></article>
@@ -145,7 +148,7 @@ def build_summary(meta, report, port=None, gx=None):
 <div class="warning-box"><strong>Deadline wording needs attention.</strong> The <a href="{COMP}">competition website</a> currently lists December 3, 2026, 23:59 UTC. Rules §1.2 directs entrants to the website for the current timeline, while Appendix A also contains a generic 5 p.m. ET clause and document-format wording. Predictions are a GeoTIFF per the specific submission section. Review both sources and clarify any ambiguity with the organizers well before the deadline; we do not invent a legal interpretation.</div>'''
 
 
-def build_experiments(meta, report, gx=None, v1=None, diag=None):
+def build_experiments(meta, report, gx=None, v1=None, diag=None, cx=None):
     rows = []
     for arm in report["arms"]:
         name = arm["arm"]["id"]
@@ -153,7 +156,7 @@ def build_experiments(meta, report, gx=None, v1=None, diag=None):
         selected_tag = '<span class="tag">Selected on tuning</span>' if picked else ""
         rows.append(f'<tr class="{"selected-row" if picked else ""}"><td><strong>{esc(name)}</strong>{selected_tag}</td><td>{"67" if arm["arm"]["context"] else "19"}</td><td>{arm["arm"]["unlabeled_weight"]}</td><td>{score(arm["best_tuning_policy"]["tuning"]["dti"])}</td><td>{score(arm["audit"]["known"]["dti"])}</td><td>{score(arm["audit"]["proxy_only"]["dti"])}</td><td>{score(arm["audit"]["union"]["dti"])}</td></tr>')
     p = report["partition"]
-    return heading("EXPERIMENT LOG", "A hypothesis is not a result.", "Executed arms, pre-registered selection rules, frozen before audit. Every local number below is a published-catalogue surrogate—not a hidden-label or leaderboard score.") + experiment_section(gx, v1, diag) + f'''
+    return heading("EXPERIMENT LOG", "A hypothesis is not a result.", "Executed arms, pre-registered selection rules, frozen before audit. Every local number below is a published-catalogue surrogate—not a hidden-label or leaderboard score.") + coverage_experiment_section(cx, gx) + experiment_section(gx, v1, diag) + f'''
 <div class="section-header section-block"><div><div class="eyebrow">EXPERIMENT 001 · PREVIOUS</div><h2>Riftline context-distance</h2></div></div>
 <div class="run-banner"><div><span class="status-pill success">COMPLETED</span><strong>{esc(report['strategy'])}</strong><small>{esc(report['completed_at'])}</small></div><a href="data/experiment.json" class="text-link">Full experiment JSON {icon('external')}</a></div>
 <div class="warning-box">{deployment_notice(report)}<p>The repeated fixed-fold audit is diagnostic, not a fresh independent replication. The original run’s selected context field was bit-identical across its two executions; its raw-feature control was not. See <a href="../evidence/repeatability.json">the dated repeatability record</a>, which does not certify every future retraining run.</p></div><section class="section-block"><div class="section-header"><h2>The controlled comparison</h2><span class="tag">Same samples · same spatial split</span></div><div class="table-scroll"><table><caption>Each arm’s policy is chosen on the tuning region. Audit scores do not choose the winner.</caption><thead><tr><th>Model arm</th><th>Features</th><th>Unlabeled weight</th><th>Tune · union</th><th>Audit · known</th><th>Audit · proxy</th><th>Audit · union</th></tr></thead><tbody>{''.join(rows)}</tbody></table></div><p class="table-note">Known = supplied training catalogue in unseen geography. Proxy = inherited SGMC code-2 faults, absent within 300 m of known labels. Union = recomputed metric on both populations, not an average of their scores. None is the private expert dataset.</p></section>
@@ -189,7 +192,10 @@ def build_research(report):
 
 
 def build_verification(meta, report, review, port=None):
-    if review.get("artifact_sha256") not in (None, meta["artifact"]["sha256"]):
+    current = {meta["artifact"]["sha256"]}
+    if port and port.get("items"):
+        current.add(port["items"][0]["sha256"])  # the live portfolio owns the current release
+    if review.get("artifact_sha256") not in current:
         review = {}  # Past release reviews are not automatically inherited by a new model.
     gates = ''.join(f'<tr><td><span class="status-pill {"success" if c["passed"] else "warning"}">{"PASS" if c["passed"] else "FAIL"}</span></td><td>{esc(c["check"])}</td><td class="wrap-anywhere">{esc(c["detail"])}</td></tr>' for c in meta["validation"]["checks"])
     passes = ''.join(f'<article class="white-card"><span class="eyebrow">PASS {p["pass"]}</span><h2>{esc(p["title"])}</h2><p>{esc(p["summary"])}</p><span class="tag">{esc(p["status"])}</span></article>' for p in review.get("passes", []))
@@ -223,11 +229,12 @@ def main():
     review = read_json(ROOT / "evidence/review.json") if (ROOT / "evidence/review.json").exists() else {}
     port = load_optional(docs / "data/portfolio.json")
     gx = load_optional(docs / "data/gapfinder-experiment.json")
+    cx = load_optional(docs / "data/coverage-experiment.json")
     v1 = load_optional(ROOT / "evidence/gapfinder-v1-experiment.json")
     diag = load_optional(ROOT / "evidence/gapfinder-diagnostics.json")
-    pages = [("index.html", "Mission control", build_home(meta, report, feed, port)),
-             ("executive_summary.html", "Executive summary", build_summary(meta, report, port, gx)),
-             ("experiments.html", "Experiments", build_experiments(meta, report, gx, v1, diag)),
+    pages = [("index.html", "Mission control", build_home(meta, report, feed, port, cx)),
+             ("executive_summary.html", "Executive summary", build_summary(meta, report, port, gx, cx)),
+             ("experiments.html", "Experiments", build_experiments(meta, report, gx, v1, diag, cx)),
              ("sources.html", "Data & sources", build_sources(data, sources, feed)),
              ("research.html", "Research log", build_research(report)),
              ("verification.html", "Verification", build_verification(meta, report, review, port))]

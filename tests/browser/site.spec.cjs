@@ -167,6 +167,17 @@ test('portfolio: every direct download is the exact published file and each Note
     await expect(page.locator('#portfolio .portfolio-card').first()).toContainText('SUBMIT FIRST');
   }
   await page.goto('/docs/index.html');
+  // The one-step answer has to come first: download link, filename and paste-able Note above the fold.
+  const strip = page.locator('#submit-now');
+  await expect(strip).toBeVisible();
+  await expect(strip.locator('a.strip-step').first()).toHaveAttribute('download', manifest.items[0].filename);
+  await expect(strip.locator('a.strip-step').first()).toHaveAttribute('href', manifest.items[0].file);
+  await expect(strip).toContainText(manifest.items[0].note);
+  expect(await page.evaluate(() => {
+    const s = document.getElementById('submit-now');
+    const p = document.getElementById('portfolio');
+    return Boolean(s && p) && (s.compareDocumentPosition(p) & Node.DOCUMENT_POSITION_FOLLOWING) !== 0;
+  })).toBe(true);
   const python = process.env.PYTHON || path.resolve('.venv/bin/python');
   for (const [i, item] of manifest.items.entries()) {
     const pending = page.waitForEvent('download');

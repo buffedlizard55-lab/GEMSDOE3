@@ -1,4 +1,4 @@
-# Gapfinder · GEMSDOE3 (formerly Riftline)
+# Coverline · GEMSDOE3 (formerly Gapfinder and Riftline)
 
 **Start every work session here.** Read this README, the preserved project brief below, `AGENTS.md`, `NEXT_STEPS.md`, and the latest evidence before changing the project.
 
@@ -14,11 +14,46 @@ A one-click, **format-validated GeoTIFF submission** for the DOE GEMS Prize, sup
 - **Requirements and metric:** https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/
 - **Official rules:** https://docs.nlr.gov/docs/fy26osti/96647.pdf
 
-The website opens with the **Gapfinder portfolio**: three format-validated GeoTIFFs in a recommended upload order. Each has a unique filename, a copyable Note and an **unsubmitted / score unknown** status. The session-1 Riftline file stays below as the previous candidate. A local catalogue score is never presented as a leaderboard score. The public leaderboard was read on 2026-09-25 through the research tool: leader **0.3049** (DARD), extradr19 **0.1563**. We do not know which file was behind that account's submission. See `docs/data/feed.json` for timestamps.
+The website opens with the **Coverline portfolio**: three format-validated GeoTIFFs in a recommended upload order, above a one-line strip that links file 1, its ZIP and its paste-able Note. Each file has a unique filename, a copyable Note of 120 characters or fewer and an **unsubmitted / score unknown** status. The session-2 Gapfinder files and the session-1 Riftline file stay downloadable below as previous candidates. A local catalogue score is never presented as a leaderboard score. The public leaderboard was read on 2026-09-25 through the research tool: leader **0.3049** (DARD), extradr19 **0.1563**. We do not know which file was behind that account's submission. See `docs/data/feed.json` for timestamps.
 
-## Current verified result: Gapfinder v2 (session 2, 2026-09-25)
+**If you only do one thing:** open the site, click the first card's **Download .tif**, then paste the Note beside it into the DrivenData form. `docs/executive_summary.html#steps` has the six steps, the rule citations and what to do if an upload is rejected.
+
+## Current verified result: Coverline v3 (session 3, 2026-09-25)
 
 **Upload in this order** (3 uploads/week; one final selection):
+
+| # | File (`docs/downloads/`) | Note to paste | Pixels = 1 |
+|---|---|---|---|
+| 1 SUBMIT FIRST | `coverage-v3-fusion-20260925T054015Z-3ccf68834a.tif` | `Coverline v3 fusion \| Tversky-weighted classifier \| s=4.00% h=2 L=5 \| + SGMC-gap traces \| 3ccf68834a` | 246,258 (4.77%) |
+| 2 SUBMIT SECOND | `coverage-v3-wide-20260925T054019Z-0ac095a7ed.tif` | `Coverline v3 wide \| Tversky-weighted classifier \| s=12.00% h=0 L=5 \| recall probe \| 0ac095a7ed` | 624,025 (12.08%) |
+| 3 OPTIONAL THIRD | `coverage-v3-ml-20260925T054017Z-92d5062aea.tif` | `Coverline v3 ml \| Tversky-weighted classifier \| s=4.00% h=2 L=5 \| no SGMC traces \| 92d5062aea` | 195,126 (3.78%) |
+
+Each file passed 13/13 strict format gates on read-back: exact template CRS, transform and shape; float32; NaN exactly outside the mask; finite values in [0,1] inside; **0 pixels on a supplied label**. Each ZIP contains exactly its TIF and re-hashes to the same digest. This is what fixes the earlier "Predicted values must be in range [0, 1]" rejection class.
+
+**Why this strategy is different.** Session 3 reads the official metric as an *emission budget*, not a classifier problem. With α = 0.2 and β = 0.8, adding one emitted pixel raises the Tversky denominator by `0.2 × (credit it newly contributes) + 0.2 × (1 − k(d))`, which is at most 0.2 — so a pixel must land within ~2.8 px of uncovered truth to pay for itself (`research/RESEARCH.md` §8). Coverline therefore sweeps twelve support levels whose *thresholds* are set so the emission covers a target fraction of the valid grid (0.5%–12%), trains a β/α-weighted classifier (positive weight 4) beside the regression control, and publishes the measured marginal value of every tranche. The first eight tranches pay for themselves (credit per added pixel above the row's break-even); from 10% they do not, which is why the conservative policy is file 1 and the 12% file is labelled a probe.
+
+- Spatial discipline: a **half-block rotated** partition — `block_origin_px` (256, 256), 512 px blocks, 48 px buffer, 4.8 km guard — with train folds [0, 3], tune 1, audit 2. It never reuses Gapfinder v2's tune/audit roles, and the rotation disclosure is in the config and on the site.
+- Selection: maximize the minimum of three public proxies (SGMC-gap, all-SGMC, held-out supplied labels) on the tuning fold, tie-break by lower emitted fraction, frozen in `outputs/coverage-v3/selection-frozen.json` **before** the audit fold was scored (`audit_consulted: false`).
+- The wide file is the largest-support eligible candidate of the winning arm with robust DTI ≥ 0.75 × the selected value; fusion adds independently mapped USGS SGMC faults the labels omit.
+
+**Measured locally** (proxy DTI on public catalogues; **not** leaderboard-comparable, and the hidden labels stay hidden):
+- Frozen policy: `tversky-weighted-classifier`, support 4.00%, floor 0.49407, halo 2 px, tip ray 5 px; emitted fraction 3.43% of the tuning region.
+- Audit fold 2, holdout-trained model: gap 0.2009 / all 0.2120 / known 0.1731. The regression control scored gap 0.1864 / all 0.2013 / known 0.1728 on the same fold.
+- Paired block bootstrap (20 blocks, 2,000 draws) vs the control: gap +0.0145 [−0.0015, +0.0402], p(A better) 0.9515; all +0.0107 [−0.0030, +0.0334], p 0.9095. **The interval includes zero**: this is a small, not statistically resolved, difference on public stand-ins.
+- All-fold refit accepted (3.78% support, 1.5× gate); the published pixels come from the refit model.
+- Full record: `evidence/coverage-v3-run.txt`, `outputs/coverage-v3/experiment.json`, `docs/data/coverage-experiment.json`, and the site's Experiments page.
+
+**Honest caveats for v3:**
+- **Unscored.** No upload has been made; only DrivenData can say whether any file beats 0.3049.
+- **Reproducibility measured, not assumed.** Three runs produced identical pixel arrays (0 differing pixels) and identical frozen decisions, but **not** identical files: the only differing GeoTIFF tag is `selection_sha256`, which covers a timestamped frozen-selection record, and holdout audit scores drift by ≤5.7e-05 under threaded training. See `evidence/coverage-v3-reproducibility.json`.
+- **A defect was found in review and fixed.** The first v3 run's marginal table was vacuous (all twelve rows unscorable) because of a mask error; it is documented in `evidence/coverage-v3-errata.json`, fixed, regression-tested and republished, and the decision layer was shown identical between the affected and published runs.
+- **Rotation, not independence.** Fold 2 here overlaps geography that v2 used for tuning and audit; the audit is a disclosed rotation, not a fresh survey area.
+- **Source circularity.** The fusion file uses SGMC (~1:1,000,000 compilation) as data; scoring it locally on SGMC would be circular, so SGMC traces inside the fusion file are not locally scored.
+- Limits: no 1 m DEM, no GPU, no hidden labels, no authenticated upload; one partition.
+
+### Previous candidate: Gapfinder v2 (session 2)
+
+**Upload in this order** (still downloadable; a valid alternative if you prefer the session-2 evidence):
 
 | # | File (`docs/downloads/`) | Note to paste | Pixels = 1 |
 |---|---|---|---|
@@ -50,7 +85,7 @@ The **fusion** file adds the SGMC-gap traces directly. The **ML-only** file omit
 - **Circularity.** SGMC is a ~1:1,000,000 compilation. Trained-on-SGMC/scored-on-SGMC measures geographic transfer, not source transfer.
 - **Unscored.** No upload has been made, and only the leaderboard can say whether any file beats 0.3049.
 
-**Tests:** 110 Python tests pass locally, including 11 new Gapfinder tests (portfolio uniqueness, prominence, notes, ZIP content, geometry, sampling, proxy and bootstrap). The Chromium suite status is recorded in `REVIEW.md`.
+**Tests (session 2 record):** 110 Python tests passed locally, including 11 new Gapfinder tests (portfolio uniqueness, prominence, notes, ZIP content, geometry, sampling, proxy and bootstrap). The current count is 119 (see above); the Chromium suite runs in hosted CI and its status is recorded in `REVIEW.md`.
 
 ### Previous candidate: Riftline (session 1)
 
@@ -65,6 +100,10 @@ The **fusion** file adds the SGMC-gap traces directly. The **ML-only** file omit
 The starting GEMSDOE3 repository contained only a 10-byte README. The complete **387-file upstream snapshot** at `buffedlizard55-lab/GEMSDOE@cceebbdcf9a7d2890bb0665defcb54dfc66ae452` was downloaded and each file checked against its Git blob ID. Source, original site, historical results, tests and workflows are preserved under `legacy/`; see `provenance/import.json` and `provenance/upstream-tree.json`. Original `.gitignore` is stored as `.gitignore.upstream`. Historical workflows are not active, and old claims are not new verification.
 
 **Storage exception:** the five feature-stack bridge parts (418,912,844 bytes combined) are available through the pinned upstream snapshot, restored by our downloader and excluded from new Git history. The full upstream Git history is not duplicated. Small original rasters/evidence remain preserved. See `THIRD_PARTY.md` for attribution, rights and source limitations.
+
+**Session 2 strategy (Gapfinder, now the previous candidate):** train on a second public catalogue (USGS SGMC) inside training regions only, never emit on a supplied label, optionally extend known fault tips, and select on three disjoint-region proxies including held-out supplied faults. It is kept above under "Previous candidate".
+
+**Session 3 strategy (Coverline, current):** treat the official metric as an emission budget. Add an oriented-ridge emission whose threshold is set so each tranche covers a target fraction of the valid grid (0.5%-12%), train a beta/alpha-weighted classifier (positive weight 4, the metric's own false-negative/false-positive ratio) beside the regression control, keep the rotation of the spatial partition disclosed, and publish the measured marginal value of every tranche. Server-side selection maximizes the minimum of the same three proxies and freezes before the audit.
 
 **Session 1 strategy (Riftline, now the previous candidate):** distance-aware regression using 19 supplied geophysical bands plus label-free multiscale context at 1, 3 and 7 pixels. Compare raw-feature, contextual and cautious-unlabeled-weight arms; select oriented-ridge emission only on a tuning region; freeze that decision before a separate spatial audit; attempt the frozen refit under the same quality guard, retaining the unchanged selected model if the refit fails; reject invalid files before publication. In Riftline, proxy labels were diagnostic/tuning evidence, never training targets or prediction features. Gapfinder deliberately trains on SGMC; see above. This is PU-inspired weighting, **not** a claim of an unbiased PU estimator or calibrated probabilities.
 
@@ -84,6 +123,8 @@ OMP_NUM_THREADS=2 OPENBLAS_NUM_THREADS=2 python -m gems3.train      # session 1:
 python -m gems3.publish
 OMP_NUM_THREADS=2 OPENBLAS_NUM_THREADS=2 python -m gems3.gapfinder --config configs/gapfinder-v2.json  # ~7 min CPU
 python -m gems3.gapfinder_publish --report outputs/gapfinder-v2/experiment.json
+OMP_NUM_THREADS=2 OPENBLAS_NUM_THREADS=2 python -m gems3.coverage --config configs/coverage-v3.json  # session 3: Coverline, ~7-11 min CPU
+python -m gems3.coverage_publish --report outputs/coverage-v3/experiment.json
 python -m gems3.site
 python scripts/stage_site.py
 python -m pytest
@@ -119,7 +160,9 @@ The feed uses fixed primary-source URLs, conservative exact-quote checks, HTTP t
 - No GPU or full 1 m DEM coverage used. Public catalogues are incomplete and biased; one spatial split is not proof of generalization. Existing historical pseudo-label experiments have unresolved source-circularity and missing-fold limits; see `NEXT_STEPS.md`.
 - Direct sandbox requests to several official hosts are restricted. Initial primary sources were read through the research tool; scheduled unrestricted GitHub runners can attempt subsequent checks. Network failures remain visible.
 - Rules limit submissions to **three per week**, require one final selection, and require disclosure of generative-AI assistance. The website deadline and generic PDF appendix deadline wording are not identical; both are linked and flagged for review. We do not invent a legal resolution.
-- Three review passes and actual test/measurement evidence are recorded in `evidence/review.json` and `REVIEW.md`. Verify deployment and PR status from GitHub; never infer them from a successful local build.
+- **Session 3 reproducibility measured:** three runs of the published recipe gave bit-identical pixel arrays for all three files (0 differing pixels) and identical frozen decisions (96/96 support floors, selection, wide policy, refit model hash), but **different file bytes**, because the `selection_sha256` GeoTIFF tag covers a frozen-selection record that stores a wall-clock timestamp; holdout audit scores drift by up to 5.7e-05. Byte hashes are therefore not a cross-run identity here; `evidence/coverage-v3-reproducibility.json` records the comparison.
+- **Session 3 defect, flagged and fixed:** the first v3 run's per-tranche marginal table was unscorable (all twelve rows `dti = None`) because the supplied-label context was scored under a mask that erased its own truth. Fixed, regression-tested (`tests/test_coverage.py`), re-run, and recorded in `evidence/coverage-v3-errata.json`. The frozen decisions were identical before and after the fix.
+- Three review passes and actual test/measurement evidence are recorded in `evidence/review.json`, `evidence/session3-pass*-tests.xml` and `REVIEW.md`. Verify deployment and PR status from GitHub; never infer them from a successful local build.
 
 ## Project map
 
@@ -127,7 +170,9 @@ The feed uses fixed primary-source URLs, conservative exact-quote checks, HTTP t
 |---|---|
 | `gems3/` | Active downloader, model, features, metric, strict exporter, feed and publisher |
 | `gems3/gapfinder.py`, `gems3/geometry.py`, `gems3/gapfinder_publish.py`, `gems3/site_gapfinder.py` | Gapfinder experiment, tip geometry, portfolio publisher and site sections |
+| `gems3/coverage.py`, `gems3/coverage_publish.py`, `gems3/site_coverage.py` | Coverline v3 experiment (support sweep, metric algebra, rotated partition), its portfolio publisher and its site sections |
 | `configs/gapfinder.json`, `configs/gapfinder-v2.json` | Frozen Gapfinder v1 design and the disclosed v2 amendment |
+| `configs/coverage-v3.json` | Pre-registered Coverline v3 design (hash-bound into the frozen selection) |
 | `configs/riftline.json` | Fixed experiment/selection rule plus explicitly dated post-failure deployment policy |
 | `docs/` | Static, subpath-safe site and download/generation assets |
 | `evidence/` | Fresh local measurements and review trail |

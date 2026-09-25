@@ -1,0 +1,114 @@
+{
+  "name": "coverage-v3",
+  "preregistered": "This file is committed before the run and hash-bound as config_sha256 in outputs/coverage-v3/experiment.json. No selection value, support target, arm or proxy was edited after the audit fold was scored. Unlike gapfinder-v2, no wall-clock time is typed into this file: the run records its own started_at.",
+  "seed": 20260927,
+  "objective": "Choose the emission operating point from the official metric's own algebra instead of a coarse floor grid. Adding one binary emitted pixel changes the DTI denominator by exactly 0.2*(new coverage credit) + 0.2*(1 - k(d)) <= 0.2, so a pixel pays only when it lies within the 300 m kernel of hidden truth that nothing else covers. Coverage is the objective; far-field or redundant mass is pure cost.",
+  "official_basis": [
+    "https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/#performance-metric",
+    "https://community.drivendata.org/raw/11516",
+    "https://community.drivendata.org/raw/11536"
+  ],
+  "block_px": 512,
+  "buffer_px": 48,
+  "buffer_rationale": "30 px feature radius + ridge smoothing/NMS support (~5 px) + 3 px metric kernel = 38 px < 48 px",
+  "block_origin_px": [
+    256,
+    256
+  ],
+  "rotation_disclosure": "Half-block rotation of the same 512 px lattice. Fold 2 here is NOT the region gapfinder-v2 audited: every block boundary moved 25.6 km and the train/tune/audit role assignment changed (v2: train 0,1 / tune 2 / audit 3; v3: train 0,3 / tune 1 / audit 2). The footprint necessarily overlaps, so this is a rotation, not an independent survey area.",
+  "training_folds": [
+    0,
+    3
+  ],
+  "tuning_fold": 1,
+  "audit_fold": 2,
+  "derived_bands": [
+    12,
+    19,
+    2,
+    13
+  ],
+  "scales_px": [
+    1,
+    3,
+    7
+  ],
+  "max_near_samples": 100000,
+  "max_unlabeled_samples": 140000,
+  "model": {
+    "max_iter": 140,
+    "max_leaf_nodes": 31,
+    "learning_rate": 0.08,
+    "min_samples_leaf": 50,
+    "l2_regularization": 5.0,
+    "early_stopping": false
+  },
+  "arms": [
+    {
+      "id": "two-catalogue-regressor",
+      "targets": [
+        "known",
+        "sgmc"
+      ],
+      "objective": "kernel-regression",
+      "role": "control carried forward from gapfinder-v2: squared-error regression on the triangular-kernel target"
+    },
+    {
+      "id": "tversky-weighted-classifier",
+      "targets": [
+        "known",
+        "sgmc"
+      ],
+      "objective": "weighted-classification",
+      "positive_weight": 4.0,
+      "role": "new: binary classifier whose positive weight is beta/alpha = 0.8/0.2 = 4, the standard surrogate for the Tversky index the competition actually scores"
+    }
+  ],
+  "support_targets": [
+    0.005,
+    0.0075,
+    0.01,
+    0.015,
+    0.02,
+    0.03,
+    0.04,
+    0.05,
+    0.06,
+    0.08,
+    0.1,
+    0.12
+  ],
+  "support_meaning": "The floor is set per arm as the value whose oriented-ridge emission would cover that fraction of the tuning fold, giving a 12-level support sweep instead of five coarse floors.",
+  "halo_px": [
+    0,
+    2
+  ],
+  "tip_extension_px": [
+    0,
+    5
+  ],
+  "proxies": {
+    "gap": "SGMC fault pixels >= 3.2 px from any known pixel (independent published catalogue)",
+    "all": "all SGMC fault pixels not exactly on a known pixel",
+    "known": "supplied labels inside the untouched fold interior, scored with known pixels emit-able and tip-extension rays excluded (they are built from those same traces)",
+    "evaluation_mask": "template-valid AND NOT known AND fold interior"
+  },
+  "selection": "maximize min(DTI_gap, DTI_all, DTI_known) on the tuning fold among eligible candidates; tie-break lower emitted fraction, then arm id, support target, halo, tip",
+  "wide_rule": "The third published file is the largest-support eligible candidate of the selected arm whose robust DTI is at least 0.75x the selected candidate's robust DTI. It is a deliberate recall-favouring probe, not a second guess about which file is best.",
+  "max_emitted_fraction": 0.12,
+  "min_emitted_fraction": 0.0005,
+  "refit": "fraction-consistent sampling as in gapfinder-v2: keep every exact positive and reuse the holdout model's inclusion fractions. Accept only if the support gate passes and the full-grid support is within a factor 1.5 of the holdout model; otherwise publish the unchanged holdout model.",
+  "portfolio": {
+    "fusion": "selected emission OR USGS SGMC-gap traces (the leaderboard isolates this by comparing it with ml)",
+    "ml": "selected emission only, no SGMC traces",
+    "wide": "same arm and target at the wide support point; tests whether more coverage beats less on the hidden labels"
+  },
+  "score_warning": "Every local number uses public catalogues, not hidden expert labels. No leaderboard score is implied and no file here has been uploaded.",
+  "novelty_vs_gapfinder_v2": [
+    "support is swept on 12 levels with a data-driven floor instead of 5 hand-picked floors",
+    "a beta/alpha-weighted classifier is compared with the regression control",
+    "the spatial partition is rotated and the tune/audit roles are reassigned",
+    "a third file measures the recall-for-coverage hypothesis directly",
+    "the marginal value of every tranche is measured and published, so the next session can see which pixels paid for themselves"
+  ]
+}
