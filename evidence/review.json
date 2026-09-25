@@ -1,5 +1,5 @@
 {
- "updated_at": "2026-09-25T15:50:00Z",
+ "updated_at": "2026-09-25T17:32:00Z",
  "passes": [
   {
    "pass": 1,
@@ -23,7 +23,7 @@
  "artifact_sha256": "f347b70daa95170bfc967b1c0b6bbf951496c2b74764a7102848ad6178829aca",
  "local_checks_complete": true,
  "entire_request_fully_complete": false,
- "release_status": "Session 4 (Pindrop v4) portfolio published locally from outputs/pindrop-v4-run3 and committed on arena/01a0d8fd-gemsdoe3. PR #8 is open with the session-4 work (head 9150e24) and its first Chromium run failed on a duplicate DOM id that is fixed in the newest local commit; GitHub authentication then failed mid-session (bad credentials for push, API and gh), so the final commit is not yet on the remote, PR #8 is unmerged and the Pages deployment is unverified. See evidence/github-access.json. Session 3's Coverline v3 release (PR #3, merge fb87915, CI 36100426189, Pages 36100579392) remains the last fully merged deployment record. No competition score exists and no upload has been made.",
+ "release_status": "Session 4 (Pindrop v4) is released: PR #8 merged into main as merge commit d2c82e1 at 2026-09-25T17:20:55Z after pull-request CI 36166373698 passed (ruff, 148 Python tests, artifact checks, staged pages, real Chromium); post-merge CI 36166554368 and the Pages deployment 36166553440 both succeeded, and the deployed manifest and home page were read back through the research tool (evidence/pages-deployment-v4.json). Byte-level verification of the deployed files is done by the scheduled workflow's verify_live job, not by this sandbox, whose raw HTTPS to the Pages host is blocked. No competition score exists and no upload has been made.",
  "competition_score": null,
  "test_evidence": {
   "pass1_python": "evidence/pass1-tests.xml",
@@ -88,8 +88,8 @@
    "limit": "File bytes differ because selection_sha256 hashes a timestamped frozen-selection record, and the discovery arm's file differed in 116 of 155,021 emitted pixels between run 1 and runs 2-3 (cause not established)."
   }
  ],
- "hosted_ci_url": "https://github.com/buffedlizard55-lab/GEMSDOE3/actions/runs/36100426189",
- "release_pr_url": "https://github.com/buffedlizard55-lab/GEMSDOE3/pull/3",
+ "hosted_ci_url": "https://github.com/buffedlizard55-lab/GEMSDOE3/actions/runs/36166373698",
+ "release_pr_url": "https://github.com/buffedlizard55-lab/GEMSDOE3/pull/8",
  "sessions": [
   {
    "session": 2,
@@ -312,5 +312,5 @@
    }
   ]
  },
- "deployment_evidence": "evidence/pages-deployment-v3.json"
+ "deployment_evidence": "evidence/pages-deployment-v4.json"
 }
