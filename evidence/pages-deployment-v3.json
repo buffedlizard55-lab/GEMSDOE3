@@ -1,0 +1,54 @@
+{
+  "schema_version": 1,
+  "checked_at": "2026-09-25T06:20:00Z",
+  "question": "Is the published GitHub Pages site serving the Coverline v3 portfolio?",
+  "method": "Fetched https://buffedlizard55-lab.github.io/GEMSDOE3/docs/data/portfolio.json with the Arena research tool. Direct HTTPS from this sandbox to github.io is blocked (curl exit 35, HTTP 000), so the hosted content was read through the research tool rather than curl.",
+  "url": "https://buffedlizard55-lab.github.io/GEMSDOE3/docs/data/portfolio.json",
+  "deployed_manifest": {
+    "strategy": "coverage-v3",
+    "published_at": "2026-09-25T05:42:36Z",
+    "items": [
+      {
+        "order": 1,
+        "file": "coverage-v3-fusion-20260925T054015Z-3ccf68834a.tif",
+        "sha256": "3ccf68834ad2e3de331252cc14de72d5d30284a7da70aebe86445299c01adf26",
+        "note": "Coverline v3 fusion | Tversky-weighted classifier | s=4.00% h=2 L=5 | + SGMC-gap traces | 3ccf68834a",
+        "on_known_pixels": 0,
+        "checks_passed": 13,
+        "checks_total": 13
+      },
+      {
+        "order": 2,
+        "file": "coverage-v3-wide-20260925T054019Z-0ac095a7ed.tif",
+        "sha256": "0ac095a7ed6c8a142cdd8f686e001dfdec765f9a0e21ee53ddc69ae4cc4cddbf",
+        "note": "Coverline v3 wide | Tversky-weighted classifier | s=12.00% h=0 L=5 | recall probe | 0ac095a7ed",
+        "on_known_pixels": 0,
+        "checks_passed": 13,
+        "checks_total": 13
+      },
+      {
+        "order": 3,
+        "file": "coverage-v3-ml-20260925T054017Z-92d5062aea.tif",
+        "sha256": "92d5062aeaf17a9a397bb595e14e0b91887e4a358da4e53cbc417a56d9967981",
+        "note": "Coverline v3 ml | Tversky-weighted classifier | s=4.00% h=2 L=5 | no SGMC traces | 92d5062aea",
+        "on_known_pixels": 0,
+        "checks_passed": 13,
+        "checks_total": 13
+      }
+    ]
+  },
+  "workflows": {
+    "pull_request_ci": "https://github.com/buffedlizard55-lab/GEMSDOE3/actions/runs/36100426189",
+    "post_merge_ci": "https://github.com/buffedlizard55-lab/GEMSDOE3/actions/runs/36100580048",
+    "pages_deployment": "https://github.com/buffedlizard55-lab/GEMSDOE3/actions/runs/36100579392"
+  },
+  "conclusions": {
+    "pull_request_ci": "success",
+    "post_merge_ci": "success",
+    "pages_deployment": "success"
+  },
+  "limitations": [
+    "A successful deployment is not a competition score.",
+    "The manifest served by Pages matches the repository copy byte-for-byte in the fields compared (strategy, published_at, filenames, sha256, notes, pixel counts); a raw byte comparison was not possible from this sandbox because github.io is blocked."
+  ]
+}
