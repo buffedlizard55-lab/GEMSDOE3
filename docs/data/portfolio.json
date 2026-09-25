@@ -1,165 +1,707 @@
 {
   "schema_version": 1,
-  "published_at": "2026-09-25T05:42:36Z",
-  "strategy": "coverage-v3",
-  "experiment_completed_at": "2026-09-25T05:40:21Z",
+  "published_at": "2026-09-25T15:24:43Z",
+  "strategy": "pindrop-v4",
+  "experiment_completed_at": "2026-09-25T15:24:25Z",
   "selected": {
-    "arm": "tversky-weighted-classifier",
-    "support_target": 0.04,
-    "floor": 0.4940699636936188,
-    "halo": 2,
-    "tip": 5,
-    "eligible": true,
-    "emitted_fraction": 0.034313112314046455,
-    "robust_dti": 0.1964850095429573,
-    "tuning": {
-      "gap": {
-        "dti": 0.19842485539104254,
-        "TP_w": 2882.626272808719,
-        "FP_w": 27043.10520261526,
-        "FN_w": 7795.373727191281,
-        "truth_pixels": 10678,
-        "prediction_pixels": 29900,
-        "prediction_mass": 29900.0,
-        "scored_pixels": 861183,
-        "meaning": "published-catalogue surrogate, not a competition score"
-      },
-      "all": {
-        "dti": 0.2046360328927017,
-        "TP_w": 3570.20137667681,
-        "FP_w": 26522.758679002523,
-        "FN_w": 10714.79862332319,
-        "truth_pixels": 14285,
-        "prediction_pixels": 29900,
-        "prediction_mass": 29900.0,
-        "scored_pixels": 861183,
-        "meaning": "published-catalogue surrogate, not a competition score"
-      },
-      "known": {
-        "dti": 0.1964850095429573,
-        "TP_w": 2803.5109978027845,
-        "FP_w": 27722.089165598154,
-        "FN_w": 7400.489002197215,
-        "truth_pixels": 10204,
-        "prediction_pixels": 30668,
-        "prediction_mass": 30668.0,
-        "scored_pixels": 871387,
-        "meaning": "published-catalogue surrogate, not a competition score"
-      }
-    }
-  },
-  "wide": {
-    "arm": "tversky-weighted-classifier",
-    "support_target": 0.12,
-    "floor": 0.27295419573783875,
+    "arm": "union-target",
+    "layer": "nodes",
+    "spacing": 4,
+    "budget": 0.03,
     "halo": 0,
-    "tip": 5,
+    "tip": 0,
+    "requested_nodes": 155021,
+    "emitted_pixels": 155021,
+    "emitted_fraction": 0.02999996393918991,
     "eligible": true,
-    "emitted_fraction": 0.1131885144029002,
-    "robust_dti": 0.1759605868387041,
+    "robust_dti": 0.2026276976809846,
     "tuning": {
       "gap": {
-        "dti": 0.21598777470365244,
-        "TP_w": 6053.413482205998,
-        "FP_w": 91367.82994997501,
-        "FN_w": 4624.586517794002,
-        "truth_pixels": 10678,
-        "prediction_pixels": 98631,
-        "prediction_mass": 98631.0,
-        "scored_pixels": 861183,
+        "dti": 0.20831016645490355,
+        "TP_w": 2778.5882647520298,
+        "FP_w": 26234.946477651596,
+        "FN_w": 6641.41173524797,
+        "truth_pixels": 9420,
+        "prediction_pixels": 27298,
+        "prediction_mass": 27298.0,
+        "scored_pixels": 899251,
         "meaning": "published-catalogue surrogate, not a competition score"
       },
       "all": {
-        "dti": 0.26002637443031096,
-        "TP_w": 8028.570017993654,
-        "FP_w": 89211.3469338417,
-        "FN_w": 6256.429982006346,
-        "truth_pixels": 14285,
-        "prediction_pixels": 98631,
-        "prediction_mass": 98631.0,
-        "scored_pixels": 861183,
+        "dti": 0.23432447276286836,
+        "TP_w": 3762.045988347453,
+        "FP_w": 25872.240857720375,
+        "FN_w": 8897.954011652546,
+        "truth_pixels": 12660,
+        "prediction_pixels": 27298,
+        "prediction_mass": 27298.0,
+        "scored_pixels": 899251,
+        "meaning": "published-catalogue surrogate, not a competition score"
+      },
+      "far": {
+        "dti": 0.1819573480058431,
+        "TP_w": 2058.577652447267,
+        "FP_w": 26521.010163873434,
+        "FN_w": 4938.422347552732,
+        "truth_pixels": 6997,
+        "prediction_pixels": 27298,
+        "prediction_mass": 27298.0,
+        "scored_pixels": 899251,
         "meaning": "published-catalogue surrogate, not a competition score"
       },
       "known": {
-        "dti": 0.1759605868387041,
-        "TP_w": 4844.909021887446,
-        "FP_w": 92009.38149353862,
-        "FN_w": 5359.090978112554,
-        "truth_pixels": 10204,
-        "prediction_pixels": 97597,
-        "prediction_mass": 97597.0,
-        "scored_pixels": 871387,
+        "dti": 0.2026276976809846,
+        "TP_w": 3126.1769418871036,
+        "FP_w": 26122.73167142272,
+        "FN_w": 8846.823058112896,
+        "truth_pixels": 11973,
+        "prediction_pixels": 27298,
+        "prediction_mass": 27298.0,
+        "scored_pixels": 911224,
         "meaning": "published-catalogue surrogate, not a competition score"
       }
-    }
+    },
+    "nodes_available": 155467,
+    "credit_per_emitted_pixel": 0.01792394749583624,
+    "gap_dti": 0.20831016645490355,
+    "all_dti": 0.23432447276286836,
+    "known_dti": 0.2026276976809846,
+    "far_dti": 0.1819573480058431
+  },
+  "ridge_control": {
+    "arm": "union-target",
+    "layer": "ridge",
+    "spacing": 1,
+    "budget": 0.03,
+    "halo": 0,
+    "tip": 0,
+    "requested_nodes": 155021,
+    "emitted_pixels": 155021,
+    "emitted_fraction": 0.02999996393918991,
+    "eligible": true,
+    "robust_dti": 0.2026276976809846,
+    "tuning": {
+      "gap": {
+        "dti": 0.20831016645490355,
+        "TP_w": 2778.5882647520298,
+        "FP_w": 26234.946477651596,
+        "FN_w": 6641.41173524797,
+        "truth_pixels": 9420,
+        "prediction_pixels": 27298,
+        "prediction_mass": 27298.0,
+        "scored_pixels": 899251,
+        "meaning": "published-catalogue surrogate, not a competition score"
+      },
+      "all": {
+        "dti": 0.23432447276286836,
+        "TP_w": 3762.045988347453,
+        "FP_w": 25872.240857720375,
+        "FN_w": 8897.954011652546,
+        "truth_pixels": 12660,
+        "prediction_pixels": 27298,
+        "prediction_mass": 27298.0,
+        "scored_pixels": 899251,
+        "meaning": "published-catalogue surrogate, not a competition score"
+      },
+      "far": {
+        "dti": 0.1819573480058431,
+        "TP_w": 2058.577652447267,
+        "FP_w": 26521.010163873434,
+        "FN_w": 4938.422347552732,
+        "truth_pixels": 6997,
+        "prediction_pixels": 27298,
+        "prediction_mass": 27298.0,
+        "scored_pixels": 899251,
+        "meaning": "published-catalogue surrogate, not a competition score"
+      },
+      "known": {
+        "dti": 0.2026276976809846,
+        "TP_w": 3126.1769418871036,
+        "FP_w": 26122.73167142272,
+        "FN_w": 8846.823058112896,
+        "truth_pixels": 11973,
+        "prediction_pixels": 27298,
+        "prediction_mass": 27298.0,
+        "scored_pixels": 911224,
+        "meaning": "published-catalogue surrogate, not a competition score"
+      }
+    },
+    "nodes_available": 155467,
+    "credit_per_emitted_pixel": 0.01792394749583624,
+    "gap_dti": 0.20831016645490355,
+    "all_dti": 0.23432447276286836,
+    "known_dti": 0.2026276976809846,
+    "far_dti": 0.1819573480058431
+  },
+  "other_arm_candidate": {
+    "arm": "discovery-target",
+    "layer": "nodes",
+    "spacing": 4,
+    "budget": 0.03,
+    "halo": 0,
+    "tip": 0,
+    "requested_nodes": 155021,
+    "emitted_pixels": 155021,
+    "emitted_fraction": 0.02999996393918991,
+    "eligible": true,
+    "robust_dti": 0.18862421359232653,
+    "tuning": {
+      "gap": {
+        "dti": 0.21133944971127702,
+        "TP_w": 2827.751060416781,
+        "FP_w": 26392.940321594477,
+        "FN_w": 6592.248939583219,
+        "truth_pixels": 9420,
+        "prediction_pixels": 27468,
+        "prediction_mass": 27468.0,
+        "scored_pixels": 899251,
+        "meaning": "published-catalogue surrogate, not a competition score"
+      },
+      "all": {
+        "dti": 0.23040218601936321,
+        "TP_w": 3705.7921622698336,
+        "FP_w": 26074.281671911478,
+        "FN_w": 8954.207837730166,
+        "truth_pixels": 12660,
+        "prediction_pixels": 27468,
+        "prediction_mass": 27468.0,
+        "scored_pixels": 899251,
+        "meaning": "published-catalogue surrogate, not a competition score"
+      },
+      "far": {
+        "dti": 0.1833358397943231,
+        "TP_w": 2081.20464518291,
+        "FP_w": 26690.146049678326,
+        "FN_w": 4915.79535481709,
+        "truth_pixels": 6997,
+        "prediction_pixels": 27468,
+        "prediction_mass": 27468.0,
+        "scored_pixels": 899251,
+        "meaning": "published-catalogue surrogate, not a competition score"
+      },
+      "known": {
+        "dti": 0.18862421359232653,
+        "TP_w": 2910.6229803914835,
+        "FP_w": 26351.38935291767,
+        "FN_w": 9062.377019608517,
+        "truth_pixels": 11973,
+        "prediction_pixels": 27468,
+        "prediction_mass": 27468.0,
+        "scored_pixels": 911224,
+        "meaning": "published-catalogue surrogate, not a competition score"
+      }
+    },
+    "nodes_available": 156769,
+    "credit_per_emitted_pixel": 0.018241083855843925,
+    "gap_dti": 0.21133944971127702,
+    "all_dti": 0.23040218601936321,
+    "known_dti": 0.18862421359232653,
+    "far_dti": 0.1833358397943231
   },
   "deployment": {
-    "refit_support": 0.03776115924119949,
-    "holdout_support": 0.038543958216905594,
+    "refit_support": 0.02999996393918991,
+    "holdout_support": 0.02999996393918991,
     "refit_accepted": true,
     "model_role": "all-fold refit (fraction-consistent sampling)",
-    "model_file": "tversky-weighted-classifier-refit.joblib",
-    "model_sha256": "6d60bb93278367f41115b22ffbfd2003ba761da179373797e2ff9e8d37c4e237",
+    "model_file": "union-target-refit.joblib",
+    "model_sha256": "d79a8c55152a76c7a82b83a2dd1ab365096a9f1e26d698df3be1cb5a94e1b026",
     "policy": {
-      "support_target": 0.04,
-      "halo": 2,
-      "tip": 5
+      "layer": "nodes",
+      "spacing": 4,
+      "budget": 0.03,
+      "halo": 0,
+      "tip": 0
     },
     "refit_samples": {
       "exact_positive": 139426,
-      "near_positive": 289103,
-      "unlabeled": 433417,
+      "near_positive": 304327,
+      "unlabeled": 410222,
       "available_near": 660907,
       "available_unlabeled": 4367040,
       "fractions": {
-        "near": 0.4374337085248,
-        "unlabeled": 0.09924731625998388
+        "near": 0.46046871950213875,
+        "unlabeled": 0.0939359383014582
       },
-      "positive_share": 0.49716455555220396,
-      "sample_indices_sha256": "14e3e2554bd77bc11331fe65b7129317c770d1744454a80cd41013bec8313a86"
+      "positive_share": 0.5196323077373459,
+      "sample_indices_sha256": "efd53bd0b395513da71fbc7b7a438848ebcafe58c3c7ad07792bb72ef7164e4d"
     },
     "refit_clipped": 0
   },
   "metric_algebra": {
     "pixel_denominator_cost": 0.2,
-    "break_even_credit_per_pixel_at_leader": 0.060980000000000006,
-    "note": "Exact for binary p=1 emission; see the module docstring for the derivation."
+    "kernel_radius_px": 3,
+    "max_safe_spacing_px": 5,
+    "coverage_half_gap_px_for_published_spacing": 2.0,
+    "note": "A truth pixel is credited by the single best prediction inside the 300 m kernel, so predictions spaced at half the kernel keep full coverage while removing redundant false-positive mass."
   },
+  "layer_comparison_tuning": [
+    {
+      "budget": 0.005,
+      "ridge@1": {
+        "gap_dti": 0.03017689500247345,
+        "all_dti": 0.04866961839875209,
+        "known_dti": 0.04050560882715235,
+        "emitted_pixels": 25837,
+        "credit_per_emitted_pixel": 0.009336478307100684
+      },
+      "nodes@4": {
+        "gap_dti": 0.09635820956875912,
+        "all_dti": 0.1060327295570638,
+        "known_dti": 0.07953416209440307,
+        "emitted_pixels": 25837,
+        "credit_per_emitted_pixel": 0.031444482784229205
+      },
+      "nodes@5": {
+        "gap_dti": 0.10372328307477456,
+        "all_dti": 0.11246029396006633,
+        "known_dti": 0.08148449064245676,
+        "emitted_pixels": 25837,
+        "credit_per_emitted_pixel": 0.034148085714211525
+      }
+    },
+    {
+      "budget": 0.0075,
+      "ridge@1": {
+        "gap_dti": 0.03995707479692406,
+        "all_dti": 0.059212675553392304,
+        "known_dti": 0.05086404036574054,
+        "emitted_pixels": 38755,
+        "credit_per_emitted_pixel": 0.008474869508725141
+      },
+      "nodes@4": {
+        "gap_dti": 0.13660559964258023,
+        "all_dti": 0.14679602999705238,
+        "known_dti": 0.10806685508425715,
+        "emitted_pixels": 38755,
+        "credit_per_emitted_pixel": 0.031673990173809716
+      },
+      "nodes@5": {
+        "gap_dti": 0.14400642787726756,
+        "all_dti": 0.1533567058478371,
+        "known_dti": 0.1103979517215751,
+        "emitted_pixels": 38755,
+        "credit_per_emitted_pixel": 0.033769171877024495
+      }
+    },
+    {
+      "budget": 0.01,
+      "ridge@1": {
+        "gap_dti": 0.05534813681437011,
+        "all_dti": 0.07439849154212774,
+        "known_dti": 0.0603651096256516,
+        "emitted_pixels": 51674,
+        "credit_per_emitted_pixel": 0.009099127471296915
+      },
+      "nodes@4": {
+        "gap_dti": 0.17026784354255656,
+        "all_dti": 0.18210701172251303,
+        "known_dti": 0.13313295607912518,
+        "emitted_pixels": 51674,
+        "credit_per_emitted_pixel": 0.031477326174001986
+      },
+      "nodes@5": {
+        "gap_dti": 0.17651741022977743,
+        "all_dti": 0.18668170327960404,
+        "known_dti": 0.13510646077769312,
+        "emitted_pixels": 51674,
+        "credit_per_emitted_pixel": 0.033028520227377345
+      }
+    },
+    {
+      "budget": 0.015,
+      "ridge@1": {
+        "gap_dti": 0.0839534930021727,
+        "all_dti": 0.104238668292683,
+        "known_dti": 0.07730243626917986,
+        "emitted_pixels": 77511,
+        "credit_per_emitted_pixel": 0.010032621867417622
+      },
+      "nodes@4": {
+        "gap_dti": 0.21506269541027534,
+        "all_dti": 0.2305933096804739,
+        "known_dti": 0.17090165514556505,
+        "emitted_pixels": 77511,
+        "credit_per_emitted_pixel": 0.029689723254501123
+      },
+      "nodes@5": {
+        "gap_dti": 0.18671214252506865,
+        "all_dti": 0.20148817203897826,
+        "known_dti": 0.16093551057011438,
+        "emitted_pixels": 77511,
+        "credit_per_emitted_pixel": 0.025764912910222548
+      }
+    },
+    {
+      "budget": 0.02,
+      "ridge@1": {
+        "gap_dti": 0.10734569367558568,
+        "all_dti": 0.12877307964651566,
+        "known_dti": 0.09439084711045474,
+        "emitted_pixels": 103347,
+        "credit_per_emitted_pixel": 0.010561607129172278
+      },
+      "nodes@4": {
+        "gap_dti": 0.22217095051146565,
+        "all_dti": 0.24136243360278378,
+        "known_dti": 0.1893115025459372,
+        "emitted_pixels": 103347,
+        "credit_per_emitted_pixel": 0.025224599842586837
+      },
+      "nodes@5": {
+        "gap_dti": 0.17895372664764955,
+        "all_dti": 0.19725353118758968,
+        "known_dti": 0.1707048564196867,
+        "emitted_pixels": 103347,
+        "credit_per_emitted_pixel": 0.019884303213141392
+      }
+    },
+    {
+      "budget": 0.03,
+      "ridge@1": {
+        "gap_dti": 0.14260235420917958,
+        "all_dti": 0.16434879139621614,
+        "known_dti": 0.11383854113834699,
+        "emitted_pixels": 155021,
+        "credit_per_emitted_pixel": 0.011181660571095297
+      },
+      "nodes@4": {
+        "gap_dti": 0.20831016645490355,
+        "all_dti": 0.23432447276286836,
+        "known_dti": 0.2026276976809846,
+        "emitted_pixels": 155021,
+        "credit_per_emitted_pixel": 0.01792394749583624
+      },
+      "nodes@5": {
+        "gap_dti": 0.17777188846930533,
+        "all_dti": 0.1967041580611113,
+        "known_dti": 0.1703551223136754,
+        "emitted_pixels": 108309,
+        "credit_per_emitted_pixel": 0.019040229649696597
+      }
+    },
+    {
+      "budget": 0.04,
+      "ridge@1": {
+        "gap_dti": 0.16262547638228406,
+        "all_dti": 0.18928176974586192,
+        "known_dti": 0.12598032184231864,
+        "emitted_pixels": 206695,
+        "credit_per_emitted_pixel": 0.011137183499487653
+      },
+      "nodes@4": {
+        "gap_dti": 0.20839784866792824,
+        "all_dti": 0.23439514268572945,
+        "known_dti": 0.2026119385765962,
+        "emitted_pixels": 155467,
+        "credit_per_emitted_pixel": 0.017881853839756382
+      },
+      "nodes@5": {
+        "gap_dti": 0.17777188846930533,
+        "all_dti": 0.1967041580611113,
+        "known_dti": 0.1703551223136754,
+        "emitted_pixels": 108309,
+        "credit_per_emitted_pixel": 0.019040229649696597
+      }
+    },
+    {
+      "budget": 0.05,
+      "ridge@1": {
+        "gap_dti": 0.17393638758620994,
+        "all_dti": 0.20269408402868377,
+        "known_dti": 0.13288218195866378,
+        "emitted_pixels": 258369,
+        "credit_per_emitted_pixel": 0.01089797207933695
+      },
+      "nodes@4": {
+        "gap_dti": 0.20839784866792824,
+        "all_dti": 0.23439514268572945,
+        "known_dti": 0.2026119385765962,
+        "emitted_pixels": 155467,
+        "credit_per_emitted_pixel": 0.017881853839756382
+      },
+      "nodes@5": {
+        "gap_dti": 0.17777188846930533,
+        "all_dti": 0.1967041580611113,
+        "known_dti": 0.1703551223136754,
+        "emitted_pixels": 108309,
+        "credit_per_emitted_pixel": 0.019040229649696597
+      }
+    },
+    {
+      "budget": 0.06,
+      "ridge@1": {
+        "gap_dti": 0.18312793896627763,
+        "all_dti": 0.21484244825692303,
+        "known_dti": 0.13862777804591375,
+        "emitted_pixels": 310042,
+        "credit_per_emitted_pixel": 0.010755789836866928
+      },
+      "nodes@4": {
+        "gap_dti": 0.20839784866792824,
+        "all_dti": 0.23439514268572945,
+        "known_dti": 0.2026119385765962,
+        "emitted_pixels": 155467,
+        "credit_per_emitted_pixel": 0.017881853839756382
+      },
+      "nodes@5": {
+        "gap_dti": 0.17777188846930533,
+        "all_dti": 0.1967041580611113,
+        "known_dti": 0.1703551223136754,
+        "emitted_pixels": 108309,
+        "credit_per_emitted_pixel": 0.019040229649696597
+      }
+    },
+    {
+      "budget": 0.08,
+      "ridge@1": {
+        "gap_dti": 0.18879310414365152,
+        "all_dti": 0.22465806082549905,
+        "known_dti": 0.14668701479600085,
+        "emitted_pixels": 413390,
+        "credit_per_emitted_pixel": 0.010242763035417693
+      },
+      "nodes@4": {
+        "gap_dti": 0.20839784866792824,
+        "all_dti": 0.23439514268572945,
+        "known_dti": 0.2026119385765962,
+        "emitted_pixels": 155467,
+        "credit_per_emitted_pixel": 0.017881853839756382
+      },
+      "nodes@5": {
+        "gap_dti": 0.17777188846930533,
+        "all_dti": 0.1967041580611113,
+        "known_dti": 0.1703551223136754,
+        "emitted_pixels": 108309,
+        "credit_per_emitted_pixel": 0.019040229649696597
+      }
+    },
+    {
+      "budget": 0.1,
+      "ridge@1": {
+        "gap_dti": 0.18199516813457092,
+        "all_dti": 0.2189936117924475,
+        "known_dti": 0.14636220249022255,
+        "emitted_pixels": 516737,
+        "credit_per_emitted_pixel": 0.009377244160474564
+      },
+      "nodes@4": {
+        "gap_dti": 0.20839784866792824,
+        "all_dti": 0.23439514268572945,
+        "known_dti": 0.2026119385765962,
+        "emitted_pixels": 155467,
+        "credit_per_emitted_pixel": 0.017881853839756382
+      },
+      "nodes@5": {
+        "gap_dti": 0.17777188846930533,
+        "all_dti": 0.1967041580611113,
+        "known_dti": 0.1703551223136754,
+        "emitted_pixels": 108309,
+        "credit_per_emitted_pixel": 0.019040229649696597
+      }
+    },
+    {
+      "budget": 0.12,
+      "ridge@1": {
+        "gap_dti": 0.17006646929934136,
+        "all_dti": 0.20696564630114178,
+        "known_dti": 0.14339519704097953,
+        "emitted_pixels": 620085,
+        "credit_per_emitted_pixel": 0.00840427437502121
+      },
+      "nodes@4": {
+        "gap_dti": 0.20839784866792824,
+        "all_dti": 0.23439514268572945,
+        "known_dti": 0.2026119385765962,
+        "emitted_pixels": 155467,
+        "credit_per_emitted_pixel": 0.017881853839756382
+      },
+      "nodes@5": {
+        "gap_dti": 0.17777188846930533,
+        "all_dti": 0.1967041580611113,
+        "known_dti": 0.1703551223136754,
+        "emitted_pixels": 108309,
+        "credit_per_emitted_pixel": 0.019040229649696597
+      }
+    }
+  ],
+  "tranche_tuning": [
+    {
+      "budget": 0.005,
+      "emitted_pixels": 3973,
+      "emitted_fraction": 0.00500002596527338,
+      "dti": 0.09635820956875912,
+      "added_pixels": 3973,
+      "added_TP_w": 812.43110169613,
+      "added_FP_w": 3664.3869484961033,
+      "covered_credit_per_added_pixel": 0.20448806989582935,
+      "break_even_credit_per_pixel": 0.019271641913751827
+    },
+    {
+      "budget": 0.0075,
+      "emitted_pixels": 6489,
+      "emitted_fraction": 0.007499942556023598,
+      "dti": 0.13660559964258023,
+      "added_pixels": 2516,
+      "added_TP_w": 415.0943874898654,
+      "added_FP_w": 2357.6326316297054,
+      "covered_credit_per_added_pixel": 0.16498187102140915,
+      "break_even_credit_per_pixel": 0.027321119928516047
+    },
+    {
+      "budget": 0.01,
+      "emitted_pixels": 9073,
+      "emitted_fraction": 0.01000005193054676,
+      "dti": 0.17026784354255656,
+      "added_pixels": 2584,
+      "added_TP_w": 399.0338635293831,
+      "added_FP_w": 2436.1463040709496,
+      "covered_credit_per_added_pixel": 0.15442486978691297,
+      "break_even_credit_per_pixel": 0.03405356870851131
+    },
+    {
+      "budget": 0.015,
+      "emitted_pixels": 14395,
+      "emitted_fraction": 0.015000078827142715,
+      "dti": 0.21506269541027534,
+      "added_pixels": 5322,
+      "added_TP_w": 674.720786464258,
+      "added_FP_w": 5063.095055818558,
+      "covered_credit_per_added_pixel": 0.12677955401432883,
+      "break_even_credit_per_pixel": 0.043012539082055073
+    },
+    {
+      "budget": 0.02,
+      "emitted_pixels": 19375,
+      "emitted_fraction": 0.019999910145998,
+      "dti": 0.22217095051146565,
+      "added_pixels": 4980,
+      "added_TP_w": 305.60658075218544,
+      "added_FP_w": 4860.339689731598,
+      "covered_credit_per_added_pixel": 0.061366783283571376,
+      "break_even_credit_per_pixel": 0.04443419010229313
+    },
+    {
+      "budget": 0.03,
+      "emitted_pixels": 27298,
+      "emitted_fraction": 0.02999996393918991,
+      "dti": 0.20831016645490355,
+      "added_pixels": 7923,
+      "added_TP_w": 171.7015448202078,
+      "added_FP_w": 7853.345847904682,
+      "covered_credit_per_added_pixel": 0.021671279164484136,
+      "break_even_credit_per_pixel": 0.04166203329098071
+    },
+    {
+      "budget": 0.04,
+      "emitted_pixels": 27304,
+      "emitted_fraction": 0.030086273327469826,
+      "dti": 0.20839784866792824,
+      "added_pixels": 6,
+      "added_TP_w": 1.4499061533756503,
+      "added_FP_w": 5.27614238858223,
+      "covered_credit_per_added_pixel": 0.2416510255626084,
+      "break_even_credit_per_pixel": 0.04167956973358565
+    },
+    {
+      "budget": 0.05,
+      "emitted_pixels": 27304,
+      "emitted_fraction": 0.030086273327469826,
+      "dti": 0.20839784866792824,
+      "added_pixels": 0,
+      "added_TP_w": 0.0,
+      "added_FP_w": 0.0,
+      "covered_credit_per_added_pixel": null,
+      "break_even_credit_per_pixel": 0.04167956973358565
+    },
+    {
+      "budget": 0.06,
+      "emitted_pixels": 27304,
+      "emitted_fraction": 0.030086273327469826,
+      "dti": 0.20839784866792824,
+      "added_pixels": 0,
+      "added_TP_w": 0.0,
+      "added_FP_w": 0.0,
+      "covered_credit_per_added_pixel": null,
+      "break_even_credit_per_pixel": 0.04167956973358565
+    },
+    {
+      "budget": 0.08,
+      "emitted_pixels": 27304,
+      "emitted_fraction": 0.030086273327469826,
+      "dti": 0.20839784866792824,
+      "added_pixels": 0,
+      "added_TP_w": 0.0,
+      "added_FP_w": 0.0,
+      "covered_credit_per_added_pixel": null,
+      "break_even_credit_per_pixel": 0.04167956973358565
+    },
+    {
+      "budget": 0.1,
+      "emitted_pixels": 27304,
+      "emitted_fraction": 0.030086273327469826,
+      "dti": 0.20839784866792824,
+      "added_pixels": 0,
+      "added_TP_w": 0.0,
+      "added_FP_w": 0.0,
+      "covered_credit_per_added_pixel": null,
+      "break_even_credit_per_pixel": 0.04167956973358565
+    },
+    {
+      "budget": 0.12,
+      "emitted_pixels": 27304,
+      "emitted_fraction": 0.030086273327469826,
+      "dti": 0.20839784866792824,
+      "added_pixels": 0,
+      "added_TP_w": 0.0,
+      "added_FP_w": 0.0,
+      "covered_credit_per_added_pixel": null,
+      "break_even_credit_per_pixel": 0.04167956973358565
+    }
+  ],
   "items": [
     {
       "order": 1,
-      "title": "Coverline fusion",
+      "title": "Pindrop nodes",
       "badge": "SUBMIT FIRST",
-      "hypothesis": "Best expected score: model traces chosen by the metric-derived support sweep, plus independently mapped USGS SGMC faults the labels omit.",
-      "answers": "Does the coverage-selected field beat the previous session's files?",
-      "variant": "fusion",
-      "file": "downloads/coverage-v3-fusion-20260925T054015Z-3ccf68834a.tif",
-      "filename": "coverage-v3-fusion-20260925T054015Z-3ccf68834a.tif",
-      "zip": "downloads/coverage-v3-fusion-20260925T054015Z-3ccf68834a.zip",
-      "zip_sha256": "84c5da9a798661b7d4e2dae6217462561fb71f42514d6879db4680261b525de8",
-      "zip_bytes": 642550,
-      "sha256": "3ccf68834ad2e3de331252cc14de72d5d30284a7da70aebe86445299c01adf26",
-      "bytes": 813640,
-      "note": "Coverline v3 fusion | Tversky-weighted classifier | s=4.00% h=2 L=5 | + SGMC-gap traces | 3ccf68834a",
-      "run_note": "Coverline v3 fusion | tversky-weighted-classifier 12-level support sweep s=0.0400 h=2 L=5 + USGS SGMC-gap traces | 3ccf68834a",
-      "emitted_pixels": 246258,
-      "emitted_fraction": 0.0476563236290471,
+      "role": "primary",
+      "hypothesis": "The frozen winner: the same emitted-pixel budget as the dense ridge line, but placed at the metric's kernel spacing so redundant mass is not paid for.",
+      "answers": "Does the coverage-optimal placement beat the previous session's dense files on the hidden expert labels?",
+      "variant": "nodes",
+      "file": "downloads/pindrop-v4-nodes-20260925T152420Z-f347b70daa.tif",
+      "filename": "pindrop-v4-nodes-20260925T152420Z-f347b70daa.tif",
+      "zip": "downloads/pindrop-v4-nodes-20260925T152420Z-f347b70daa.zip",
+      "zip_sha256": "7d82e6f9dd87374e6c1d2e634d5d3d3e419014db0a1bd3059f1d002d1ed8e4ba",
+      "zip_bytes": 608385,
+      "sha256": "f347b70daa95170bfc967b1c0b6bbf951496c2b74764a7102848ad6178829aca",
+      "bytes": 777822,
+      "note": "Pindrop v4 nodes | union-target HGB | sparse nodes k=4 s=3.000% h=0 L=0 | f347b70daa",
+      "policy": {
+        "layer": "nodes",
+        "spacing": 4,
+        "budget": 0.03,
+        "halo": 0,
+        "tip": 0
+      },
+      "arm": "union-target",
+      "emitted_pixels": 155021,
+      "emitted_fraction": 0.029999963230833152,
       "on_known_pixels": 0,
       "different_pixels": {
-        "vs_legacy_ens12": 375906,
-        "vs_riftline": 501258,
-        "vs_gapfinder_v2_fusion": 189000
+        "vs_legacy_ens12": 312253,
+        "vs_coverage-v3": 352821,
+        "vs_gapfinder-v2": 345481,
+        "vs_riftline": 463127
       },
       "checks_passed": 13,
       "checks_total": 13,
       "validation": {
         "schema_version": 1,
-        "checked_at": "2026-09-25T05:42:34Z",
+        "checked_at": "2026-09-25T15:24:40Z",
         "passed": true,
         "meaning": "Local documented-format validation only; no platform acceptance or score implied.",
-        "file": "coverage-v3-fusion-20260925T054015Z-3ccf68834a.tif",
-        "sha256": "3ccf68834ad2e3de331252cc14de72d5d30284a7da70aebe86445299c01adf26",
-        "bytes": 813640,
+        "file": "pindrop-v4-nodes-20260925T152420Z-f347b70daa.tif",
+        "sha256": "f347b70daa95170bfc967b1c0b6bbf951496c2b74764a7102848ad6178829aca",
+        "bytes": 777822,
         "template_sha256": "2176d08e485aa2cd2860ce8df539db4faf4d76163b38a4dd8c30a40454d35cbc",
         "grid": {
           "width": 3292,
@@ -272,7 +814,7 @@
           "out_of_range": 0,
           "non_nan_outside": 0,
           "mask_mismatches": 0,
-          "nonzero_pixels": 246258
+          "nonzero_pixels": 155021
         },
         "min": 0.0,
         "max": 1.0
@@ -282,38 +824,47 @@
     },
     {
       "order": 2,
-      "title": "Coverline wide",
+      "title": "Pindrop catalogue-gap target",
       "badge": "SUBMIT SECOND",
-      "hypothesis": "The same arm at a deliberately larger support: more coverage, more false-positive mass. The metric weights misses 4x more than false positives.",
-      "answers": "wide minus fusion = whether the hidden labels reward more coverage than the conservative operating point chooses.",
-      "variant": "wide",
-      "file": "downloads/coverage-v3-wide-20260925T054019Z-0ac095a7ed.tif",
-      "filename": "coverage-v3-wide-20260925T054019Z-0ac095a7ed.tif",
-      "zip": "downloads/coverage-v3-wide-20260925T054019Z-0ac095a7ed.zip",
-      "zip_sha256": "7185670a43ab394fe28176c6b800a5c3423405c5ac9b947a8cfee75265cf3aaf",
-      "zip_bytes": 1228129,
-      "sha256": "0ac095a7ed6c8a142cdd8f686e001dfdec765f9a0e21ee53ddc69ae4cc4cddbf",
-      "bytes": 1393116,
-      "note": "Coverline v3 wide | Tversky-weighted classifier | s=12.00% h=0 L=5 | recall probe | 0ac095a7ed",
-      "run_note": "Coverline v3 wide | tversky-weighted-classifier recall probe s=0.1200 h=0 L=5 | more coverage, more FP mass | 0ac095a7ed",
-      "emitted_pixels": 624025,
-      "emitted_fraction": 0.120762522852521,
+      "role": "independent",
+      "hypothesis": "The same node layer generated by the arm trained only on catalogue pixels the supplied labels do not contain, i.e. on the unmapped population.",
+      "answers": "Does a model trained on unmapped catalogued faults generalise to the hidden expert labels better than one trained on everything?",
+      "variant": "discovery",
+      "file": "downloads/pindrop-v4-discovery-20260925T152423Z-37f9d5b855.tif",
+      "filename": "pindrop-v4-discovery-20260925T152423Z-37f9d5b855.tif",
+      "zip": "downloads/pindrop-v4-discovery-20260925T152423Z-37f9d5b855.zip",
+      "zip_sha256": "d4da17596539a02eaf3bae091f222d8deb04411b955e2f272dd842503bb16333",
+      "zip_bytes": 607686,
+      "sha256": "37f9d5b855ee1b6c302cb81cdae1414db94db427f5dc9da3538474df37cf1cad",
+      "bytes": 777446,
+      "note": "Pindrop v4 discovery | discovery-target HGB | catalogue-gap k=4 s=3.000% h=0 L=0 | 37f9d5b855",
+      "policy": {
+        "layer": "nodes",
+        "spacing": 4,
+        "budget": 0.03,
+        "halo": 0,
+        "tip": 0
+      },
+      "arm": "discovery-target",
+      "emitted_pixels": 155021,
+      "emitted_fraction": 0.029999963230833152,
       "on_known_pixels": 0,
       "different_pixels": {
-        "vs_legacy_ens12": 702505,
-        "vs_riftline": 741775,
-        "vs_gapfinder_v2_fusion": 621545
+        "vs_legacy_ens12": 316635,
+        "vs_coverage-v3": 375891,
+        "vs_gapfinder-v2": 361669,
+        "vs_riftline": 482303
       },
       "checks_passed": 13,
       "checks_total": 13,
       "validation": {
         "schema_version": 1,
-        "checked_at": "2026-09-25T05:42:36Z",
+        "checked_at": "2026-09-25T15:24:42Z",
         "passed": true,
         "meaning": "Local documented-format validation only; no platform acceptance or score implied.",
-        "file": "coverage-v3-wide-20260925T054019Z-0ac095a7ed.tif",
-        "sha256": "0ac095a7ed6c8a142cdd8f686e001dfdec765f9a0e21ee53ddc69ae4cc4cddbf",
-        "bytes": 1393116,
+        "file": "pindrop-v4-discovery-20260925T152423Z-37f9d5b855.tif",
+        "sha256": "37f9d5b855ee1b6c302cb81cdae1414db94db427f5dc9da3538474df37cf1cad",
+        "bytes": 777446,
         "template_sha256": "2176d08e485aa2cd2860ce8df539db4faf4d76163b38a4dd8c30a40454d35cbc",
         "grid": {
           "width": 3292,
@@ -426,7 +977,7 @@
           "out_of_range": 0,
           "non_nan_outside": 0,
           "mask_mismatches": 0,
-          "nonzero_pixels": 624025
+          "nonzero_pixels": 155021
         },
         "min": 0.0,
         "max": 1.0
@@ -436,38 +987,47 @@
     },
     {
       "order": 3,
-      "title": "Coverline ML-only",
-      "badge": "OPTIONAL THIRD",
-      "hypothesis": "The selected model traces with no SGMC catalogue added.",
-      "answers": "fusion minus ml = the measured leaderboard value of adding published SGMC traces directly.",
-      "variant": "ml",
-      "file": "downloads/coverage-v3-ml-20260925T054017Z-92d5062aea.tif",
-      "filename": "coverage-v3-ml-20260925T054017Z-92d5062aea.tif",
-      "zip": "downloads/coverage-v3-ml-20260925T054017Z-92d5062aea.zip",
-      "zip_sha256": "57eda4d511c5fe55119a91868e70ec0d36c1c09397c48a6e6497cc548fc2bf36",
-      "zip_bytes": 571686,
-      "sha256": "92d5062aeaf17a9a397bb595e14e0b91887e4a358da4e53cbc417a56d9967981",
-      "bytes": 742156,
-      "note": "Coverline v3 ml | Tversky-weighted classifier | s=4.00% h=2 L=5 | no SGMC traces | 92d5062aea",
-      "run_note": "Coverline v3 ML-only | tversky-weighted-classifier 12-level support sweep s=0.0400 h=2 L=5 | no SGMC traces | 92d5062aea",
-      "emitted_pixels": 195126,
-      "emitted_fraction": 0.03776116026460641,
+      "title": "Pindrop dense ridge control",
+      "badge": "CONTROL \u00b7 UPLOAD LAST",
+      "role": "control",
+      "hypothesis": "The identical arm, budget, halo and tip with spacing 1: a dense one-pixel ridge line, which is exactly what a confidence floor emits.",
+      "answers": "ridge minus nodes is a controlled measurement of the sparse-placement hypothesis on the real metric, at a fixed pixel budget.",
+      "variant": "ridge",
+      "file": "downloads/pindrop-v4-ridge-20260925T152422Z-4e03fc9705.tif",
+      "filename": "pindrop-v4-ridge-20260925T152422Z-4e03fc9705.tif",
+      "zip": "downloads/pindrop-v4-ridge-20260925T152422Z-4e03fc9705.zip",
+      "zip_sha256": "d27826103f15ad1b960b97580dfb1de6e6d357057de1cb35023127b39d8ece76",
+      "zip_bytes": 479515,
+      "sha256": "4e03fc97052e9bd673e48f1923ad17f15926f8db26d2befc033e1722381dc9b7",
+      "bytes": 651948,
+      "note": "Pindrop v4 ridge | union-target HGB | dense ridge control s=3.000% h=0 L=0 | 4e03fc9705",
+      "policy": {
+        "layer": "ridge",
+        "spacing": 1,
+        "budget": 0.03,
+        "halo": 0,
+        "tip": 0
+      },
+      "arm": "union-target",
+      "emitted_pixels": 155021,
+      "emitted_fraction": 0.029999963230833152,
       "on_known_pixels": 0,
       "different_pixels": {
-        "vs_legacy_ens12": 328332,
-        "vs_riftline": 456918,
-        "vs_gapfinder_v2_fusion": 240132
+        "vs_legacy_ens12": 287363,
+        "vs_coverage-v3": 212905,
+        "vs_gapfinder-v2": 231913,
+        "vs_riftline": 419171
       },
       "checks_passed": 13,
       "checks_total": 13,
       "validation": {
         "schema_version": 1,
-        "checked_at": "2026-09-25T05:42:35Z",
+        "checked_at": "2026-09-25T15:24:41Z",
         "passed": true,
         "meaning": "Local documented-format validation only; no platform acceptance or score implied.",
-        "file": "coverage-v3-ml-20260925T054017Z-92d5062aea.tif",
-        "sha256": "92d5062aeaf17a9a397bb595e14e0b91887e4a358da4e53cbc417a56d9967981",
-        "bytes": 742156,
+        "file": "pindrop-v4-ridge-20260925T152422Z-4e03fc9705.tif",
+        "sha256": "4e03fc97052e9bd673e48f1923ad17f15926f8db26d2befc033e1722381dc9b7",
+        "bytes": 651948,
         "template_sha256": "2176d08e485aa2cd2860ce8df539db4faf4d76163b38a4dd8c30a40454d35cbc",
         "grid": {
           "width": 3292,
@@ -580,7 +1140,7 @@
           "out_of_range": 0,
           "non_nan_outside": 0,
           "mask_mismatches": 0,
-          "nonzero_pixels": 195126
+          "nonzero_pixels": 155021
         },
         "min": 0.0,
         "max": 1.0

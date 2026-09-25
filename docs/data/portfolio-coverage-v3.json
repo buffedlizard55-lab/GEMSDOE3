@@ -1,0 +1,594 @@
+{
+  "schema_version": 1,
+  "published_at": "2026-09-25T05:42:36Z",
+  "strategy": "coverage-v3",
+  "experiment_completed_at": "2026-09-25T05:40:21Z",
+  "selected": {
+    "arm": "tversky-weighted-classifier",
+    "support_target": 0.04,
+    "floor": 0.4940699636936188,
+    "halo": 2,
+    "tip": 5,
+    "eligible": true,
+    "emitted_fraction": 0.034313112314046455,
+    "robust_dti": 0.1964850095429573,
+    "tuning": {
+      "gap": {
+        "dti": 0.19842485539104254,
+        "TP_w": 2882.626272808719,
+        "FP_w": 27043.10520261526,
+        "FN_w": 7795.373727191281,
+        "truth_pixels": 10678,
+        "prediction_pixels": 29900,
+        "prediction_mass": 29900.0,
+        "scored_pixels": 861183,
+        "meaning": "published-catalogue surrogate, not a competition score"
+      },
+      "all": {
+        "dti": 0.2046360328927017,
+        "TP_w": 3570.20137667681,
+        "FP_w": 26522.758679002523,
+        "FN_w": 10714.79862332319,
+        "truth_pixels": 14285,
+        "prediction_pixels": 29900,
+        "prediction_mass": 29900.0,
+        "scored_pixels": 861183,
+        "meaning": "published-catalogue surrogate, not a competition score"
+      },
+      "known": {
+        "dti": 0.1964850095429573,
+        "TP_w": 2803.5109978027845,
+        "FP_w": 27722.089165598154,
+        "FN_w": 7400.489002197215,
+        "truth_pixels": 10204,
+        "prediction_pixels": 30668,
+        "prediction_mass": 30668.0,
+        "scored_pixels": 871387,
+        "meaning": "published-catalogue surrogate, not a competition score"
+      }
+    }
+  },
+  "wide": {
+    "arm": "tversky-weighted-classifier",
+    "support_target": 0.12,
+    "floor": 0.27295419573783875,
+    "halo": 0,
+    "tip": 5,
+    "eligible": true,
+    "emitted_fraction": 0.1131885144029002,
+    "robust_dti": 0.1759605868387041,
+    "tuning": {
+      "gap": {
+        "dti": 0.21598777470365244,
+        "TP_w": 6053.413482205998,
+        "FP_w": 91367.82994997501,
+        "FN_w": 4624.586517794002,
+        "truth_pixels": 10678,
+        "prediction_pixels": 98631,
+        "prediction_mass": 98631.0,
+        "scored_pixels": 861183,
+        "meaning": "published-catalogue surrogate, not a competition score"
+      },
+      "all": {
+        "dti": 0.26002637443031096,
+        "TP_w": 8028.570017993654,
+        "FP_w": 89211.3469338417,
+        "FN_w": 6256.429982006346,
+        "truth_pixels": 14285,
+        "prediction_pixels": 98631,
+        "prediction_mass": 98631.0,
+        "scored_pixels": 861183,
+        "meaning": "published-catalogue surrogate, not a competition score"
+      },
+      "known": {
+        "dti": 0.1759605868387041,
+        "TP_w": 4844.909021887446,
+        "FP_w": 92009.38149353862,
+        "FN_w": 5359.090978112554,
+        "truth_pixels": 10204,
+        "prediction_pixels": 97597,
+        "prediction_mass": 97597.0,
+        "scored_pixels": 871387,
+        "meaning": "published-catalogue surrogate, not a competition score"
+      }
+    }
+  },
+  "deployment": {
+    "refit_support": 0.03776115924119949,
+    "holdout_support": 0.038543958216905594,
+    "refit_accepted": true,
+    "model_role": "all-fold refit (fraction-consistent sampling)",
+    "model_file": "tversky-weighted-classifier-refit.joblib",
+    "model_sha256": "6d60bb93278367f41115b22ffbfd2003ba761da179373797e2ff9e8d37c4e237",
+    "policy": {
+      "support_target": 0.04,
+      "halo": 2,
+      "tip": 5
+    },
+    "refit_samples": {
+      "exact_positive": 139426,
+      "near_positive": 289103,
+      "unlabeled": 433417,
+      "available_near": 660907,
+      "available_unlabeled": 4367040,
+      "fractions": {
+        "near": 0.4374337085248,
+        "unlabeled": 0.09924731625998388
+      },
+      "positive_share": 0.49716455555220396,
+      "sample_indices_sha256": "14e3e2554bd77bc11331fe65b7129317c770d1744454a80cd41013bec8313a86"
+    },
+    "refit_clipped": 0
+  },
+  "metric_algebra": {
+    "pixel_denominator_cost": 0.2,
+    "break_even_credit_per_pixel_at_leader": 0.060980000000000006,
+    "note": "Exact for binary p=1 emission; see the module docstring for the derivation."
+  },
+  "items": [
+    {
+      "order": 1,
+      "title": "Coverline fusion",
+      "badge": "SUBMIT FIRST",
+      "hypothesis": "Best expected score: model traces chosen by the metric-derived support sweep, plus independently mapped USGS SGMC faults the labels omit.",
+      "answers": "Does the coverage-selected field beat the previous session's files?",
+      "variant": "fusion",
+      "file": "downloads/coverage-v3-fusion-20260925T054015Z-3ccf68834a.tif",
+      "filename": "coverage-v3-fusion-20260925T054015Z-3ccf68834a.tif",
+      "zip": "downloads/coverage-v3-fusion-20260925T054015Z-3ccf68834a.zip",
+      "zip_sha256": "84c5da9a798661b7d4e2dae6217462561fb71f42514d6879db4680261b525de8",
+      "zip_bytes": 642550,
+      "sha256": "3ccf68834ad2e3de331252cc14de72d5d30284a7da70aebe86445299c01adf26",
+      "bytes": 813640,
+      "note": "Coverline v3 fusion | Tversky-weighted classifier | s=4.00% h=2 L=5 | + SGMC-gap traces | 3ccf68834a",
+      "run_note": "Coverline v3 fusion | tversky-weighted-classifier 12-level support sweep s=0.0400 h=2 L=5 + USGS SGMC-gap traces | 3ccf68834a",
+      "emitted_pixels": 246258,
+      "emitted_fraction": 0.0476563236290471,
+      "on_known_pixels": 0,
+      "different_pixels": {
+        "vs_legacy_ens12": 375906,
+        "vs_riftline": 501258,
+        "vs_gapfinder_v2_fusion": 189000
+      },
+      "checks_passed": 13,
+      "checks_total": 13,
+      "validation": {
+        "schema_version": 1,
+        "checked_at": "2026-09-25T05:42:34Z",
+        "passed": true,
+        "meaning": "Local documented-format validation only; no platform acceptance or score implied.",
+        "file": "coverage-v3-fusion-20260925T054015Z-3ccf68834a.tif",
+        "sha256": "3ccf68834ad2e3de331252cc14de72d5d30284a7da70aebe86445299c01adf26",
+        "bytes": 813640,
+        "template_sha256": "2176d08e485aa2cd2860ce8df539db4faf4d76163b38a4dd8c30a40454d35cbc",
+        "grid": {
+          "width": 3292,
+          "height": 3730,
+          "crs": "EPSG:32611",
+          "transform": [
+            100.0,
+            0.0,
+            243350.0,
+            0.0,
+            -100.0,
+            4508550.0
+          ],
+          "dtype": "float32",
+          "bands": 1,
+          "resolution_m": [
+            100.0,
+            100.0
+          ]
+        },
+        "checks": [
+          {
+            "check": "GeoTIFF driver",
+            "passed": true,
+            "detail": "GTiff"
+          },
+          {
+            "check": "one band",
+            "passed": true,
+            "detail": 1
+          },
+          {
+            "check": "float32",
+            "passed": true,
+            "detail": [
+              "float32"
+            ]
+          },
+          {
+            "check": "template shape",
+            "passed": true,
+            "detail": [
+              [
+                3730,
+                3292
+              ],
+              [
+                3730,
+                3292
+              ]
+            ]
+          },
+          {
+            "check": "template CRS / EPSG:32611",
+            "passed": true,
+            "detail": "EPSG:32611"
+          },
+          {
+            "check": "exact affine transform",
+            "passed": true,
+            "detail": [
+              100.0,
+              0.0,
+              243350.0,
+              0.0,
+              -100.0,
+              4508550.0
+            ]
+          },
+          {
+            "check": "NaN nodata",
+            "passed": true,
+            "detail": "nan"
+          },
+          {
+            "check": "pixel-is-area",
+            "passed": true,
+            "detail": "Area"
+          },
+          {
+            "check": "finite inside template mask",
+            "passed": true,
+            "detail": 0
+          },
+          {
+            "check": "inside values in [0,1]",
+            "passed": true,
+            "detail": 0
+          },
+          {
+            "check": "NaN outside template mask",
+            "passed": true,
+            "detail": 0
+          },
+          {
+            "check": "no hidden mask disagreement",
+            "passed": true,
+            "detail": 0
+          },
+          {
+            "check": "valid reference",
+            "passed": true,
+            "detail": "2176d08e485aa2cd2860ce8df539db4faf4d76163b38a4dd8c30a40454d35cbc"
+          }
+        ],
+        "counts": {
+          "valid_pixels": 5167373,
+          "outside_pixels": 7111787,
+          "invalid_inside": 0,
+          "out_of_range": 0,
+          "non_nan_outside": 0,
+          "mask_mismatches": 0,
+          "nonzero_pixels": 246258
+        },
+        "min": 0.0,
+        "max": 1.0
+      },
+      "competition_score": null,
+      "status": "unsubmitted; score unknown"
+    },
+    {
+      "order": 2,
+      "title": "Coverline wide",
+      "badge": "SUBMIT SECOND",
+      "hypothesis": "The same arm at a deliberately larger support: more coverage, more false-positive mass. The metric weights misses 4x more than false positives.",
+      "answers": "wide minus fusion = whether the hidden labels reward more coverage than the conservative operating point chooses.",
+      "variant": "wide",
+      "file": "downloads/coverage-v3-wide-20260925T054019Z-0ac095a7ed.tif",
+      "filename": "coverage-v3-wide-20260925T054019Z-0ac095a7ed.tif",
+      "zip": "downloads/coverage-v3-wide-20260925T054019Z-0ac095a7ed.zip",
+      "zip_sha256": "7185670a43ab394fe28176c6b800a5c3423405c5ac9b947a8cfee75265cf3aaf",
+      "zip_bytes": 1228129,
+      "sha256": "0ac095a7ed6c8a142cdd8f686e001dfdec765f9a0e21ee53ddc69ae4cc4cddbf",
+      "bytes": 1393116,
+      "note": "Coverline v3 wide | Tversky-weighted classifier | s=12.00% h=0 L=5 | recall probe | 0ac095a7ed",
+      "run_note": "Coverline v3 wide | tversky-weighted-classifier recall probe s=0.1200 h=0 L=5 | more coverage, more FP mass | 0ac095a7ed",
+      "emitted_pixels": 624025,
+      "emitted_fraction": 0.120762522852521,
+      "on_known_pixels": 0,
+      "different_pixels": {
+        "vs_legacy_ens12": 702505,
+        "vs_riftline": 741775,
+        "vs_gapfinder_v2_fusion": 621545
+      },
+      "checks_passed": 13,
+      "checks_total": 13,
+      "validation": {
+        "schema_version": 1,
+        "checked_at": "2026-09-25T05:42:36Z",
+        "passed": true,
+        "meaning": "Local documented-format validation only; no platform acceptance or score implied.",
+        "file": "coverage-v3-wide-20260925T054019Z-0ac095a7ed.tif",
+        "sha256": "0ac095a7ed6c8a142cdd8f686e001dfdec765f9a0e21ee53ddc69ae4cc4cddbf",
+        "bytes": 1393116,
+        "template_sha256": "2176d08e485aa2cd2860ce8df539db4faf4d76163b38a4dd8c30a40454d35cbc",
+        "grid": {
+          "width": 3292,
+          "height": 3730,
+          "crs": "EPSG:32611",
+          "transform": [
+            100.0,
+            0.0,
+            243350.0,
+            0.0,
+            -100.0,
+            4508550.0
+          ],
+          "dtype": "float32",
+          "bands": 1,
+          "resolution_m": [
+            100.0,
+            100.0
+          ]
+        },
+        "checks": [
+          {
+            "check": "GeoTIFF driver",
+            "passed": true,
+            "detail": "GTiff"
+          },
+          {
+            "check": "one band",
+            "passed": true,
+            "detail": 1
+          },
+          {
+            "check": "float32",
+            "passed": true,
+            "detail": [
+              "float32"
+            ]
+          },
+          {
+            "check": "template shape",
+            "passed": true,
+            "detail": [
+              [
+                3730,
+                3292
+              ],
+              [
+                3730,
+                3292
+              ]
+            ]
+          },
+          {
+            "check": "template CRS / EPSG:32611",
+            "passed": true,
+            "detail": "EPSG:32611"
+          },
+          {
+            "check": "exact affine transform",
+            "passed": true,
+            "detail": [
+              100.0,
+              0.0,
+              243350.0,
+              0.0,
+              -100.0,
+              4508550.0
+            ]
+          },
+          {
+            "check": "NaN nodata",
+            "passed": true,
+            "detail": "nan"
+          },
+          {
+            "check": "pixel-is-area",
+            "passed": true,
+            "detail": "Area"
+          },
+          {
+            "check": "finite inside template mask",
+            "passed": true,
+            "detail": 0
+          },
+          {
+            "check": "inside values in [0,1]",
+            "passed": true,
+            "detail": 0
+          },
+          {
+            "check": "NaN outside template mask",
+            "passed": true,
+            "detail": 0
+          },
+          {
+            "check": "no hidden mask disagreement",
+            "passed": true,
+            "detail": 0
+          },
+          {
+            "check": "valid reference",
+            "passed": true,
+            "detail": "2176d08e485aa2cd2860ce8df539db4faf4d76163b38a4dd8c30a40454d35cbc"
+          }
+        ],
+        "counts": {
+          "valid_pixels": 5167373,
+          "outside_pixels": 7111787,
+          "invalid_inside": 0,
+          "out_of_range": 0,
+          "non_nan_outside": 0,
+          "mask_mismatches": 0,
+          "nonzero_pixels": 624025
+        },
+        "min": 0.0,
+        "max": 1.0
+      },
+      "competition_score": null,
+      "status": "unsubmitted; score unknown"
+    },
+    {
+      "order": 3,
+      "title": "Coverline ML-only",
+      "badge": "OPTIONAL THIRD",
+      "hypothesis": "The selected model traces with no SGMC catalogue added.",
+      "answers": "fusion minus ml = the measured leaderboard value of adding published SGMC traces directly.",
+      "variant": "ml",
+      "file": "downloads/coverage-v3-ml-20260925T054017Z-92d5062aea.tif",
+      "filename": "coverage-v3-ml-20260925T054017Z-92d5062aea.tif",
+      "zip": "downloads/coverage-v3-ml-20260925T054017Z-92d5062aea.zip",
+      "zip_sha256": "57eda4d511c5fe55119a91868e70ec0d36c1c09397c48a6e6497cc548fc2bf36",
+      "zip_bytes": 571686,
+      "sha256": "92d5062aeaf17a9a397bb595e14e0b91887e4a358da4e53cbc417a56d9967981",
+      "bytes": 742156,
+      "note": "Coverline v3 ml | Tversky-weighted classifier | s=4.00% h=2 L=5 | no SGMC traces | 92d5062aea",
+      "run_note": "Coverline v3 ML-only | tversky-weighted-classifier 12-level support sweep s=0.0400 h=2 L=5 | no SGMC traces | 92d5062aea",
+      "emitted_pixels": 195126,
+      "emitted_fraction": 0.03776116026460641,
+      "on_known_pixels": 0,
+      "different_pixels": {
+        "vs_legacy_ens12": 328332,
+        "vs_riftline": 456918,
+        "vs_gapfinder_v2_fusion": 240132
+      },
+      "checks_passed": 13,
+      "checks_total": 13,
+      "validation": {
+        "schema_version": 1,
+        "checked_at": "2026-09-25T05:42:35Z",
+        "passed": true,
+        "meaning": "Local documented-format validation only; no platform acceptance or score implied.",
+        "file": "coverage-v3-ml-20260925T054017Z-92d5062aea.tif",
+        "sha256": "92d5062aeaf17a9a397bb595e14e0b91887e4a358da4e53cbc417a56d9967981",
+        "bytes": 742156,
+        "template_sha256": "2176d08e485aa2cd2860ce8df539db4faf4d76163b38a4dd8c30a40454d35cbc",
+        "grid": {
+          "width": 3292,
+          "height": 3730,
+          "crs": "EPSG:32611",
+          "transform": [
+            100.0,
+            0.0,
+            243350.0,
+            0.0,
+            -100.0,
+            4508550.0
+          ],
+          "dtype": "float32",
+          "bands": 1,
+          "resolution_m": [
+            100.0,
+            100.0
+          ]
+        },
+        "checks": [
+          {
+            "check": "GeoTIFF driver",
+            "passed": true,
+            "detail": "GTiff"
+          },
+          {
+            "check": "one band",
+            "passed": true,
+            "detail": 1
+          },
+          {
+            "check": "float32",
+            "passed": true,
+            "detail": [
+              "float32"
+            ]
+          },
+          {
+            "check": "template shape",
+            "passed": true,
+            "detail": [
+              [
+                3730,
+                3292
+              ],
+              [
+                3730,
+                3292
+              ]
+            ]
+          },
+          {
+            "check": "template CRS / EPSG:32611",
+            "passed": true,
+            "detail": "EPSG:32611"
+          },
+          {
+            "check": "exact affine transform",
+            "passed": true,
+            "detail": [
+              100.0,
+              0.0,
+              243350.0,
+              0.0,
+              -100.0,
+              4508550.0
+            ]
+          },
+          {
+            "check": "NaN nodata",
+            "passed": true,
+            "detail": "nan"
+          },
+          {
+            "check": "pixel-is-area",
+            "passed": true,
+            "detail": "Area"
+          },
+          {
+            "check": "finite inside template mask",
+            "passed": true,
+            "detail": 0
+          },
+          {
+            "check": "inside values in [0,1]",
+            "passed": true,
+            "detail": 0
+          },
+          {
+            "check": "NaN outside template mask",
+            "passed": true,
+            "detail": 0
+          },
+          {
+            "check": "no hidden mask disagreement",
+            "passed": true,
+            "detail": 0
+          },
+          {
+            "check": "valid reference",
+            "passed": true,
+            "detail": "2176d08e485aa2cd2860ce8df539db4faf4d76163b38a4dd8c30a40454d35cbc"
+          }
+        ],
+        "counts": {
+          "valid_pixels": 5167373,
+          "outside_pixels": 7111787,
+          "invalid_inside": 0,
+          "out_of_range": 0,
+          "non_nan_outside": 0,
+          "mask_mismatches": 0,
+          "nonzero_pixels": 195126
+        },
+        "min": 0.0,
+        "max": 1.0
+      },
+      "competition_score": null,
+      "status": "unsubmitted; score unknown"
+    }
+  ],
+  "rule": "Three uploads per week; one final selection for both rounds (official rules \u00a73.5, \u00a73.6.2).",
+  "disclaimer": "Format-validated locally. No file here has a known competition score."
+}

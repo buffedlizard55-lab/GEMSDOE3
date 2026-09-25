@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "session": 4,
+  "strategy": "pindrop-v4",
+  "recorded_at_utc": "2026-09-25T15:45:00Z",
+  "published_from": "outputs/pindrop-v4-run3/experiment.json (sha256 5fa2a23cb723d87b...), run 3 in evidence/pindrop-v4-reproducibility.json",
+  "errata": [
+    {
+      "id": "ridge-variant-policy-mislabel",
+      "found_in": "pass 2 (adversarial review), by reading the completed run's portfolio records against the code that produced the fields",
+      "severity": "reporting defect, no pixel effect",
+      "observed": "The portfolio entry and the paste-able Note for the 'ridge' variant recorded the *selected node* policy (layer nodes, spacing 4) although deploy() had produced that file with spacing 1. Evidence: evidence/pindrop-v4-run1-report.json portfolio[1].policy = {layer: nodes, spacing: 4}; the file's own GeoTIFF tag said the same wrong thing, and its Note read 'dense ridge control k=4'.",
+      "effect_on_pixels": "None. Run 1's ridge field was built by deploy(deployed_raw, selected with layer=ridge, spacing=1); only the recorded policy, the raster tag and the Note were wrong.",
+      "fix": "The portfolio loop records {layer: ridge, spacing: 1} for the ridge variant. Re-runs 2 and 3 from the corrected source produced identical pixels, with the tag now reading 'ridge k=1 budget=0.0300 h=0 L=0'.",
+      "prevention": "gems3/pindrop_publish.check_variant_policies refuses any report whose recorded policy contradicts its variant (nodes must equal the frozen selection, the control must be a ridge spacing-1 policy at the selected budget and arm, discovery must be a distinct file with its own Note). Verified against the preserved run-1 report in tests/test_pindrop.py::test_publisher_refuses_a_report_whose_control_policy_contradicts_its_pixels. The publisher also prints the report path and hash it is publishing, and its default path is the published run.",
+      "lesson": "A control file is only a control if its own metadata says what it is. Reading the run record back against the export code caught it; pixel-level validation alone never could."
+    },
+    {
+      "id": "reference-caveats-were-too-generic",
+      "found_in": "pass 2, while comparing the reference table with the within-run comparison",
+      "severity": "interpretation risk",
+      "observed": "Every earlier published file carried one generic caveat, although session 2 and session 3 published all-fold refits: every fold scored in this audit is in-sample for them, and the fusion files contain the SGMC traces the gap proxy is built from.",
+      "fix": "Per-file caveats now state in-sample status and SGMC circularity explicitly; the site renders them beside the reference table. The pre-registered primary comparison (nodes versus dense control, same arm, budget, folds) is unaffected and remains the only comparison this run treats as controlled.",
+      "lesson": "A high proxy number from an in-sample artifact is not evidence of superiority; a published file must be scored with its training footprint disclosed."
+    },
+    {
+      "id": "note-wording-duplication",
+      "found_in": "pass 2, reading the run-2 Notes as a human would before pasting them into the competition form",
+      "severity": "cosmetic, user-visible in the submission form",
+      "observed": "The dense control's Note read 'dense ridge control dense s=3.000% ...' because the variant suffix and the shape text both carried the word 'dense'.",
+      "fix": "Shape text no longer repeats the layer word. Run 3, the published run, reads 'Pindrop v4 ridge | union-target HGB | dense ridge control s=3.000% h=0 L=0 | 4e03fc9705' (87 characters).",
+      "lesson": "The Note is the only part of a submission a human types; it was checked as rendered text, not only as a string that satisfies a length limit."
+    }
+  ],
+  "reproducibility": {
+    "record": "evidence/pindrop-v4-reproducibility.json",
+    "frozen_selection": "identical in all three runs: union-target / nodes / spacing 4 / budget 0.0300 / halo 0 / tip 0",
+    "pixels": "the nodes file and the dense control were pixel-identical in all three runs (0 differing pixels inside the template mask); the discovery file differed in 116 of its 155,021 emitted pixels between run 1 and runs 2-3, so that arm's retraining is not bit-reproducible",
+    "bytes": "file hashes differ between runs; selection_sha256 hashes a frozen-selection record that contains its freeze timestamp, and run 2 to run 3 changed the reviewed policy/Note wording",
+    "cause_of_116_pixels": "not established; the estimator is threaded and its audit known-DTI also moved by 1e-4 (0.1942 to 0.1941). No frozen decision changed."
+  }
+}

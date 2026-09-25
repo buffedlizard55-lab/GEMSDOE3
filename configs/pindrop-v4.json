@@ -1,0 +1,136 @@
+{
+  "name": "pindrop-v4",
+  "preregistered": "Committed before the run and hash-bound as config_sha256 in outputs/pindrop-v4/experiment.json. No budget, spacing, arm, layer, halo, tip or proxy value was edited after the audit fold was scored. The file contains no wall-clock time: the run records its own started_at.",
+  "seed": 20260927,
+  "objective": "Test whether the metric rewards *placement* rather than *mass*: at an identical emitted-pixel budget (the resource the Tversky denominator charges for), does a suppression-spaced node schedule cover more hidden-style truth than the dense one-pixel ridge line that Coverline v3 published?",
+  "official_basis": [
+    "https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/#performance-metric",
+    "https://community.drivendata.org/raw/11516",
+    "https://community.drivendata.org/raw/11536"
+  ],
+  "metric_algebra": "A binary p=1 prediction pixel changes the Tversky denominator by 0.2*(coverage credit it newly contributes) + 0.2*(1 - k(d)). Truth credit is a maximum over the 300 m kernel, so a second prediction 4 px along the same trace adds no credit but still costs its own false-positive weight. Spacing the emission at the kernel's Nyquist limit (5 px = 2 x 3 - 1) keeps every point of a covered trace within 3 px of a node while removing up to 5x of the redundant mass.",
+  "block_px": 512,
+  "buffer_px": 48,
+  "buffer_rationale": "30 px feature radius + ridge smoothing/NMS support (~5 px) + 3 px metric kernel = 38 px < 48 px",
+  "block_origin_px": [
+    128,
+    128
+  ],
+  "training_folds": [
+    1,
+    2
+  ],
+  "tuning_fold": 3,
+  "audit_fold": 0,
+  "rotation_disclosure": "Third rotation of the same 512 px lattice. gapfinder-v2 used origin (0, 0) with train 0,1 / tune 2 / audit 3; coverage-v3 used origin (256, 256) with train 0,3 / tune 1 / audit 2; pindrop-v4 uses origin (128, 128) with train 1,2 / tune 3 / audit 0. Every block boundary moved 12.8 km, and no fold role is reused from either earlier session, so neither audit region nor audit role repeats. The survey footprint necessarily overlaps: this is a rotation, not an independent survey area.",
+  "derived_bands": [
+    12,
+    19,
+    2,
+    13
+  ],
+  "scales_px": [
+    1,
+    3,
+    7
+  ],
+  "max_near_samples": 100000,
+  "max_unlabeled_samples": 140000,
+  "model": {
+    "max_iter": 140,
+    "max_leaf_nodes": 31,
+    "learning_rate": 0.08,
+    "min_samples_leaf": 50,
+    "l2_regularization": 5.0,
+    "early_stopping": false
+  },
+  "arms": [
+    {
+      "id": "union-target",
+      "positives": [
+        "known",
+        "sgmc"
+      ],
+      "objective": "weighted-classification",
+      "positive_weight": 4.0,
+      "role": "control carried forward: the beta/alpha-weighted classifier on the union of the supplied labels and the independent SGMC catalogue, exactly the estimator that won coverage-v3"
+    },
+    {
+      "id": "discovery-target",
+      "positives": [
+        "sgmc_gap"
+      ],
+      "objective": "weighted-classification",
+      "positive_weight": 4.0,
+      "role": "new: the same estimator trained only on catalogue pixels that the supplied labels do not contain, i.e. directly on the 'what has been mapped elsewhere but not here' population the hidden test faults are drawn from"
+    }
+  ],
+  "layers": [
+    {
+      "id": "ridge",
+      "spacing_px": 1,
+      "role": "dense control: the highest-scoring ridge pixels in rank order, which is exactly a confidence floor and reproduces the coverage-v3 emission"
+    },
+    {
+      "id": "nodes",
+      "spacing_px": 4,
+      "role": "suppression-spaced nodes at 2 x kernel radius - 2; coverage at the midpoint of a trace is 2.0 px, strictly inside the kernel"
+    },
+    {
+      "id": "nodes",
+      "spacing_px": 5,
+      "role": "suppression-spaced nodes at the kernel Nyquist limit 2 x kernel radius - 1; coverage at the midpoint is 2.5 px, still strictly inside the kernel"
+    }
+  ],
+  "spacing_rule": "The layer is accepted as the winner only on measured proxy DTI. The pre-registered hypothesis is that spacing 5 is best; a tie or a loss is reported as measured.",
+  "node_budget_fractions": [
+    0.005,
+    0.0075,
+    0.01,
+    0.015,
+    0.02,
+    0.03,
+    0.04,
+    0.05,
+    0.06,
+    0.08,
+    0.1,
+    0.12
+  ],
+  "budget_meaning": "Budget = emitted pixels as a fraction of the valid footprint, identical for both layers. For the ridge layer this is equivalent to a confidence floor at the N-th ranked score; for the node layer it is the first N accepted nodes of the suppression-ordered schedule. Every prefix of a schedule is nested, so tranche differences are exactly the added pixels.",
+  "halo_px": [
+    0,
+    2
+  ],
+  "tip_extension_px": [
+    0,
+    5
+  ],
+  "tip_rule": "Tip rays stay candidates for both layers and are ranked by the confidence of the tip that generated them. Supplied-label proxy scoring excludes ray pixels for both layers, because a ray starts one pixel beyond a supplied trace and would collect kernel credit from the truth that generated it.",
+  "proxies": {
+    "gap": "SGMC fault pixels >= 3.2 px from any known pixel (independent published catalogue)",
+    "all": "all SGMC fault pixels not exactly on a known pixel",
+    "known": "held-out supplied labels inside the untouched fold interior, scored with known pixels emit-able, tip rays excluded",
+    "far": "SGMC fault pixels >= 10 px (1 km) from any known pixel; reported as a diagnostic, not used for selection",
+    "evaluation_mask": "template-valid AND NOT known AND fold interior"
+  },
+  "selection": "maximize min(DTI_gap, DTI_all, DTI_known) on the tuning fold among eligible candidates; tie-break lower emitted fraction, then arm id, layer id, spacing, budget, halo, tip",
+  "portfolio": {
+    "nodes": "the selected candidate (always a node-layer candidate if one wins on the pre-registered rank; the rule never special-cases the layer)",
+    "ridge": "the same arm, budget, halo and tip with spacing 1 -> the dense ridge control. ridge minus nodes tests the sparse-emission hypothesis directly on the leaderboard.",
+    "discovery": "the best eligible node-layer candidate of the arm that did not win selection -> tests the training-target hypothesis",
+    "fallback": "if the second or third variant duplicates an already chosen policy, the next-best distinct eligible candidate of that arm is used and the substitution is recorded"
+  },
+  "refit": "fraction-consistent sampling as in gapfinder-v2 and coverage-v3: keep every exact positive and reuse the holdout model's inclusion fractions. Accept only if the emitted support passes the budget gate and stays within a factor 1.5 of the holdout model's; otherwise publish the unchanged holdout model. The schedule is recomputed on whichever field is deployed.",
+  "max_emitted_fraction": 0.12,
+  "min_emitted_fraction": 0.0005,
+  "score_warning": "Every local number uses public catalogues, not hidden expert labels. No leaderboard score is implied and no file here has been uploaded.",
+  "novelty_vs_coverage_v3": [
+    "the decision variable is the *placement* of a fixed pixel budget, chosen by suppression spacing, instead of a confidence floor on a dense ridge line",
+    "the emission function is one code path for both layers, so ridge vs nodes is a single controlled parameter change",
+    "a second training target (catalogue-only positives) tests the 'train on the unmapped population' hypothesis",
+    "a third rotation of the spatial partition: origin (128,128), train folds 1,2, tune 3, audit 0 - no fold role is reused from session 2 or session 3",
+    "credit per emitted pixel is published for both layers at every budget",
+    "the sparse encoding is published next to its dense control so the choice can be tested on the leaderboard"
+  ]
+}

@@ -1,29 +1,29 @@
 {
-  "updated_at": "2026-09-25T06:05:00Z",
+  "updated_at": "2026-09-25T16:05:00Z",
   "passes": [
     {
       "pass": 1,
-      "title": "Implement and execute (session 3)",
+      "title": "Implement and execute (session 4)",
       "status": "completed",
-      "summary": "Coverline v3 implemented from the pre-registered config and executed end to end on CPU (run 1: 664.4 s; frozen tversky-weighted-classifier support 4%, halo 2, tip 5). Publisher and site sections written; 6 pipeline tests plus 3 publisher gates added. Local suite 110 -> 119 tests."
+      "summary": "Pre-registered configs/pindrop-v4.json, gems3/schedule.py, gems3/pindrop.py, gems3/pindrop_publish.py, gems3/site_pindrop.py and the site wiring implemented; tests/test_schedule.py (14 regressions) and scripts/record_submission.py added. Run 1 completed in 570.2 s with the frozen selection union-target / nodes / spacing 4 / budget 0.0300 / halo 0 / tip 0 and three 13/13 format-validated files. The pre-registered discovery arm lost to the union arm and is published as the hedge."
     },
     {
       "pass": 2,
-      "title": "Adversarial review and fixes (session 3)",
+      "title": "Adversarial review and fixes (session 4)",
       "status": "completed",
-      "summary": "Found and fixed an unscorable marginal-value table (mask erased the supplied-label context's own truth), recorded it as an erratum, re-ran (429.7 s) and regression-tested. Measured reproducibility with a third same-source run: pixel arrays bit-identical (0 differing pixels), file bytes differ only through the timestamped selection_sha256 tag, holdout audit drift <= 5.7e-05. Compact Notes (<=120 chars), corrected experiment labels, closed-loop raster/report tag test, stale render caught and rebuilt."
+      "summary": "Found and fixed a mislabelled control policy (record and Note said nodes k=4 for a spacing-1 file): run 1 preserved, never published, guarded at publish time by check_variant_policies with a regression test that reproduces the defect. Per-file in-sample/SGMC caveats added; a duplicated word in the control Note fixed; archived portfolios now render as history instead of advice; the upload order was changed to value order (nodes, discovery, control) so the week's slots are not spent on a deliberately weaker file. Reproducibility measured with a third run: identical frozen selection, pixel-identical union-arm files, and a disclosed 116-pixel drift in the discovery arm. Four test/artifact mismatches reconciled to the artefacts."
     },
     {
       "pass": 3,
-      "title": "Original request and release recheck (session 3)",
+      "title": "Original request and release recheck (session 4)",
       "status": "completed",
-      "summary": "Re-read the preserved brief requirement by requirement; stated the exact metric improvement test beside the leading-order break-even on the site; re-rendered all six pages; 119 Python tests and ruff clean; Chromium spec extended for the strip-first requirement and enforced by hosted CI."
+      "summary": "Re-read the preserved brief requirement by requirement and mapped it to the published state: upstream copy preserved, a different placement strategy executed on real data, one-click TIF first on the home page and the executive summary, unique filename and <=120-character Note per file, the [0,1] rejection class addressed by construction plus a troubleshooting section, official-source register, no manual input required, three passes and a pull request. 147 Python tests pass, ruff clean, check_published exit 0, all six pages re-rendered from the published JSON."
     }
   ],
-  "artifact_sha256": "3ccf68834ad2e3de331252cc14de72d5d30284a7da70aebe86445299c01adf26",
+  "artifact_sha256": "f347b70daa95170bfc967b1c0b6bbf951496c2b74764a7102848ad6178829aca",
   "local_checks_complete": true,
   "entire_request_fully_complete": false,
-  "release_status": "Coverline v3 merged into main (PR #3, merge fb87915) with hosted CI, post-merge CI and the Pages deployment all green; a docs-only release record (PR #4) and the stable GEMSDOE3 site brand (PR #5) followed, each merged after CI passed. The deployed manifest and page were read back through the research tool (evidence/pages-deployment-v3.json). PR #6 refreshed the pass-3 evidence on the merged tree. No competition score exists and no upload has been made; PR #5's post-merge runs are 36101076916 (CI) and 36101076778 (Pages).",
+  "release_status": "Session 4 (Pindrop v4) portfolio published from outputs/pindrop-v4-run3; pull request and hosted CI links recorded after the merge. Session 3's Coverline v3 release (PR #3, merge fb87915, CI 36100426189, Pages 36100579392) remains the last fully merged deployment record. No competition score exists, no upload has been made, and the discovery arm of the published portfolio is not bit-reproducible across retrainings.",
   "competition_score": null,
   "test_evidence": {
     "pass1_python": "evidence/pass1-tests.xml",
@@ -38,7 +38,12 @@
     "session3_pass3_python": "evidence/session3-pass3-tests.xml",
     "coverage_v3_run_log": "evidence/coverage-v3-run.txt",
     "coverage_v3_reproducibility": "evidence/coverage-v3-reproducibility.json",
-    "coverage_v3_erdoc": "evidence/coverage-v3-errata.json"
+    "coverage_v3_erdoc": "evidence/coverage-v3-errata.json",
+    "session4_pass3_python": "evidence/session4-pass3-tests.xml",
+    "session4_run_log": "evidence/pindrop-v4-run3.txt",
+    "session4_errata": "evidence/pindrop-v4-errata.json",
+    "session4_reproducibility": "evidence/pindrop-v4-reproducibility.json",
+    "session4_leaderboard_log": "evidence/leaderboard-results.json"
   },
   "requirements": [
     {
@@ -58,8 +63,8 @@
     },
     {
       "requirement": "Research and scientific improvement",
-      "state": "three measured arms, retained negative results and uncertainty",
-      "limit": "No proof of leaderboard gain, no 1 m DEM/GPU pilot, incomplete prior pseudo-label folds, one non-independent-repeat audit."
+      "state": "placement hypothesis tested end to end with a dense control at identical budgets, a paired bootstrap and a retained negative result (discovery arm)",
+      "limit": "No proof of leaderboard gain; no 1 m DEM or third independent catalogue; one footprint with rotated folds; the selected budget saturates the k=4 schedule so the emission is effectively 'all admissible nodes'."
     },
     {
       "requirement": "Prompt/core values and three passes",
@@ -73,13 +78,13 @@
     },
     {
       "requirement": "Unique valid submission and obvious TIF generator",
-      "state": "complete for session 3: Coverline v3 fusion/wide/ml published with an upload strip first on the home page and in the executive summary",
-      "limit": "Format validation is local; no competition acceptance or score. Emitted pixels are a metric-derived budget, not calibrated probabilities. The fusion file's SGMC component cannot be scored locally without circularity."
+      "state": "complete for session 4: Pindrop v4 nodes/discovery/ridge published with the upload strip first on the home page and in the executive summary, ordered by value",
+      "limit": "Local format validation only; no competition acceptance or score. Emitted pixels are a metric-derived sparse encoding, not calibrated probabilities. The union-arm files train partly on the SGMC traces that form the gap proxy, so the proxy cannot rank arms fairly; only the nodes-versus-control comparison is treated as controlled."
     },
     {
       "requirement": "Reproducibility of the published artifact",
-      "state": "measured across three runs: pixel content bit-identical, frozen decisions identical",
-      "limit": "File bytes are not reproducible: the selection_sha256 GeoTIFF tag covers a frozen-selection record with a wall-clock timestamp, and holdout audit scores drift <= 5.7e-05 under threaded training."
+      "state": "measured across three runs: frozen selection identical; the published nodes file and the dense control pixel-identical in all three runs",
+      "limit": "File bytes differ because selection_sha256 hashes a timestamped frozen-selection record, and the discovery arm's file differed in 116 of 155,021 emitted pixels between run 1 and runs 2-3 (cause not established)."
     }
   ],
   "hosted_ci_url": "https://github.com/buffedlizard55-lab/GEMSDOE3/actions/runs/36100426189",
@@ -184,6 +189,103 @@
         }
       },
       "score_note": "No upload performed; the leaderboard is the only source of a competition score."
+    },
+    {
+      "session": 4,
+      "date": "2026-09-25",
+      "strategy": "pindrop-v4",
+      "artifacts": [
+        {
+          "variant": "nodes",
+          "file": "pindrop-v4-nodes-20260925T152420Z-f347b70daa.tif",
+          "sha256": "f347b70daa95170bfc967b1c0b6bbf951496c2b74764a7102848ad6178829aca",
+          "note": "Pindrop v4 nodes | union-target HGB | sparse nodes k=4 s=3.000% h=0 L=0 | f347b70daa",
+          "competition_score": null,
+          "role": "primary"
+        },
+        {
+          "variant": "discovery",
+          "file": "pindrop-v4-discovery-20260925T152423Z-37f9d5b855.tif",
+          "sha256": "37f9d5b855ee1b6c302cb81cdae1414db94db427f5dc9da3538474df37cf1cad",
+          "note": "Pindrop v4 discovery | discovery-target HGB | catalogue-gap k=4 s=3.000% h=0 L=0 | 37f9d5b855",
+          "competition_score": null,
+          "role": "independent"
+        },
+        {
+          "variant": "ridge",
+          "file": "pindrop-v4-ridge-20260925T152422Z-4e03fc9705.tif",
+          "sha256": "4e03fc97052e9bd673e48f1923ad17f15926f8db26d2befc033e1722381dc9b7",
+          "note": "Pindrop v4 ridge | union-target HGB | dense ridge control s=3.000% h=0 L=0 | 4e03fc9705",
+          "competition_score": null,
+          "role": "control"
+        }
+      ],
+      "frozen_selection": {
+        "arm": "union-target",
+        "layer": "nodes",
+        "spacing": 4,
+        "budget": 0.03,
+        "halo": 0,
+        "tip": 0,
+        "requested_nodes": 155021,
+        "emitted_pixels": 155021,
+        "emitted_fraction": 0.02999996393918991,
+        "eligible": true,
+        "robust_dti": 0.2026276976809846,
+        "tuning": {
+          "gap": {
+            "dti": 0.20831016645490355,
+            "TP_w": 2778.5882647520298,
+            "FP_w": 26234.946477651596,
+            "FN_w": 6641.41173524797,
+            "truth_pixels": 9420,
+            "prediction_pixels": 27298,
+            "prediction_mass": 27298.0,
+            "scored_pixels": 899251,
+            "meaning": "published-catalogue surrogate, not a competition score"
+          },
+          "all": {
+            "dti": 0.23432447276286836,
+            "TP_w": 3762.045988347453,
+            "FP_w": 25872.240857720375,
+            "FN_w": 8897.954011652546,
+            "truth_pixels": 12660,
+            "prediction_pixels": 27298,
+            "prediction_mass": 27298.0,
+            "scored_pixels": 899251,
+            "meaning": "published-catalogue surrogate, not a competition score"
+          },
+          "far": {
+            "dti": 0.1819573480058431,
+            "TP_w": 2058.577652447267,
+            "FP_w": 26521.010163873434,
+            "FN_w": 4938.422347552732,
+            "truth_pixels": 6997,
+            "prediction_pixels": 27298,
+            "prediction_mass": 27298.0,
+            "scored_pixels": 899251,
+            "meaning": "published-catalogue surrogate, not a competition score"
+          },
+          "known": {
+            "dti": 0.2026276976809846,
+            "TP_w": 3126.1769418871036,
+            "FP_w": 26122.73167142272,
+            "FN_w": 8846.823058112896,
+            "truth_pixels": 11973,
+            "prediction_pixels": 27298,
+            "prediction_mass": 27298.0,
+            "scored_pixels": 911224,
+            "meaning": "published-catalogue surrogate, not a competition score"
+          }
+        },
+        "nodes_available": 155467,
+        "credit_per_emitted_pixel": 0.01792394749583624,
+        "gap_dti": 0.20831016645490355,
+        "all_dti": 0.23432447276286836,
+        "known_dti": 0.2026276976809846,
+        "far_dti": 0.1819573480058431
+      },
+      "run_log": "evidence/pindrop-v4-run3.txt"
     }
   ],
   "historical_passes": {

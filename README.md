@@ -1,4 +1,4 @@
-# Coverline · GEMSDOE3 (formerly Gapfinder and Riftline)
+# Pindrop · GEMSDOE3 (sessions 1–3: Riftline, Gapfinder, Coverline)
 
 **Start every work session here.** Read this README, the preserved project brief below, `AGENTS.md`, `NEXT_STEPS.md`, and the latest evidence before changing the project.
 
@@ -14,13 +14,50 @@ A one-click, **format-validated GeoTIFF submission** for the DOE GEMS Prize, sup
 - **Requirements and metric:** https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/
 - **Official rules:** https://docs.nlr.gov/docs/fy26osti/96647.pdf
 
-The website opens with the **Coverline portfolio**: three format-validated GeoTIFFs in a recommended upload order, above a one-line strip that links file 1, its ZIP and its paste-able Note. Each file has a unique filename, a copyable Note of 120 characters or fewer and an **unsubmitted / score unknown** status. The session-2 Gapfinder files and the session-1 Riftline file stay downloadable below as previous candidates. A local catalogue score is never presented as a leaderboard score. The public leaderboard was read on 2026-09-25 through the research tool: leader **0.3049** (DARD), extradr19 **0.1563**. We do not know which file was behind that account's submission. See `docs/data/feed.json` for timestamps.
+The website opens with the **Pindrop portfolio**: three format-validated GeoTIFFs in a recommended upload order, above a one-line strip that links file 1, its ZIP and its paste-able Note. Each file has a unique filename, a copyable Note of 120 characters or fewer and an **unsubmitted / score unknown** status. The session-3 Coverline files, the session-2 Gapfinder files and the session-1 Riftline file stay downloadable below as previous candidates, and each archived block is labelled as history rather than advice. A local catalogue score is never presented as a leaderboard score. The public leaderboard was read on 2026-09-25 through the research tool: leader **0.3049** (DARD), alexoktaba 0.2993, HardcoreTechGod 0.2854, extradr19 **0.1563** (rank 21 of 25+ at that read, one submission). The leaderboard rows recorded in `docs/data/feed.json` were re-read on 2026-09-25 through the research tool and are labelled there as a research-tool observation, not an HTTP fetch. We do not know which file was behind that account's submission. See `docs/data/feed.json` for timestamps.
 
 **If you only do one thing:** open the site, click the first card's **Download .tif**, then paste the Note beside it into the DrivenData form. `docs/executive_summary.html#steps` has the six steps, the rule citations and what to do if an upload is rejected.
 
-## Current verified result: Coverline v3 (session 3, 2026-09-25)
+## Current verified result: Pindrop v4 (session 4, 2026-09-25)
 
-**Upload in this order** (3 uploads/week; one final selection):
+**Upload in this order** (3 uploads/week; one final selection). Card order is value, not experiment number:
+
+| # | File (`docs/downloads/`) | Note to paste | Pixels = 1 |
+|---|---|---|---|
+| 1 SUBMIT FIRST | `pindrop-v4-nodes-20260925T152420Z-f347b70daa.tif` | `Pindrop v4 nodes \| union-target HGB \| sparse nodes k=4 s=3.000% h=0 L=0 \| f347b70daa` | 155,021 (3.000%) |
+| 2 SUBMIT SECOND | `pindrop-v4-discovery-20260925T152423Z-37f9d5b855.tif` | `Pindrop v4 discovery \| discovery-target HGB \| catalogue-gap k=4 s=3.000% h=0 L=0 \| 37f9d5b855` | 155,021 (3.000%) |
+| 3 CONTROL · UPLOAD LAST | `pindrop-v4-ridge-20260925T152422Z-4e03fc9705.tif` | `Pindrop v4 ridge \| union-target HGB \| dense ridge control s=3.000% h=0 L=0 \| 4e03fc9705` | 155,021 (3.000%) |
+
+Each file passed 13/13 strict format gates on read-back: exact template CRS, transform and shape; float32; NaN exactly outside the template mask; finite values in [0, 1] inside; **0 pixels on a supplied label**. Each ZIP contains exactly its TIF and re-hashes to the same digest. Card 3 is a deliberate control, not a weaker guess: the same arm, budget, halo and tip as card 1 with the suppression switched off, so the leaderboard can test the placement hypothesis directly. It is published last precisely because three slots per week should be spent on the two files with a measured reason to be believed.
+
+**Why this strategy is different.** Sessions 1–3 asked *which pixel* to emit. Session 4 asks *where in the metric's own kernel*. The official metric credits a truth pixel from the **single best** prediction inside a 300 m triangular kernel, so two predictions four pixels apart along one trace add nearly no credit while both paying the false-positive weight — a dense line pays several times for the same coverage. `gems3/schedule.py` ranks every candidate pixel by model confidence and accepts one only when no accepted node lies inside a suppression square of half-width `spacing − 1`, then takes a prefix of that order as the budget. `spacing = 1` suppresses nothing and therefore *is* the dense confidence-floor emission, which is why the control is a one-parameter change rather than a different pipeline. The largest spacing that cannot lose coverage at the midpoint of a trace is `2R − 1 = 5 px`; the sweep compared 1, 4 and 5 on measured proxy DTI and the pre-registered rule chose 4. Derivation and measurements: `research/RESEARCH.md` §9.
+
+**Measured locally** (proxy DTI on public catalogues; **not** leaderboard-comparable, and the hidden labels stay hidden):
+
+- Frozen selection (`outputs/pindrop-v4-run3/selection-frozen.json`, hashed into every file's `selection_sha256` tag before the audit fold was scored): `union-target` · `nodes` · spacing 4 · budget 0.0300 · halo 0 · tip 0.
+- Rotation three of the same lattice: `block_origin_px` (128, 128), train folds [1, 2], tune 3, audit 0 — roles never used by sessions 1–3. Partition 1,754,513 / 911,224 / 776,210 pixels, 5,701 fault tips, 48,465 far-from-catalogue truth pixels.
+- Audit fold, holdout-trained models, identical emitted-pixel budgets: **spaced nodes gap 0.2202 / all 0.2405 / known 0.2086 / far 0.1999** versus the **dense ridge control 0.1278 / 0.1634 / 0.1192 / 0.0997**. Paired block bootstrap of the difference: gap **+0.0924** CI95 [+0.0209, +0.1465], all **+0.0771** [+0.0152, +0.1328]; both intervals exclude zero.
+- The pre-registered second question — does an arm trained only on catalogue pixels the supplied labels omit generalise better? — was **answered no**: `discovery-target` scored gap 0.2117 against the union arm's 0.2202 (paired bootstrap +0.0085 [+0.0008, +0.0152] for the union arm). It is published as card 2 as the honest hedge, not as an improvement.
+- Layer sweep on the tuning fold: nodes k=4 beat dense ridge k=1 at **all twelve budgets** (at 3%: 0.2083 vs 0.1426). Credit per emitted pixel: dense 0.0084–0.0114, nodes 0.0179–0.0406 — the sparse schedule gets 2–4× more credit for the same pixel bill.
+- All-fold refit accepted (1.5× support gate, support 3.00%, 0 pixels clipped); the published pixels come from `union-target-refit.joblib` (`d79a8c55152a76c7…`).
+- Full record: `evidence/pindrop-v4-run3.txt`, `outputs/pindrop-v4-run3/experiment.json`, `docs/data/pindrop-experiment.json`, `docs/data/portfolio.json` and the site's Experiments page.
+
+**Honest caveats for v4:**
+
+- **Unscored.** No upload has been made. Only DrivenData can say whether any of these files beats 0.1563 or 0.3049.
+- **The budget barely binds at the selected spacing.** The k=4 schedule in the tuning region saturates at 27,304 nodes; every budget from 3% upward emits the same field, and the published file carries 155,021 of the 155,467 available nodes. The selection rule therefore chose "the whole spaced schedule", and the sweep's higher rows are duplicates, not larger emissions — the site labels those rows by measured emitted fraction for that reason.
+- **The proxy cannot rank the two arms fairly.** The union arm trains partly on SGMC-gap pixels, which *are* the gap proxy's truth, so its proxy advantage over the discovery arm is partly circular. The controlled comparison is nodes versus dense control (same arm, budget and folds), and that is the only one this session treats as evidence.
+- **Every earlier published file is in-sample here.** The three files compared in the audit's reference table were all-fold refits from sessions 1–3, and the fusion files contain the SGMC traces the gap proxy is built from; their audit numbers are upper bounds, and each row now carries that caveat explicitly.
+- **Reproducibility measured, not assumed.** Three full runs produced the identical frozen selection; the published node file and the dense control were **pixel-identical in all three runs** (0 differing pixels). The discovery file differed in 116 of its 155,021 emitted pixels between run 1 and runs 2–3, so that arm's retraining is **not** bit-reproducible; the cause is not established (the estimator is threaded, and its audit known-DTI also moved 1e-4). Bytes are never identical: `selection_sha256` hashes a frozen-selection record containing its freeze timestamp. See `evidence/pindrop-v4-reproducibility.json`.
+- **Three defects were found in review and fixed, and the first run was never published.** A mislabelled control policy and its Note, generic reference caveats, and a duplicated word in the control's Note are documented in `evidence/pindrop-v4-errata.json`; the publisher now refuses any report whose recorded policy contradicts its variant, with a regression test that reproduces the original defect from the preserved run-1 report.
+- **Rotation, not independence.** Folds are a third rotation of one lattice over one footprint; overlapping geography is disclosed, not hidden.
+- Limits: no independent third catalogue, no 1 m DEM, no GPU, no hidden labels, no authenticated upload.
+
+### Previous candidate: Coverline v3 (session 3)
+
+**Archived, not advice.** These were session 3's recommendations and are kept verbatim below for audit; the current recommendation is the Pindrop portfolio above. The three files remain downloadable and are still valid candidates for the one final selection, and the site's "previous portfolio" block is labelled the same way.
+
+**Upload order from that session** (3 uploads/week; one final selection):
 
 | # | File (`docs/downloads/`) | Note to paste | Pixels = 1 |
 |---|---|---|---|
@@ -102,9 +139,11 @@ The starting GEMSDOE3 repository contained only a 10-byte README. The complete *
 
 **Storage exception:** the five feature-stack bridge parts (418,912,844 bytes combined) are available through the pinned upstream snapshot, restored by our downloader and excluded from new Git history. The full upstream Git history is not duplicated. Small original rasters/evidence remain preserved. See `THIRD_PARTY.md` for attribution, rights and source limitations.
 
-**Session 2 strategy (Gapfinder, now the previous candidate):** train on a second public catalogue (USGS SGMC) inside training regions only, never emit on a supplied label, optionally extend known fault tips, and select on three disjoint-region proxies including held-out supplied faults. It is kept above under "Previous candidate".
+**Session 2 strategy (Gapfinder, previous):** train on a second public catalogue (USGS SGMC) inside training regions only, never emit on a supplied label, optionally extend known fault tips, and select on three disjoint-region proxies including held-out supplied faults. It is kept above under "Previous candidate".
 
-**Session 3 strategy (Coverline, current):** treat the official metric as an emission budget. Add an oriented-ridge emission whose threshold is set so each tranche covers a target fraction of the valid grid (0.5%-12%), train a beta/alpha-weighted classifier (positive weight 4, the metric's own false-negative/false-positive ratio) beside the regression control, keep the rotation of the spatial partition disclosed, and publish the measured marginal value of every tranche. Server-side selection maximizes the minimum of the same three proxies and freezes before the audit.
+**Session 4 strategy (Pindrop, current):** keep session 3's pixel budget and change *where in the metric's kernel* the pixels go. The official metric credits a truth pixel from the single best prediction inside a 300 m kernel, so a dense trace pays several times for one coverage. `gems3/schedule.py` ranks candidates by model confidence and accepts a pixel only when no accepted node lies inside a suppression square of half-width `spacing − 1`, sweeping spacing 1 (the dense control, identical to a confidence floor), 4 and 5 (the Nyquist limit `2R − 1`) against twelve emitted-pixel budgets, then freezing the selection before the audit fold is scored. Measured on a third rotation of the lattice, the spaced schedule scores gap DTI 0.2202 against the dense control's 0.1278 at the identical budget, and the pre-registered second arm (trained only on catalogue pixels the supplied labels omit) lost to the union arm and is published as the hedge rather than as an improvement.
+
+**Session 3 strategy (Coverline, previous):** treat the official metric as an emission budget. Add an oriented-ridge emission whose threshold is set so each tranche covers a target fraction of the valid grid (0.5%-12%), train a beta/alpha-weighted classifier (positive weight 4, the metric's own false-negative/false-positive ratio) beside the regression control, keep the rotation of the spatial partition disclosed, and publish the measured marginal value of every tranche. Server-side selection maximizes the minimum of the same three proxies and freezes before the audit.
 
 **Session 1 strategy (Riftline, now the previous candidate):** distance-aware regression using 19 supplied geophysical bands plus label-free multiscale context at 1, 3 and 7 pixels. Compare raw-feature, contextual and cautious-unlabeled-weight arms; select oriented-ridge emission only on a tuning region; freeze that decision before a separate spatial audit; attempt the frozen refit under the same quality guard, retaining the unchanged selected model if the refit fails; reject invalid files before publication. In Riftline, proxy labels were diagnostic/tuning evidence, never training targets or prediction features. Gapfinder deliberately trains on SGMC; see above. This is PU-inspired weighting, **not** a claim of an unbiased PU estimator or calibrated probabilities.
 
@@ -126,6 +165,8 @@ OMP_NUM_THREADS=2 OPENBLAS_NUM_THREADS=2 python -m gems3.gapfinder --config conf
 python -m gems3.gapfinder_publish --report outputs/gapfinder-v2/experiment.json
 OMP_NUM_THREADS=2 OPENBLAS_NUM_THREADS=2 python -m gems3.coverage --config configs/coverage-v3.json  # session 3: Coverline, ~7-11 min CPU
 python -m gems3.coverage_publish --report outputs/coverage-v3/experiment.json
+OMP_NUM_THREADS=2 OPENBLAS_NUM_THREADS=2 python -m gems3.pindrop --config configs/pindrop-v4.json --output outputs/pindrop-v4-run3  # session 4: Pindrop, ~9 min CPU
+python -m gems3.pindrop_publish --report outputs/pindrop-v4-run3/experiment.json
 python -m gems3.site
 python scripts/stage_site.py
 python -m pytest
@@ -157,6 +198,9 @@ The feed uses fixed primary-source URLs, conservative exact-quote checks, HTTP t
 - A historical failure had NaN inside the scored footprint. Range errors can also mean negative values, values above one, infinity or other invalid content; no single error message alone proves the cause.
 - The mirrored example contains fault positives although the official page describes an all-zero example. Its **grid and mask only** are used. The feature mask differs from the submission mask. These irregularities are recorded in `evidence/data.json`.
 - No access to hidden expert labels, DrivenData authenticated upload, or the user's private submissions. Enrollment, eligibility/legal attestations, upload and final submission selection cannot honestly be automated in this unauthenticated session. Never send passwords/tokens in chat.
+- **Session 4 control integrity:** the publisher refuses any report whose recorded policy contradicts the file variant it describes (a reviewed run shipped the selected node policy on the dense control) and prints the report path and hash it is publishing; the regression test reproduces the original defect from the preserved run-1 report.
+- **Session 4 reproducibility:** the frozen selection and the two union-arm files were pixel-identical across three full runs; the `discovery-target` file differed in 116 of its 155,021 emitted pixels between run 1 and runs 2–3, so that arm's retraining is not bit-reproducible and no claim of determinism is made for it. Cause not established.
+- **Session 4 budget caveat:** the k=4 schedule saturates below a 3% budget in the tuning region, so the top rows of the sweep are duplicates of the largest feasible schedule and the published file emits 99.7% of all available nodes.
 - The selected context field repeated bit-for-bit, but the raw-feature control’s hash changed across two runs; its original array was not retained for a numeric-difference diagnosis. This is flagged, not called universally deterministic training. The 32 px buffer covers feature context, not all feature-plus-postprocessing support; broader-buffer/rotated audits remain future work.
 - No GPU or full 1 m DEM coverage used. Public catalogues are incomplete and biased; one spatial split is not proof of generalization. Existing historical pseudo-label experiments have unresolved source-circularity and missing-fold limits; see `NEXT_STEPS.md`.
 - Direct sandbox requests to several official hosts are restricted. Initial primary sources were read through the research tool; scheduled unrestricted GitHub runners can attempt subsequent checks. Network failures remain visible.

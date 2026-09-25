@@ -1,7 +1,7 @@
 name: Riftline checks
 on:
   push:
-    branches: [main, 'arena/01a0d603-gemsdoe3']
+    branches: [main, 'arena/01a0d8fd-gemsdoe3']
   pull_request:
   workflow_dispatch:
 permissions:

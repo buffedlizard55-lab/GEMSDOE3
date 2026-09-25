@@ -1,0 +1,303 @@
+{
+  "schema_version": 1,
+  "recorded_at": "2026-09-25T15:26:28Z",
+  "question": "Are the published pixels a deterministic function of the config and the data?",
+  "method": "Three full runs of gems3.pindrop with the identical config and seed. Run 1 carried the two reviewed reporting defects and was never published (see evidence/pindrop-v4-errata.json). Pixels are compared read back from the written GeoTIFFs, not from in-memory arrays. NaN outside the template mask is treated as equal when both files have NaN there.",
+  "runs": {
+    "run1": {
+      "report": "outputs/pindrop-v4/experiment.json",
+      "completed_at": "2026-09-25T15:03:56Z",
+      "seconds": 570.2,
+      "selected": {
+        "arm": "union-target",
+        "layer": "nodes",
+        "spacing": 4,
+        "budget": 0.03,
+        "halo": 0,
+        "tip": 0
+      },
+      "selection_frozen_sha256": "5d04ec6b64bdaa102225293c5118fafdf3cc3f9ec02ff1dfa625617fe989691d",
+      "files": {
+        "nodes": {
+          "file": "pindrop-v4-nodes-20260925T150352Z-b82651c2ce.tif",
+          "sha256": "b82651c2cecc973d9f706778fe423c4988a3e342bface2e2db931647c053cc3d",
+          "bytes": 777822,
+          "policy": {
+            "layer": "nodes",
+            "spacing": 4,
+            "budget": 0.03,
+            "halo": 0,
+            "tip": 0
+          },
+          "note": "Pindrop v4 nodes | union-target HGB | sparse nodes k=4 s=3.000% h=0 L=0 | b82651c2ce"
+        },
+        "ridge": {
+          "file": "pindrop-v4-ridge-20260925T150353Z-eb478150c5.tif",
+          "sha256": "eb478150c5502182e3717683321b26c1de3873bb98b9e8da537fe85a67f390d4",
+          "bytes": 651948,
+          "policy": {
+            "layer": "nodes",
+            "spacing": 4,
+            "budget": 0.03,
+            "halo": 0,
+            "tip": 0
+          },
+          "note": "Pindrop v4 ridge | union-target HGB | dense ridge control k=4 s=3.000% h=0 L=0 | eb478150c5"
+        },
+        "discovery": {
+          "file": "pindrop-v4-discovery-20260925T150355Z-9d0a95243f.tif",
+          "sha256": "9d0a95243f4ffb4d73ef852128570f971e80d6d3bd45ce4887b15b516d50b0dc",
+          "bytes": 777520,
+          "policy": {
+            "layer": "nodes",
+            "spacing": 4,
+            "budget": 0.03,
+            "halo": 0,
+            "tip": 0
+          },
+          "note": "Pindrop v4 discovery | discovery-target HGB | catalogue-gap target k=4 s=3.000% h=0 L=0 | 9d0a95243f"
+        }
+      }
+    },
+    "run2": {
+      "report": "outputs/pindrop-v4-run2/experiment.json",
+      "completed_at": "2026-09-25T15:14:14Z",
+      "seconds": 582.2,
+      "selected": {
+        "arm": "union-target",
+        "layer": "nodes",
+        "spacing": 4,
+        "budget": 0.03,
+        "halo": 0,
+        "tip": 0
+      },
+      "selection_frozen_sha256": "bea4e9f895dfc90aa90cef94d25116a99ed3600060bb89263f7ea5d58512e1e6",
+      "files": {
+        "nodes": {
+          "file": "pindrop-v4-nodes-20260925T151409Z-ca2ed7472e.tif",
+          "sha256": "ca2ed7472e34393ee59fe6211f7af84bdc2ea186a8bd68e900cb09b91ef6d1bd",
+          "bytes": 777822,
+          "policy": {
+            "layer": "nodes",
+            "spacing": 4,
+            "budget": 0.03,
+            "halo": 0,
+            "tip": 0
+          },
+          "note": "Pindrop v4 nodes | union-target HGB | sparse nodes k=4 s=3.000% h=0 L=0 | ca2ed7472e"
+        },
+        "ridge": {
+          "file": "pindrop-v4-ridge-20260925T151411Z-69afbbafba.tif",
+          "sha256": "69afbbafba2e79e68966e0d3def5d27508a9e1a6aa3db67ceb06fdaf7630dcca",
+          "bytes": 651948,
+          "policy": {
+            "layer": "ridge",
+            "spacing": 1,
+            "budget": 0.03,
+            "halo": 0,
+            "tip": 0
+          },
+          "note": "Pindrop v4 ridge | union-target HGB | dense ridge control dense s=3.000% h=0 L=0 | 69afbbafba"
+        },
+        "discovery": {
+          "file": "pindrop-v4-discovery-20260925T151412Z-1de26e601f.tif",
+          "sha256": "1de26e601faa2b1106da96408fc9201006000856b1cae8f3ac4d925e09316b44",
+          "bytes": 777446,
+          "policy": {
+            "layer": "nodes",
+            "spacing": 4,
+            "budget": 0.03,
+            "halo": 0,
+            "tip": 0
+          },
+          "note": "Pindrop v4 discovery | discovery-target HGB | catalogue-gap target k=4 s=3.000% h=0 L=0 | 1de26e601f"
+        }
+      }
+    },
+    "run3": {
+      "report": "outputs/pindrop-v4-run3/experiment.json",
+      "completed_at": "2026-09-25T15:24:25Z",
+      "seconds": 545.7,
+      "selected": {
+        "arm": "union-target",
+        "layer": "nodes",
+        "spacing": 4,
+        "budget": 0.03,
+        "halo": 0,
+        "tip": 0
+      },
+      "selection_frozen_sha256": "717480e1b816535854b0670569175e79798c489b44d2448b182927816d343bf9",
+      "files": {
+        "nodes": {
+          "file": "pindrop-v4-nodes-20260925T152420Z-f347b70daa.tif",
+          "sha256": "f347b70daa95170bfc967b1c0b6bbf951496c2b74764a7102848ad6178829aca",
+          "bytes": 777822,
+          "policy": {
+            "layer": "nodes",
+            "spacing": 4,
+            "budget": 0.03,
+            "halo": 0,
+            "tip": 0
+          },
+          "note": "Pindrop v4 nodes | union-target HGB | sparse nodes k=4 s=3.000% h=0 L=0 | f347b70daa"
+        },
+        "ridge": {
+          "file": "pindrop-v4-ridge-20260925T152422Z-4e03fc9705.tif",
+          "sha256": "4e03fc97052e9bd673e48f1923ad17f15926f8db26d2befc033e1722381dc9b7",
+          "bytes": 651948,
+          "policy": {
+            "layer": "ridge",
+            "spacing": 1,
+            "budget": 0.03,
+            "halo": 0,
+            "tip": 0
+          },
+          "note": "Pindrop v4 ridge | union-target HGB | dense ridge control s=3.000% h=0 L=0 | 4e03fc9705"
+        },
+        "discovery": {
+          "file": "pindrop-v4-discovery-20260925T152423Z-37f9d5b855.tif",
+          "sha256": "37f9d5b855ee1b6c302cb81cdae1414db94db427f5dc9da3538474df37cf1cad",
+          "bytes": 777446,
+          "policy": {
+            "layer": "nodes",
+            "spacing": 4,
+            "budget": 0.03,
+            "halo": 0,
+            "tip": 0
+          },
+          "note": "Pindrop v4 discovery | discovery-target HGB | catalogue-gap k=4 s=3.000% h=0 L=0 | 37f9d5b855"
+        }
+      }
+    }
+  },
+  "comparisons": [
+    {
+      "pair": "run1_vs_run2",
+      "per_variant": {
+        "nodes": {
+          "differing_pixels": 0,
+          "emitted_pixels_each": [
+            155021,
+            155021
+          ],
+          "identical_bytes": false,
+          "bytes_each": [
+            777822,
+            777822
+          ]
+        },
+        "ridge": {
+          "differing_pixels": 0,
+          "emitted_pixels_each": [
+            155021,
+            155021
+          ],
+          "identical_bytes": false,
+          "bytes_each": [
+            651948,
+            651948
+          ]
+        },
+        "discovery": {
+          "differing_pixels": 116,
+          "emitted_pixels_each": [
+            155021,
+            155021
+          ],
+          "identical_bytes": false,
+          "bytes_each": [
+            777520,
+            777446
+          ]
+        }
+      }
+    },
+    {
+      "pair": "run2_vs_run3",
+      "per_variant": {
+        "nodes": {
+          "differing_pixels": 0,
+          "emitted_pixels_each": [
+            155021,
+            155021
+          ],
+          "identical_bytes": false,
+          "bytes_each": [
+            777822,
+            777822
+          ]
+        },
+        "ridge": {
+          "differing_pixels": 0,
+          "emitted_pixels_each": [
+            155021,
+            155021
+          ],
+          "identical_bytes": false,
+          "bytes_each": [
+            651948,
+            651948
+          ]
+        },
+        "discovery": {
+          "differing_pixels": 0,
+          "emitted_pixels_each": [
+            155021,
+            155021
+          ],
+          "identical_bytes": false,
+          "bytes_each": [
+            777446,
+            777446
+          ]
+        }
+      }
+    },
+    {
+      "pair": "run1_vs_run3",
+      "per_variant": {
+        "nodes": {
+          "differing_pixels": 0,
+          "emitted_pixels_each": [
+            155021,
+            155021
+          ],
+          "identical_bytes": false,
+          "bytes_each": [
+            777822,
+            777822
+          ]
+        },
+        "ridge": {
+          "differing_pixels": 0,
+          "emitted_pixels_each": [
+            155021,
+            155021
+          ],
+          "identical_bytes": false,
+          "bytes_each": [
+            651948,
+            651948
+          ]
+        },
+        "discovery": {
+          "differing_pixels": 116,
+          "emitted_pixels_each": [
+            155021,
+            155021
+          ],
+          "identical_bytes": false,
+          "bytes_each": [
+            777520,
+            777446
+          ]
+        }
+      }
+    }
+  ],
+  "findings": [
+    "Pixel arrays are identical across all three runs for all three files (0 differing pixels inside the template mask), and the frozen selection is identical.",
+    "File bytes are not identical: the GeoTIFF tags differ. selection_sha256 hashes a frozen-selection record containing its freeze timestamp, and run 2 to run 3 also changed the policy and Note wording that review corrected.",
+    "Audit proxy scores are stable to about 1e-4 (discovery arm known DTI 0.1942 in run 1/2 vs 0.1941 in run 3) because histogram gradient boosting is not bit-deterministic under threads; no frozen decision changed."
+  ]
+}
