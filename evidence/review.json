@@ -23,7 +23,7 @@
   "artifact_sha256": "3ccf68834ad2e3de331252cc14de72d5d30284a7da70aebe86445299c01adf26",
   "local_checks_complete": true,
   "entire_request_fully_complete": false,
-  "release_status": "Coverline v3 merged into main (PR #3, merge commit fb87915) after hosted CI passed; post-merge CI and the Pages deployment also passed, and the deployed manifest was read back with the research tool (evidence/pages-deployment-v3.json). No competition score exists.",
+  "release_status": "Coverline v3 merged into main (PR #3, merge fb87915) with hosted CI, post-merge CI and the Pages deployment all green; a docs-only release record (PR #4) and the stable GEMSDOE3 site brand (PR #5) followed, each merged after CI passed. The deployed manifest and page were read back through the research tool (evidence/pages-deployment-v3.json). No competition score exists and no upload has been made; PR #5's post-merge runs are 36101076916 (CI) and 36101076778 (Pages).",
   "competition_score": null,
   "test_evidence": {
     "pass1_python": "evidence/pass1-tests.xml",
