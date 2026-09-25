@@ -83,6 +83,24 @@ So `delta denominator = 0.2*(coverage credit gained) + 0.2*(1 - k(d_x))`, and bo
 
 **Limits.** The derivation assumes binary emission at p = 1 and an exactly known kernel; it says nothing about *where* the hidden faults are. A local catalogue gain is still not a leaderboard score, and the rotated partition still overlaps the previous split.
 
+## 9. Placement, not mass: the emission geometry follows from the metric (session 4)
+
+**Claim.** Under the official metric the *set* of emitted pixels, not the confidence value attached to them, is the decision. The metric page states that `TP_w` and `FP_w` are built from *maxima over the 300 m neighbourhood* (`sources.json` id `metric-equations`, quote: "TP𝑤=3.00,FP𝑤=1.89,FN𝑤=2.00"), and the worked example confirms that credit is a maximum, not a sum. For a binary emission at p = 1:
+
+* a truth pixel earns the credit of the single best prediction inside a 3-pixel triangular kernel;
+* every prediction pixel costs `0.2 × (1 − k(d))`, so a second prediction four pixels along the same trace adds no numerator credit and still pays its own false-positive weight;
+* therefore a set of predictions spaced at half the kernel width covers the same trace as a dense line while paying a fraction of the denominator cost.
+
+**Largest spacing that cannot lose coverage.** A trace point midway between two nodes is at distance `spacing / 2`. Requiring `spacing / 2 < R = 3 px` gives `spacing ≤ 5 px`, i.e. the kernel's Nyquist limit. At `spacing = 4` the worst-case midpoint distance is 2.0 px; at 5 it is 2.5 px. Beyond 6 the midpoint falls outside the kernel and coverage is lost, so the layer is *not* free to sparsify further.
+
+**Implementation.** `gems3/schedule.py`: rank candidates by confidence, accept a pixel only when no accepted node lies inside a suppression square of half-width `spacing − 1`, and take a prefix of that order as the budget. `spacing = 1` suppresses nothing and therefore *is* the dense ridge emission at a confidence floor, which makes the control a one-parameter change rather than a different pipeline. `gems3/pindrop.py` sweeps both layers over the same twelve emitted-pixel budgets.
+
+**Measured on the tuning fold of the session-4 rotation (public SGMC-gap proxy, identical budgets).** Credit per emitted pixel (added TP<sub>w</sub> ÷ emitted pixels): dense ridge 0.0084–0.0112, spaced nodes 0.0179–0.0341 across the sweep. Gap DTI at 1% budget: ridge 0.0553, nodes k=4 0.1703, nodes k=5 0.1765. At 3%: ridge 0.1426, nodes k=4 0.2083. The audit fold gives the same ordering (nodes 0.2202 vs dense control 0.1278), and the paired block bootstrap of that difference excludes zero (gap +0.0924, CI95 [0.0209, 0.1465]).
+
+**What this does not show.** The proxy truth is the public SGMC compilation, not the hidden expert labels; an in-sample or SGMC-derived reference file can score far higher on that same proxy (session 3's fusion file scores 0.6207 because it *contains* the proxy's traces), so cross-session proxy numbers are not comparable. The sparse encoding is a metric-aware *encoding* of a fault trace: it says nothing about whether faults are dotted in reality, and it does not create coverage that the underlying model does not already have.
+
+**Negative result kept.** The `discovery-target` arm — the same estimator trained only on catalogue pixels that the supplied labels do not contain — did **not** beat the union arm on the audit fold (0.2117 vs 0.2202 gap; paired bootstrap +0.0085 [0.0008, 0.0152] in favour of the union arm). Training on the "unmapped population" therefore did not buy generalisation here; it is reported as measured rather than dropped.
+
 ## 7. Decision ladder for the next experiments
 
 1. Establish a format-valid, genuinely different candidate with a reproducible CPU run. Record artifact identity and all local results, even negative ones.

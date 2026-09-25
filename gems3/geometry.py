@@ -77,16 +77,27 @@ def tip_directions(skel: np.ndarray, lookback: int = 8, min_path: int = 5):
 def extend_tips(tips: np.ndarray, dirs: np.ndarray, length: int, shape: tuple[int, int],
                 start: int = 1) -> np.ndarray:
     """Straight along-strike rays of `length` pixels beyond each tip (the tip itself excluded)."""
-    out = np.zeros(shape, dtype=bool)
+    return extend_tips_parents(tips, dirs, length, shape, start=start) >= 0
+
+
+def extend_tips_parents(tips: np.ndarray, dirs: np.ndarray, length: int, shape: tuple[int, int],
+                        start: int = 1) -> np.ndarray:
+    """Parent tip index for every ray pixel, -1 elsewhere; identical geometry to `extend_tips`.
+
+    Pindrop ranks tip-ray pixels by the confidence of the tip that generated them, which needs the
+    parent index rather than a bare mask. Later tips overwrite earlier ones exactly as in the mask
+    version, so the two functions cannot disagree about which pixels are rays.
+    """
+    parents = np.full(shape, -1, dtype="int64")
     if length <= 0 or not len(tips):
-        return out
+        return parents
     t = np.arange(start, length + 1, dtype="float64")
-    for (r, c), (dy, dx) in zip(tips, dirs):
+    for index, ((r, c), (dy, dx)) in enumerate(zip(tips, dirs)):
         rr = np.rint(r + dy * t).astype(int)
         cc = np.rint(c + dx * t).astype(int)
         good = (rr >= 0) & (rr < shape[0]) & (cc >= 0) & (cc < shape[1])
-        out[rr[good], cc[good]] = True
-    return out
+        parents[rr[good], cc[good]] = index
+    return parents
 
 
 def truncate_tips(skel: np.ndarray, cut: int):

@@ -354,7 +354,7 @@
     }
   ],
   "leaderboard": {
-    "verified_at": "2026-09-25T02:12:04Z",
+    "verified_at": "2026-09-25T15:29:32Z",
     "source": "https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/",
     "rows": [
       {
@@ -373,7 +373,17 @@
         "score": 0.2854
       },
       {
-        "rank": 18,
+        "rank": 4,
+        "participant": "mzoorob",
+        "score": 0.2843
+      },
+      {
+        "rank": 5,
+        "participant": "GrigorSargsyan",
+        "score": 0.2504
+      },
+      {
+        "rank": 21,
         "participant": "extradr19",
         "score": 0.1563
       }
@@ -384,12 +394,12 @@
       "score": 0.3049
     },
     "tracked_user": {
-      "rank": 18,
+      "rank": 21,
       "participant": "extradr19",
       "score": 0.1563
     },
-    "artifact_mapping": "unknown; account-level best score does not identify a candidate file",
-    "scope": "Selected rows re-read in primary leaderboard chunk 0; not the complete leaderboard"
+    "artifact_mapping": "unknown; an account-level best score does not identify a candidate file",
+    "scope": "Leaderboard chunk 0 re-read on 2026-09-25 through the Arena research tool; selected rows only, not the complete table. Raw HTTP to drivendata.org is blocked from the build sandbox, so this is a research-tool observation and is labelled as such rather than presented as an HTTP success."
   },
   "score_history": [
     {

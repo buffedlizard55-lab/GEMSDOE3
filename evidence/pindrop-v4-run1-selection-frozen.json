@@ -1,0 +1,71 @@
+{
+  "frozen_at": "2026-09-25T15:01:01Z",
+  "winner": {
+    "arm": "union-target",
+    "layer": "nodes",
+    "spacing": 4,
+    "budget": 0.03,
+    "halo": 0,
+    "tip": 0,
+    "requested_nodes": 155021,
+    "emitted_pixels": 155021,
+    "emitted_fraction": 0.02999996393918991,
+    "eligible": true,
+    "robust_dti": 0.2026276976809846,
+    "tuning": {
+      "gap": {
+        "dti": 0.20831016645490355,
+        "TP_w": 2778.5882647520298,
+        "FP_w": 26234.946477651596,
+        "FN_w": 6641.41173524797,
+        "truth_pixels": 9420,
+        "prediction_pixels": 27298,
+        "prediction_mass": 27298.0,
+        "scored_pixels": 899251,
+        "meaning": "published-catalogue surrogate, not a competition score"
+      },
+      "all": {
+        "dti": 0.23432447276286836,
+        "TP_w": 3762.045988347453,
+        "FP_w": 25872.240857720375,
+        "FN_w": 8897.954011652546,
+        "truth_pixels": 12660,
+        "prediction_pixels": 27298,
+        "prediction_mass": 27298.0,
+        "scored_pixels": 899251,
+        "meaning": "published-catalogue surrogate, not a competition score"
+      },
+      "far": {
+        "dti": 0.1819573480058431,
+        "TP_w": 2058.577652447267,
+        "FP_w": 26521.010163873434,
+        "FN_w": 4938.422347552732,
+        "truth_pixels": 6997,
+        "prediction_pixels": 27298,
+        "prediction_mass": 27298.0,
+        "scored_pixels": 899251,
+        "meaning": "published-catalogue surrogate, not a competition score"
+      },
+      "known": {
+        "dti": 0.2026276976809846,
+        "TP_w": 3126.1769418871036,
+        "FP_w": 26122.73167142272,
+        "FN_w": 8846.823058112896,
+        "truth_pixels": 11973,
+        "prediction_pixels": 27298,
+        "prediction_mass": 27298.0,
+        "scored_pixels": 911224,
+        "meaning": "published-catalogue surrogate, not a competition score"
+      }
+    },
+    "nodes_available": 155467,
+    "credit_per_emitted_pixel": 0.01792394749583624,
+    "gap_dti": 0.20831016645490355,
+    "all_dti": 0.23432447276286836,
+    "known_dti": 0.2026276976809846,
+    "far_dti": 0.1819573480058431
+  },
+  "rule": "maximize min(DTI_gap, DTI_all, DTI_known) on the tuning fold among eligible candidates; tie-break lower emitted fraction, then arm id, layer id, spacing, budget, halo, tip",
+  "audit_consulted": false,
+  "source_sha256": "97f03cf9ec291eb49ebd05e565044354dd39d496f3e7537b3be291799531507b"
+}

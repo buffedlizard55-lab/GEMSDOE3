@@ -1,37 +1,41 @@
 {
-  "checked_at": "2026-09-25T03:45:01Z",
-  "status": "GitHub restored; branch pushed and PR created; current merge/deployment state is available at the linked PR and Actions",
-  "branch": "arena/01a0d603-gemsdoe3",
-  "repo_metadata_http": 200,
-  "push_performed": true,
-  "pushed_commit": "b454c58196126d8401490babc1daaf1deed6bed0",
-  "pr_created": true,
-  "pr_number": 1,
-  "pr_url": "https://github.com/buffedlizard55-lab/GEMSDOE3/pull/1",
-  "hosted_ci": {
-    "url": "https://github.com/buffedlizard55-lab/GEMSDOE3/actions/runs/36091380405",
-    "head_sha": "b454c58196126d8401490babc1daaf1deed6bed0",
-    "conclusion": "success",
-    "verification_method": "GitHub check/run metadata; Python/artifact and Chromium gates are configured in the successful verify job"
+  "checked_at": "2026-09-25T15:55:00Z",
+  "status": "GitHub authentication failed mid-session after the session-4 branch had already been pushed; the newest local commit is not on the remote and PR #8 is unmerged. GitHub needs to be reconnected in Arena.",
+  "session": 4,
+  "branch": "arena/01a0d8fd-gemsdoe3",
+  "observations": {
+    "gh_auth_status": "X github.com: authentication failed — The github.com token in GH_TOKEN is no longer valid",
+    "gh_api_rate_limit": "HTTP 401 Bad credentials",
+    "gh_pr_view": "HTTP 401: Bad credentials (https://api.github.com/graphql)",
+    "git_push": "fatal: could not read Username for 'https://github.com': terminal prompts disabled",
+    "environment_token_variables_present_but_rejected": ["GH_TOKEN", "GITHUB_TOKEN"]
   },
-  "merge_performed_at_recording": false,
-  "public_deployment_verified_at_recording": false,
-  "current_status_source": "https://github.com/buffedlizard55-lab/GEMSDOE3/pull/1",
-  "prior_failed_attempt": {
-    "checked_at": "2026-09-25T02:34:21Z",
-    "status": "blocked; GitHub API authentication still needs reconnection",
-    "repo_metadata_http": 401,
-    "message": "Bad credentials",
-    "earlier_pages_setting_update_http": 403,
-    "pages_setting_scope": "Legacy main:/ read successfully earlier; modifying Pages configuration was not permitted. Later credential failure is a separate problem.",
-    "push_performed": false,
-    "pr_created": false,
-    "merge_performed": false,
-    "new_public_deployment_verified": false,
-    "branch": "arena/01a0d603-gemsdoe3",
-    "push_attempted": true,
-    "push_returncode": 128,
-    "push_result": "\nfatal: could not read Username for 'https://github.com': terminal prompts disabled\n",
-    "push_attempt_commit": "826c87a5a8f228585226e894bb610314275365b2"
+  "what_succeeded_before_the_failure": {
+    "pushes": [
+      {"commit": "a86b20c", "content": "session-4 Pindrop commit"},
+      {"commit": "9150e24", "content": "CI-only test fix"}
+    ],
+    "pr_created": true,
+    "pr_number": 8,
+    "pr_url": "https://github.com/buffedlizard55-lab/GEMSDOE3/pull/8",
+    "pr_head_at_failure": "9150e2426b9bd4d7b9860fcadc356943b0fdc878",
+    "hosted_ci_at_failure": {
+      "url": "https://github.com/buffedlizard55-lab/GEMSDOE3/actions/runs/36154820289",
+      "conclusion": "failure",
+      "failing_step": "Real Chromium interaction and generated-TIFF validation",
+      "cause": "duplicate DOM id portfolio-status on the home page; fixed locally in the follow-up commit",
+      "note": "job logs and the uploaded artifact both require blob-storage access that this sandbox cannot reach, so the failure was diagnosed by running the same Chromium suite locally"
+    }
+  },
+  "what_is_pending_until_github_is_reconnected": {
+    "unpushed_commit": "the local follow-up commit that fixes the duplicate DOM id, the CI-only test, and records that the browser suite runs locally",
+    "actions": ["push the branch", "confirm hosted CI turns green (Python, artifact checks, staged pages, Chromium)", "merge PR #8 into main", "verify the Pages deployment and write evidence/pages-deployment-v4.json"],
+    "local_state": "all files committed locally on arena/01a0d8fd-gemsdoe3; nothing is lost if the sandbox keeps running, but the remote does not have the final commit yet"
+  },
+  "credentials": "No credential value was read, printed or stored. Reconnection is a user action in Arena.",
+  "prior_record": {
+    "checked_at": "2026-09-25T03:45:01Z",
+    "status": "GitHub restored after an earlier failure; PR #1 was created and pushed",
+    "historical_note": "A token failure is a recurring, recoverable condition in this project; it is recorded rather than worked around by weakening any check."
   }
 }

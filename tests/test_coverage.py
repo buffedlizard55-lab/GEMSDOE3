@@ -130,14 +130,14 @@ def test_rank_is_deterministic_and_prefers_higher_robust_dti():
 
 
 def test_published_coverage_portfolio_is_valid_unique_and_unscored():
-    """The live portfolio must be the session-3 files, fully re-hashable from disk."""
+    """Session 3's files stay downloadable; session 4 archived their manifest on publish."""
     import hashlib
     import zipfile
 
     from gems3.common import ROOT, read_json
     from gems3.raster import validate_submission
 
-    manifest = read_json(ROOT / "docs/data/portfolio.json")
+    manifest = read_json(ROOT / "docs/data/portfolio-coverage-v3.json")
     assert manifest["strategy"] == "coverage-v3"
     items = manifest["items"]
     assert [i["variant"] for i in items] == ["fusion", "wide", "ml"]
@@ -160,6 +160,8 @@ def test_published_coverage_portfolio_is_valid_unique_and_unscored():
     archived = read_json(ROOT / "docs/data/portfolio-gapfinder-v2.json")
     assert [i["variant"] for i in archived["items"]] == ["fusion", "ml", "sgmc-gap"]
     assert not ({i["sha256"] for i in archived["items"]} & {i["sha256"] for i in items})
+    live = read_json(ROOT / "docs/data/portfolio.json")
+    assert not ({i["sha256"] for i in live["items"]} & {i["sha256"] for i in items})
 
 
 def test_upload_strip_leads_the_home_page_and_names_the_first_file():
@@ -198,7 +200,7 @@ def test_coverage_experiment_json_is_strict_and_free_of_score_claims():
     # published report, so the site can never show one run's report beside another run's file.
     import rasterio
 
-    item = read_json(ROOT / "docs/data/portfolio.json")["items"][0]
+    item = read_json(ROOT / "docs/data/portfolio-coverage-v3.json")["items"][0]
     with rasterio.open(ROOT / "docs" / item["file"]) as src:
         tags = src.tags()
     assert tags["selection_sha256"] == frozen

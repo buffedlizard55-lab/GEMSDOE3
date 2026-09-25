@@ -28,11 +28,14 @@ def load_optional(path: Path):
 def portfolio_card(item: dict) -> str:
     v = esc(item["variant"])
     mb = item["bytes"] / 1024 / 1024
-    primary = item["order"] == 1
+    primary = item["order"] == 1 and item.get("role", "primary") != "previous"
     pill = "success" if primary else "neutral-pill"
-    return f'''<article class="portfolio-card{' is-primary' if primary else ''}" data-variant="{v}" data-sha256="{esc(item['sha256'])}">
-<div class="card-eyebrow"><span class="status-pill {pill}">{item['order']} · {esc(item['badge'])}</span><span class="mono">{esc(item['sha256'][:10])}</span></div>
-<h3>{esc(item['title'])}</h3><p>{esc(item['hypothesis'])}</p>
+    role = item.get("role", "primary")
+    role_tag = (' <span class="tag amber">CONTROL</span>' if role == "control"
+                else (' <span class="tag">SECOND SYSTEM</span>' if role == "independent" else ""))
+    return f'''<article class="portfolio-card{' is-primary' if primary else ''}" data-variant="{v}" data-role="{esc(role)}" data-sha256="{esc(item['sha256'])}">
+<div class="card-eyebrow"><span class="status-pill {pill}">{'PREVIOUS ' if role == 'previous' else ''}{item['order']} · {esc(item['badge'])}</span><span class="mono">{esc(item['sha256'][:10])}</span></div>
+<h3>{esc(item['title'])}{role_tag}</h3><p>{esc(item['hypothesis'])}</p>
 <a class="button primary portfolio-download" href="{esc(item['file'])}" download="{esc(item['filename'])}">Download .tif <span>{mb:.2f} MB</span></a>
 <div class="download-alternatives"><a href="{esc(item['zip'])}" download>Single-file ZIP</a><span>·</span><a href="data/portfolio.json">Manifest</a></div>
 <div class="submission-note"><div><label for="note-{v}">NOTE · PASTE WITH THIS FILE</label><button class="copy-portfolio-note icon-button" type="button" data-target="note-{v}" aria-label="Copy note for {esc(item['title'])}">Copy</button></div><textarea id="note-{v}" rows="3" readonly>{esc(item['note'])}</textarea></div>
@@ -42,19 +45,46 @@ def portfolio_card(item: dict) -> str:
 </article>'''
 
 
-def portfolio_section(port: dict | None, where: str = "home") -> str:
+def portfolio_section(port: dict | None, where: str = "home", section_id: str = "portfolio") -> str:
     if not port:
         return ""
     items = port["items"]
     first = items[0]
     heading_id = f"portfolio-heading-{where}"
-    return f'''<section class="portfolio" id="portfolio" aria-labelledby="{heading_id}">
-<div class="portfolio-head"><div><div class="eyebrow">SUBMIT THIS <span class="eyebrow-line"></span> {esc(port['strategy']).upper()} PORTFOLIO</div>
-<h2 id="{heading_id}">Upload <em>{esc(first['title'])}</em> first. Paste its Note.</h2>
-<p>{len(items)} format-validated GeoTIFFs, each with its own filename and Note. They are designed as a set: the first is our best estimate, the next two test why it did or didn't work. {esc(port['disclaimer'])}</p></div>
-<ol class="portfolio-steps"><li><strong>Download</strong> the .tif (one click).</li><li><strong>Open</strong> <a href="{SUBMIT_URL}" target="_blank" rel="noopener noreferrer">DrivenData → Submissions ↗</a> and choose the file.</li><li><strong>Paste</strong> the Note, then Submit. Repeat next time with file 2.</li></ol></div>
-<div class="portfolio-grid">{''.join(portfolio_card(i) for i in items)}</div>
-<p class="portfolio-status" id="portfolio-status" role="status" aria-live="polite">{esc(port['rule'])} Files published {esc(port['published_at'])}.</p>
+    if not section_id or not section_id.replace("-", "").isalnum():
+        raise ValueError("Portfolio section id must be a simple identifier")
+    # Exactly one element may own the live status id: app.js writes the clipboard result there, and a
+    # second block (an archived portfolio on the same page) must not create a duplicate DOM id.
+    status_id = "portfolio-status" if section_id == "portfolio" else f"portfolio-status-{section_id}"
+    if where == "previous":
+        # An archived manifest is evidence, not advice: its badges and hypotheses are the words that
+        # were published at the time. The heading says so instead of repeating "upload this first".
+        eyebrow, title, intro, steps = (
+            f"PREVIOUS {esc(port['strategy']).upper()} PORTFOLIO · ARCHIVED",
+            f"Kept for comparison: <em>{esc(first['title'])}</em> and two more.",
+            f"{len(items)} archived, format-validated GeoTIFFs from an earlier session. They remain valid "
+            f"candidates for the one final selection, and no earlier publication is deleted. The badges, "
+            f"Notes and hypotheses below are the archived session text, kept verbatim for audit: the current "
+            f"recommendation is the portfolio above. {esc(port['disclaimer'])}", "")
+    else:
+        eyebrow, title, intro = (f"SUBMIT THIS <span class=\"eyebrow-line\"></span> "
+                                f"{esc(port['strategy']).upper()} PORTFOLIO",
+                                f"Upload <em>{esc(first['title'])}</em> first. Paste its Note.",
+                                f"{len(items)} format-validated GeoTIFFs, each with its own filename and "
+                                f"Note. Card 1 is the measured best; card 2 is an independent system; card 3 "
+                                f"is the dense control, published so the placement hypothesis can be tested "
+                                f"on the real metric. {esc(port['disclaimer'])}")
+        steps = (f'<ol class="portfolio-steps"><li><strong>Download</strong> the .tif (one click).</li>'
+                 f'<li><strong>Open</strong> <a href="{SUBMIT_URL}" target="_blank" '
+                 f'rel="noopener noreferrer">DrivenData → Submissions ↗</a> and choose the file.</li>'
+                 f'<li><strong>Paste</strong> the Note, then Submit. Repeat next time with file 2.</li></ol>')
+    return f'''<section class="portfolio" id="{section_id}" aria-labelledby="{heading_id}" data-role="{esc(where)}">
+<div class="portfolio-head"><div><div class="eyebrow">{eyebrow}</div>
+<h2 id="{heading_id}">{title}</h2>
+<p>{intro}</p></div>
+{steps}</div>
+<div class="portfolio-grid">{''.join(portfolio_card({**i, "role": "previous"} if where == "previous" else i) for i in items)}</div>
+<p class="portfolio-status" id="{status_id}" role="status" aria-live="polite">{esc(port['rule'])} Files published {esc(port['published_at'])}.</p>
 </section>'''
 
 

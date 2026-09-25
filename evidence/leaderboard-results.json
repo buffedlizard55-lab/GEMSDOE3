@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "scope": "Platform responses for published files. No score is recorded without the submission id it belongs to, and no account-level leaderboard observation is substituted for a record.",
+  "how_to_record": "python scripts/record_submission.py --file docs/downloads/<file>.tif --submission-id <id> --score <public score> --status accepted --message \"<platform wording>\"",
+  "records": [],
+  "summary": {
+    "records": 0,
+    "scored": 0,
+    "best_public_score": null,
+    "best_record": null,
+    "note": "Empty until a real upload happens. The site shows this state rather than an implied result."
+  }
+}

@@ -42,10 +42,12 @@ def upload_strip(port: dict | None) -> str:
 </section>'''
 
 
-def algebra_section(cx: dict | None) -> str:
+def algebra_section(cx: dict | None, section_id: str = "algebra") -> str:
     """Why this experiment is designed the way it is, using only the official metric."""
     if not cx:
         return ""
+    if not section_id or not section_id.replace("-", "").isalnum():
+        raise ValueError("Section id must be a simple identifier")
     alg = cx["metric_algebra"]
     rows = "".join(
         f'<tr><td>{r["support_target"]:.4%}</td><td class="mono">{r["floor"]:.4f}</td>'
@@ -55,7 +57,7 @@ def algebra_section(cx: dict | None) -> str:
         f'<td>{_num(r["covered_credit_per_added_pixel"], 4)}</td>'
         f'<td>{_num(r["break_even_credit_per_pixel"], 4)}</td></tr>'
         for r in cx["marginal_value_tuning"])
-    return f'''<section class="section-block" id="algebra">
+    return f'''<section class="section-block" id="{section_id}">
 <div class="section-header"><div><div class="eyebrow">WHY THIS DESIGN</div>
 <h2>Every emitted pixel costs 0.2. It has to buy something.</h2></div>
 <a href="data/coverage-experiment.json" class="text-link">Raw experiment JSON ↗</a></div>
