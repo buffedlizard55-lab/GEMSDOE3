@@ -1,0 +1,61 @@
+{
+  "schema_version": 1,
+  "recorded_at_utc": "2026-09-25T17:30:00Z",
+  "session": 4,
+  "strategy": "pindrop-v4",
+  "release": {
+    "pull_request": "https://github.com/buffedlizard55-lab/GEMSDOE3/pull/8",
+    "merged": true,
+    "merged_at": "2026-09-25T17:20:55Z",
+    "merged_by": "app/arena-ai-coding-agent",
+    "merge_commit": "d2c82e19519129b72b52c0aed6275a3a7a0eabce",
+    "branch": "arena/01a0d8fd-gemsdoe3",
+    "head_verified_before_merge": "c7c5e72"
+  },
+  "checks": {
+    "pull_request_ci": {
+      "url": "https://github.com/buffedlizard55-lab/GEMSDOE3/actions/runs/36166373698",
+      "head_sha": "c7c5e72",
+      "conclusion": "success",
+      "steps": ["ruff", "148 Python tests", "scripts/check_published.py", "page render and staging", "real Chromium suite (13 tests)"],
+      "note": "The earlier run on 9150e24 (36154820289) failed in the Chromium step on a duplicate DOM id; the fix and the new invariant test are what this run verifies."
+    },
+    "post_merge_ci": {
+      "url": "https://github.com/buffedlizard55-lab/GEMSDOE3/actions/runs/36166554368",
+      "head_sha": "d2c82e1",
+      "conclusion": "success"
+    },
+    "pages_deployment": {
+      "url": "https://github.com/buffedlizard55-lab/GEMSDOE3/actions/runs/36166553440",
+      "head_sha": "d2c82e1",
+      "conclusion": "success",
+      "jobs": ["build", "deploy", "report-build-status"]
+    }
+  },
+  "live_read_back": {
+    "method": "Arena research tool (raw HTTPS from this sandbox to *.github.io returns connection failure, curl exit 000), read after the deployment run completed",
+    "manifest_url": "https://buffedlizard55-lab.github.io/GEMSDOE3/docs/data/portfolio.json",
+    "manifest_observed": {
+      "strategy": "pindrop-v4",
+      "published_at": "2026-09-25T15:24:43Z",
+      "selected": "union-target / nodes / spacing 4 / budget 0.03 / halo 0 / tip 0",
+      "items": [
+        {"order": 1, "variant": "nodes", "file": "pindrop-v4-nodes-20260925T152420Z-f347b70daa.tif", "sha256_prefix": "f347b70daa"},
+        {"order": 2, "variant": "discovery", "file": "pindrop-v4-discovery-20260925T152423Z-37f9d5b855.tif", "sha256_prefix": "37f9d5b855"},
+        {"order": 3, "variant": "ridge", "file": "pindrop-v4-ridge-20260925T152422Z-4e03fc9705.tif", "sha256_prefix": "4e03fc9705"}
+      ]
+    },
+    "page_url": "https://buffedlizard55-lab.github.io/GEMSDOE3/docs/index.html",
+    "page_observed": [
+      "The upload strip is the first element of the page and reads 'READY TO SUBMIT · Download → upload → paste the Note' with the three cards in value order (nodes, discovery, ridge).",
+      "Each card carries its published filename, its 10-hex hash prefix, 155,021 emitted pixels at 3.00%, 13/13 format gates and 'Competition score: Unknown until uploaded'.",
+      "The third card is labelled 'CONTROL · UPLOAD LAST' and the strip text explains that it is published so the placement hypothesis can be tested on the leaderboard rather than assumed.",
+      "The first card's paste-able Note is the published one: 'Pindrop v4 nodes | union-target HGB | sparse nodes k=4 s=3.000% h=0 L=0 | f347b70daa'."
+    ]
+  },
+  "not_claimed": [
+    "No byte-level sha256 read-back of the deployed TIFs was performed from this sandbox: raw HTTPS to the Pages host is blocked here. The repository's own scripts/verify_live.py performs that bounded check inside the scheduled 'Official-source feed and Pages' workflow, and its most recent run on this branch history was against commit bc3e93c (success); the run for d2c82e1 is expected at the next schedule.",
+    "Dispatching that workflow manually returned HTTP 403 for this token ('Resource not accessible by integration'), so it was not forced.",
+    "A deployment is not a competition score. No file has been uploaded to DrivenData and evidence/leaderboard-results.json is still empty."
+  ]
+}

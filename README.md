@@ -52,6 +52,7 @@ Each file passed 13/13 strict format gates on read-back: exact template CRS, tra
 - **Three defects were found in review and fixed, and the first run was never published.** A mislabelled control policy and its Note, generic reference caveats, and a duplicated word in the control's Note are documented in `evidence/pindrop-v4-errata.json`; the publisher now refuses any report whose recorded policy contradicts its variant, with a regression test that reproduces the original defect from the preserved run-1 report.
 - **Rotation, not independence.** Folds are a third rotation of one lattice over one footprint; overlapping geography is disclosed, not hidden.
 - Limits: no independent third catalogue, no 1 m DEM, no GPU, no hidden labels, no authenticated upload.
+- **Release:** [PR #8](https://github.com/buffedlizard55-lab/GEMSDOE3/pull/8) merged into `main` (merge commit `d2c82e1`) after [pull-request CI](https://github.com/buffedlizard55-lab/GEMSDOE3/actions/runs/36166373698) passed, including the real Chromium suite. [Post-merge CI](https://github.com/buffedlizard55-lab/GEMSDOE3/actions/runs/36166554368) and the [Pages deployment](https://github.com/buffedlizard55-lab/GEMSDOE3/actions/runs/36166553440) succeeded, and the deployed manifest and first screen were read back through the research tool (`evidence/pages-deployment-v4.json`). Deployment is not a score, and byte-level verification of the deployed files is done by the scheduled workflow's `verify_live` step.
 
 ### Previous candidate: Coverline v3 (session 3)
 
